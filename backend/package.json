@@ -1,7 +1,6 @@
 {
   "name": "streaminfo-backend",
   "version": "1.0.0",
-  "license": "MIT",
   "private": true,
   "scripts": {
     "dev": "cross-env NODE_ENV=development ts-node-dev --respawn --transpile-only -r dotenv/config src",
@@ -12,11 +11,25 @@
     "test": "jest"
   },
   "dependencies": {
+    "axios": "^0.25.0",
     "cross-env": "^7.0.3",
     "dotenv": "^14.3.2",
-    "express": "^4.17.2"
+    "escape-html": "^1.0.3",
+    "express": "^4.17.2",
+    "helmet": "^5.0.2",
+    "http-terminator": "^3.0.4",
+    "lodash": "^4.17.21",
+    "luxon": "^2.3.0",
+    "mongoose": "^6.1.8",
+    "morgan": "^1.10.0",
+    "winston": "^3.5.0"
   },
   "devDependencies": {
+    "@types/escape-html": "^1.0.1",
+    "@types/express": "^4.17.13",
+    "@types/lodash": "^4.14.178",
+    "@types/luxon": "^2.0.9",
+    "@types/morgan": "^1.9.3",
     "@typescript-eslint/eslint-plugin": "^5.10.1",
     "@typescript-eslint/parser": "^5.10.1",
     "eslint": "^8.8.0",
