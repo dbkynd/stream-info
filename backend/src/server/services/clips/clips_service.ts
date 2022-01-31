@@ -1,6 +1,6 @@
+import escapeHtml from 'escape-html';
 import ClipChannelService from '../../../database/lib/clip_channel';
 import twitchApi from '../../../twitch/twitch_api';
-import escapeHtml from 'escape-html';
 
 export default async function (
   action?: string,

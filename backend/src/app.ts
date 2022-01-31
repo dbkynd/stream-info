@@ -1,6 +1,6 @@
-import * as server from './server';
 import * as database from './database';
 import logger from './logger';
+import * as server from './server';
 
 export async function start(): Promise<void> {
   await database.connect();
