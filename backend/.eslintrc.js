@@ -15,7 +15,7 @@ module.exports = {
   ],
   ignorePatterns: ['dist'],
   rules: {
-    'no-console': process.env.NODE_ENV !== 'production' ? 'warn' : 'error',
+    'no-console': 'error',
     '@typescript-eslint/no-unused-vars': [
       'warn',
       { argsIgnorePattern: 'next' },

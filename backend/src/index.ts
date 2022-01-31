@@ -1,12 +1,17 @@
 import * as app from './app';
-// import consola from './consola'
+import logger from './logger';
 
-// consola.info('Application starting...')
+logger.info('Application starting...');
 
-app.start().catch((err) => {
-  // consola.error(err.message)
-  process.exit(1);
-});
+app
+  .start()
+  .then(() => {
+    logger.info('Startup complete');
+  })
+  .catch((err) => {
+    logger.error(err.message);
+    process.exit(1);
+  });
 
 const signals: NodeJS.Signals[] = ['SIGHUP', 'SIGINT', 'SIGTERM'];
 
@@ -17,9 +22,9 @@ signals.forEach((signal) => {
 });
 
 const shutdown = (signal: NodeJS.Signals) => {
-  // consola.info(`Received a ${signal} signal. Attempting graceful shutdown...`)
+  logger.info(`Received a ${signal} signal. Attempting graceful shutdown...`);
   app.stop().finally(() => {
-    // consola.info(`Shutdown completed. Exiting.`)
+    logger.info(`Shutdown completed. Exiting.`);
     process.exit(0);
   });
 };

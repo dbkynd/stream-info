@@ -1,10 +1,20 @@
-// import * as server from './server'
+import * as server from './server';
+import * as database from './database';
+import logger from './logger';
 
 export async function start(): Promise<void> {
-  console.log('APP START');
-  // server.connect()
+  await database.connect();
+  server.start();
 }
 
 export async function stop(): Promise<void> {
-  // await server.disconnect()
+  const shutdownSequence = [server.stop, database.disconnect];
+
+  for (let i = 0; i < shutdownSequence.length; i++) {
+    try {
+      await shutdownSequence[i]();
+    } catch (e) {
+      logger.error(e);
+    }
+  }
 }
