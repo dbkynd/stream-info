@@ -14,3 +14,11 @@ interface HelixUser {
   view_count: number;
   created_at: string;
 }
+
+interface TwitchToken {
+  client_id: string;
+  login: string;
+  scopes: string[];
+  user_id: string;
+  expires_in: number;
+}

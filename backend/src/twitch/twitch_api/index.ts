@@ -4,7 +4,7 @@
 // import getStreams from './endpoints/getStreams';
 // import getSubscriptions from './endpoints/getSubscriptions';
 import getUsers from './endpoints/getUsers';
-// import validateToken from './endpoints/validateToken';
+import validateToken from './endpoints/validateToken';
 
 export default {
   // getClips,
@@ -13,5 +13,5 @@ export default {
   // getStreams,
   // getSubscriptions,
   getUsers,
-  // validateToken,
+  validateToken,
 };

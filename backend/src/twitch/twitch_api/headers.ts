@@ -1,9 +1,9 @@
-// import store from '../../store'
+import { getKeys } from '../../token';
 
 export default function headers(): { [key: string]: string } {
-  // const keys = store.get('keys') as Keys // TODO use store
+  const keys = getKeys();
   return {
-    authorization: `Bearer ${process.env.ACCESS_TOKEN}`,
-    'client-id': process.env.CLIENT_ID,
+    authorization: `Bearer ${keys.access_token}`,
+    'client-id': keys.client_id,
   };
 }

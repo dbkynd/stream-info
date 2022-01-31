@@ -1,9 +1,8 @@
 <template>
-  <div>Hello World</div>
+  <router-view/>
 </template>
 
 <script>
-
 export default {
   name: 'App',
 }
@@ -12,6 +11,5 @@ export default {
 <style>
 #app {
   text-align: center;
-  margin-top: 60px;
 }
 </style>
