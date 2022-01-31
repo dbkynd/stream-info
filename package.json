@@ -1,0 +1,8 @@
+{
+  "name": "streaminfo",
+  "version": "1.0.0",
+  "repository": "https://github.com/dbkynd/kappa.git",
+  "author": "DBKynd <db@dbkynd.com>",
+  "license": "MIT",
+  "private": true
+}
