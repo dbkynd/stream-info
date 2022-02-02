@@ -1,9 +1,11 @@
 import express from 'express';
 import StatsService from '../../services/stats/stats_service';
-import chatBotRoutes from './chat_bot_routes';
+import authRoutes from './auth';
+import chatBotRoutes from './chat_bot';
 
 const router = express.Router();
 
+router.use('/auth', authRoutes);
 router.use('/chat', chatBotRoutes);
 
 router.get('/stats', (req, res, next) => {
@@ -17,7 +19,7 @@ router.get('/stats', (req, res, next) => {
 
 router.post('/setToken', (req, res, next) => {
   const { code } = req.body;
-  console.log(code);
+  // console.log(code);
   res.sendStatus(204);
 });
 
