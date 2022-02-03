@@ -9,7 +9,7 @@ export default session({
   cookie: {
     secure: 'auto',
     httpOnly: true,
-    maxAge: 86400000, // 24 hours
+    maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
   },
   store: MongoStore.create({
     mongoUrl: database.getConnectionString(),
