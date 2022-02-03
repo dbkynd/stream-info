@@ -2,6 +2,5 @@
 node_modules
 dist
 logs
-www
 .env
 yarn-error.log
