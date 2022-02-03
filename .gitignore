@@ -1,6 +1,7 @@
 .idea
 node_modules
 dist
-.env
 logs
+www
+.env
 yarn-error.log

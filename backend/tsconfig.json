@@ -14,5 +14,5 @@
     "allowJs": true,
     "lib": ["ES6", "DOM"]
   },
-  "include": ["../../kappa/backend/src/**/*"]
+  "include": ["./src/**/*"]
 }
