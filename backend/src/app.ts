@@ -13,7 +13,11 @@ export async function start(): Promise<void> {
 }
 
 export async function stop(): Promise<void> {
-  const shutdownSequence = [server.stop, database.disconnect];
+  const shutdownSequence = [
+    server.stop,
+    twitchTmi.disconnect,
+    database.disconnect,
+  ];
 
   for (let i = 0; i < shutdownSequence.length; i++) {
     try {
