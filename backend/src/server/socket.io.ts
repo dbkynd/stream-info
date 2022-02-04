@@ -15,6 +15,6 @@ export default function (server: http.Server) {
   });
 }
 
-export function emit(event: string, data: any): void {
+export function emit(event: string, data?: unknown): void {
   if (io) io.emit(event, data);
 }

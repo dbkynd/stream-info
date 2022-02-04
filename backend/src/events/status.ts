@@ -1,4 +1,5 @@
 import tmi from 'tmi.js';
+import logger from '../logger';
 import * as io from '../server/socket.io';
 
 interface StatusUpdate {
@@ -6,11 +7,11 @@ interface StatusUpdate {
 }
 
 export function update(data: StatusUpdate): void {
-  console.log('status update', data);
+  logger.debug('status update');
   io.emit('status', data);
 }
 
 export function roomstate(state: tmi.RoomState): void {
-  console.log('new roomstate');
+  logger.debug('new roomstate');
   io.emit('roomstate', state);
 }

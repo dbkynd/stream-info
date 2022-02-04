@@ -1,3 +1,6 @@
+import logger from '../logger';
+import * as io from '../server/socket.io';
+
 interface HostData {
   username: string;
   viewers: number;
@@ -6,5 +9,6 @@ interface HostData {
 }
 
 export default (host: HostData): void => {
-  console.log('new host/raid');
+  logger.debug('new host/raid');
+  io.emit('host', host);
 };

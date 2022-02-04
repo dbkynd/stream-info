@@ -1,20 +1,30 @@
 import tmi from 'tmi.js';
+import logger from '../logger';
+import * as io from '../server/socket.io';
 
 export function newSub(userstate: tmi.SubUserstate): void {
-  console.log('new subscription');
+  logger.debug('new subscription');
+  process(userstate);
 }
 
 export function resub(userstate: tmi.SubUserstate): void {
-  console.log('new resub');
+  logger.debug('new resub');
   // let cumulativeMonths = ~~userstate['msg-param-cumulative-months'];
+  process(userstate);
 }
 
 export function subgift(userstate: tmi.SubGiftUserstate): void {
-  console.log('new subgift');
+  logger.debug('new subgift');
   // let senderCount = ~~userstate['msg-param-sender-count'];
+  process(userstate);
 }
 
 export function submysterygift(userstate: tmi.SubMysteryGiftUserstate): void {
-  console.log('new submysterygift');
+  logger.debug('new submysterygift');
   // let senderCount = ~~userstate['msg-param-sender-count'];
+  process(userstate);
+}
+
+function process(data: unknown): void {
+  io.emit('subscription', data);
 }
