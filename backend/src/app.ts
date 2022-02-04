@@ -1,6 +1,7 @@
 import * as database from './database';
 import logger from './logger';
 import * as server from './server';
+import * as streamelements from './streamelements/se_socket';
 import * as token from './token';
 import * as twitchTmi from './twitch/twitch_tmi';
 
@@ -8,6 +9,7 @@ export async function start(): Promise<void> {
   logger.info('Validating token');
   await token.validate();
   await database.connect();
+  streamelements.connect();
   await twitchTmi.connect();
   server.start();
 }
@@ -16,6 +18,7 @@ export async function stop(): Promise<void> {
   const shutdownSequence = [
     server.stop,
     twitchTmi.disconnect,
+    streamelements.disconnect,
     database.disconnect,
   ];
 

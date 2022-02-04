@@ -3,6 +3,7 @@ import logger from '../logger';
 import * as io from '../server/socket.io';
 
 interface StatusUpdate {
+  seWs?: boolean;
   twitchTmi?: boolean;
 }
 
