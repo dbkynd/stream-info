@@ -9,6 +9,7 @@ export default function (server: http.Server) {
 
   io.on('connection', (socket) => {
     logger.info('SOCKET CONNECTED');
+    // socket.emit('status', status) // todo
     socket.on('disconnect', () => {
       logger.info('SOCKET DISCONNECTED');
     });
