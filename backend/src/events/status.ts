@@ -4,7 +4,7 @@ import * as io from '../server/socket.io';
 
 interface StatusUpdate {
   seWs?: boolean;
-  twitchTmi?: boolean;
+  twitchIrc?: boolean;
 }
 
 export function update(data: StatusUpdate): void {
