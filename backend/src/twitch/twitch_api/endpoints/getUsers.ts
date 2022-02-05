@@ -3,7 +3,9 @@ import headers from '../headers';
 
 //https://dev.twitch.tv/docs/api/reference#get-users
 
-export default function getUsers(identities: string[]): Promise<TwitchUser[]> {
+export default function getUsers(
+  identities: string[],
+): Promise<(TwitchUser | undefined)[]> {
   const query = identities
     .map((x) => {
       const type = /^\d+$/.test(x) ? 'id' : 'login';

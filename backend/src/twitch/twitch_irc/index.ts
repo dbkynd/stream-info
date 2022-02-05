@@ -19,7 +19,7 @@ export function connect(): Promise<void> {
   return new Promise((resolve, reject) => {
     client.connect().catch(reject);
     client.once('connected', () => {
-      logger.info('Connected to Twitch IRC');
+      logger.info(`Connected to Twitch IRC as ${client.getUsername()}`);
       resolve();
     });
   });
@@ -54,12 +54,14 @@ client.on('cheer', (_channel, userstate, message) => {
 
 // Channel is now hosted by another broadcaster.
 client.on('hosted', (_channel, username, viewers, autohost) => {
-  events.hosted({
-    username,
-    viewers,
-    autohost,
-    raid: false,
-  });
+  events
+    .hosted({
+      username,
+      viewers,
+      autohost,
+      raid: false,
+    })
+    .catch();
 });
 
 client.on('message', (_channel, userstate, message, self) => {
@@ -68,12 +70,14 @@ client.on('message', (_channel, userstate, message, self) => {
 
 // Channel is now being raided by another broadcaster.
 client.on('raided', (_channel, username, viewers) => {
-  events.hosted({
-    username,
-    viewers,
-    autohost: false,
-    raid: true,
-  });
+  events
+    .hosted({
+      username,
+      viewers,
+      autohost: false,
+      raid: true,
+    })
+    .catch();
 });
 
 // Username has resubbed on a channel.

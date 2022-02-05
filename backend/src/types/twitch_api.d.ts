@@ -1,5 +1,5 @@
 interface TwitchUserResponse {
-  data: TwitchUser[];
+  data: (TwitchUser | undefined)[];
 }
 
 interface TwitchUser {
@@ -24,7 +24,7 @@ interface TwitchToken {
 }
 
 interface TwitchClipResponse {
-  data: TwitchClip[];
+  data: (TwitchClip | undefined)[];
 }
 
 interface TwitchClip {
@@ -43,4 +43,19 @@ interface TwitchClip {
   created_at: string;
   thumbnail_url: string;
   duration: number;
+}
+
+interface TwitchChannelResponse {
+  data: (TwitchChannel | undefined)[];
+}
+
+interface TwitchChannel {
+  broadcaster_id: string;
+  broadcaster_login: string;
+  broadcaster_name: string;
+  broadcaster_language: string;
+  game_id: string;
+  game_name: string;
+  title: string;
+  delay: number;
 }

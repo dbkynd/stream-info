@@ -33,7 +33,7 @@ export default async (userstate: tmi.ChatUserstate, message: string) => {
   if (!slug) return;
 
   // Query the Twitch API for the clip data
-  const [clipData] = await twitchApi.getClip(slug);
+  const [clipData] = await twitchApi.getClips([slug]);
   if (!clipData) return;
 
   // Exit if the clip id matches the broadcasters id
