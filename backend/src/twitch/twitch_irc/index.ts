@@ -38,11 +38,11 @@ export function disconnect(): Promise<void> {
 }
 
 client.once('connected', () => {
-  events.status.update({ twitchIrc: true });
+  events.state.updateAppState({ twitchIrc: true });
 });
 
 client.on('disconnected', () => {
-  events.status.update({ twitchIrc: false });
+  events.state.updateAppState({ twitchIrc: false });
 });
 
 // https://github.com/tmijs/docs/blob/gh-pages/_posts/v1.4.2/2019-03-03-Events.md
@@ -90,7 +90,7 @@ client.on(
 
 // The current state of the channel.
 client.on('roomstate', (_channel, state) => {
-  events.status.roomstate(state);
+  events.state.setRoomstate(state);
 });
 
 // Username gifted a subscription to recipient in a channel.

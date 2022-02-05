@@ -22,7 +22,7 @@ export function connect(): void {
     const { channelId } = data;
     logger.info(`Connected to StreamElements channel ${channelId}`);
     // todo store channel is
-    events.status.update({ seWs: true });
+    events.state.updateAppState({ seWs: true });
   });
 
   socket.on('unauthorized', () => {
@@ -32,7 +32,7 @@ export function connect(): void {
 
   socket.on('disconnect', () => {
     logger.warn('Disconnected from StreamElements');
-    events.status.update({ seWs: false });
+    events.state.updateAppState({ seWs: false });
   });
 
   socket.on('event', (event: SE_WS_Event) => {
