@@ -18,3 +18,14 @@ interface TipPayload extends SE_WS_Data {
   displayName: string;
   currency: string;
 }
+
+type SubUserstates =
+  | import('tmi').SubUserstate
+  | import('tmi').SubGiftUserstate
+  | import('tmi').SubMysteryGiftUserstate;
+
+interface SubscriptionPayload {
+  userstate: SubUserstates;
+  message?: string;
+  recipients?: import('tmi').SubGiftUserstate[];
+}

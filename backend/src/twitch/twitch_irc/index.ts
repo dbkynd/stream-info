@@ -38,11 +38,11 @@ export function disconnect(): Promise<void> {
 }
 
 client.once('connected', () => {
-  events.status.update({ twitchTmi: true });
+  events.status.update({ twitchIrc: true });
 });
 
 client.on('disconnected', () => {
-  events.status.update({ twitchTmi: false });
+  events.status.update({ twitchIrc: false });
 });
 
 // https://github.com/tmijs/docs/blob/gh-pages/_posts/v1.4.2/2019-03-03-Events.md
@@ -104,8 +104,8 @@ client.on(
 // Username is gifting a subscription to someone in a channel.
 client.on(
   'submysterygift',
-  (_channel, _username, _numbOfSubs, _methods, userstate) => {
-    events.subscription.submysterygift(userstate);
+  (_channel, _username, numOfSubs, _methods, userstate) => {
+    events.subscription.submysterygift(userstate, numOfSubs);
   },
 );
 
