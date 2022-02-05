@@ -1,4 +1,4 @@
-// import getClips from './endpoints/getClips';
+import getClip from './endpoints/getClip';
 // import getGames from './endpoints/getGames';
 // import getModerators from './endpoints/getModerators';
 // import getStreams from './endpoints/getStreams';
@@ -7,7 +7,7 @@ import getUsers from './endpoints/getUsers';
 import validateToken from './endpoints/validateToken';
 
 export default {
-  // getClips,
+  getClip,
   // getGames,
   // getModerators,
   // getStreams,

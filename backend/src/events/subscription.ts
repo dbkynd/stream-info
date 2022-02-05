@@ -7,7 +7,7 @@ export function newSub(userstate: tmi.SubUserstate): void {
   process(userstate);
 }
 
-export function resub(userstate: tmi.SubUserstate): void {
+export function resub(userstate: tmi.SubUserstate, message?: string): void {
   logger.debug('new resub');
   // let cumulativeMonths = ~~userstate['msg-param-cumulative-months'];
   process(userstate);

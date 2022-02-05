@@ -16,13 +16,13 @@ export default async function (
   return 'Clips update successful.';
 }
 
-async function add(user: HelixUser): Promise<void> {
+async function add(user: TwitchUser): Promise<void> {
   const exists = await ClipChannelService.has(user.id);
   if (exists) return;
   await ClipChannelService.add(user.id, user.display_name || user.login);
 }
 
-async function remove(user: HelixUser): Promise<void> {
+async function remove(user: TwitchUser): Promise<void> {
   const exists = await ClipChannelService.has(user.id);
   if (!exists) return;
   await ClipChannelService.remove(user.id);

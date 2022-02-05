@@ -1,7 +1,9 @@
 import axios from '../axios';
 import headers from '../headers';
 
-export default function getUsers(identities: string[]): Promise<HelixUser[]> {
+//https://dev.twitch.tv/docs/api/reference#get-users
+
+export default function getUsers(identities: string[]): Promise<TwitchUser[]> {
   const query = identities
     .map((x) => {
       const type = /^\d+$/.test(x) ? 'id' : 'login';
@@ -12,5 +14,5 @@ export default function getUsers(identities: string[]): Promise<HelixUser[]> {
   const options = { headers: headers() };
   return axios
     .get(url, options)
-    .then(({ data }: { data: HelixUserResponse }) => data.data);
+    .then(({ data }: { data: TwitchUserResponse }) => data.data);
 }

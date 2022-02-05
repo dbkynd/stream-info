@@ -73,7 +73,7 @@ function setInvalid(): void {
 export function hasScopes(scopes: string[]): boolean {
   for (let i = 0; i < scopes.length; i++) {
     if (!requiredScopes.includes(scopes[i])) {
-      logger.warn('token missing scopes');
+      logger.warn('Twitch Token missing scopes!');
       return false;
     }
   }
