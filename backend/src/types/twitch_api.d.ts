@@ -1,5 +1,5 @@
 interface TwitchUserResponse {
-  data: (TwitchUser | undefined)[];
+  data: TwitchUser[];
 }
 
 interface TwitchUser {
@@ -24,7 +24,7 @@ interface TwitchToken {
 }
 
 interface TwitchClipResponse {
-  data: (TwitchClip | undefined)[];
+  data: TwitchClip[];
 }
 
 interface TwitchClip {
@@ -46,7 +46,7 @@ interface TwitchClip {
 }
 
 interface TwitchChannelResponse {
-  data: (TwitchChannel | undefined)[];
+  data: TwitchChannel[];
 }
 
 interface TwitchChannel {
@@ -58,4 +58,28 @@ interface TwitchChannel {
   game_name: string;
   title: string;
   delay: number;
+}
+
+interface TwitchSubscriptionResponse {
+  data: TwitchSubscription[];
+  pagination: {
+    cursor: string;
+  };
+  total: number;
+  points: number;
+}
+
+interface TwitchSubscription {
+  broadcaster_id: string;
+  broadcaster_login: string;
+  broadcaster_name: string;
+  gifter_id: string;
+  gifter_login: string;
+  gifter_name: string;
+  is_gift: false;
+  plan_name: string;
+  tier: '1000' | '2000' | '3000' | 'prime';
+  user_id: string;
+  user_name: string;
+  user_login: string;
 }

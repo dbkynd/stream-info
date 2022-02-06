@@ -3,9 +3,7 @@ import headers from '../headers';
 
 //https://dev.twitch.tv/docs/api/reference#get-channel-information
 
-export default function getChannels(
-  ids: string[],
-): Promise<(TwitchChannel | undefined)[]> {
+export default function getChannels(ids: string[]): Promise<TwitchChannel[]> {
   const query = ids
     .map((x) => {
       return `broadcaster_id=${encodeURIComponent(x)}`;

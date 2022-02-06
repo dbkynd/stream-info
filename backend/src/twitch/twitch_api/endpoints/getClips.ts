@@ -3,9 +3,7 @@ import headers from '../headers';
 
 // https://dev.twitch.tv/docs/api/reference#get-clips
 
-export default function getClips(
-  slugs: string[],
-): Promise<(TwitchClip | undefined)[]> {
+export default function getClips(slugs: string[]): Promise<TwitchClip[]> {
   const query = slugs
     .map((x) => {
       return `id=${encodeURIComponent(x)}`;
