@@ -5,10 +5,17 @@ import * as io from '../server/socket.io';
 interface ApplicationState {
   seWs?: boolean;
   twitchIrc?: boolean;
+  onFrontPage?: boolean;
+  raidMode?: boolean;
 }
 
-let appState: ApplicationState;
-let roomstate: tmi.RoomState;
+let appState: ApplicationState = {
+  seWs: false,
+  twitchIrc: false,
+  onFrontPage: false,
+  raidMode: false,
+};
+let roomstate: tmi.RoomState = {};
 
 export function updateAppState(state: ApplicationState): void {
   logger.debug('state update');
