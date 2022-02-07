@@ -16,18 +16,6 @@ router.get('/user', (req, res, next) => {
   res.status(200).json(req.user);
 });
 
-router.get('/state', (req, res, next) => {
-  try {
-    const payload = {
-      appState: state.getAppState(),
-      roomstate: state.getRoomstate(),
-    };
-    res.status(200).json(payload);
-  } catch (e) {
-    next(e);
-  }
-});
-
 router.get('/lists', async (req, res, next) => {
   try {
     const payload = {

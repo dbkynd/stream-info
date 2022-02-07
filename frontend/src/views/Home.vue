@@ -1,30 +1,38 @@
 <template>
   <div class="column">
-    <Subscriptions />
+      <Subscription
+        v-for="subscription in subscriptions"
+        :key="subscription._id"
+        :class="{uncleared: !subscription.cleared}"
+        :data="subscription"
+        @click="clear(subscription)"
+      />
   </div>
   <div class="column">
-    <Cheers />
-  </div>
-
-  <div class="column">
-
-  </div>
-
-  <div class="column">
-
+    <Cheer
+      v-for="cheer in cheers"
+      :key="cheer._id"
+      :class="{uncleared: !cheer.cleared}"
+      :data="cheer"
+      @click="clear(cheer)"
+    />
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import { api } from "@/plugins/axios";
-import Cheers from '@/components/Cheers'
-import Subscriptions from '@/components/Subscriptions'
+import Cheer from '@/components/Cheer'
+import Subscription from '@/components/Subscription'
 
 export default {
   name: 'Home',
   components: {
-    Cheers,
-    Subscriptions,
+    Cheer,
+    Subscription,
+  },
+  computed: {
+    ...mapGetters(['cheers', 'hosts', 'subscriptions', 'tips'])
   },
   created() {
     /*axios.get('http://127.0.0.1:3000/stats').then(({data}) => {
@@ -34,11 +42,7 @@ export default {
         this.$router.push('token')
       }
     })*/
-    api.get('/user').then(({data}) => {
-      console.log('user data', data)
-      api.get('/state').then(({data}) => {
-        this.$store.dispatch('setState', data)
-      })
+    api.get('/user').then(() => {
       api.get('/lists').then(({data}) => {
         this.$store.commit('setLists', data)
       })
@@ -46,7 +50,12 @@ export default {
       window.location.href = 'http://localhost:3000/auth/login'
       return
     })
-  }
+  },
+  methods: {
+    clear(item) {
+      item.cleared = true
+    },
+  },
 }
 </script>
 
@@ -55,15 +64,15 @@ export default {
   width: 25%;
   float: left;
   height: 100%;
-}
-
-.column > div {
-  height: 100%;
   overflow-y: scroll;
   overflow-x: hidden;
 }
 
-.column > div > div {
+.column::-webkit-scrollbar {
+  display: none;
+}
+
+.column > div {
   background: #323436;
   border-left: 8px solid #3d7ba6;
   border-radius: 4px;
@@ -73,15 +82,21 @@ export default {
   cursor: default;
 }
 
-.column > div > div:nth-child(1) {
+.column > div.uncleared {
+  background: #6441a4;
+}
+
+.column > div:nth-child(1) {
   border-left: 8px solid #f9d71ae8;
 }
 
-.name {
+.name,
+.amount {
   color: #f9d71a;
 }
 
-.uncleared {
-  background: #6441a4;
+.amount {
+  font-size: 1.25rem;
+  margin-left: 0.5rem;
 }
 </style>

@@ -1,4 +1,8 @@
 import { createStore } from 'vuex';
+import VuexNow from 'vuex-now';
+
+const maxArraySize = 100;
+const now = VuexNow(1000 * 60);
 
 const store = createStore({
   state: {
@@ -8,9 +12,22 @@ const store = createStore({
     hosts: [],
     subscriptions: [],
     tips: [],
-    now: Date.now(),
   },
   getters: {
+    cheers(state) {
+      return state.cheers.sort((a, b) => {
+        return (
+          new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf()
+        );
+      });
+    },
+    hosts(state) {
+      return state.hosts.sort((a, b) => {
+        return (
+          new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf()
+        );
+      });
+    },
     subscriptions(state) {
       return state.subscriptions.sort((a, b) => {
         return (
@@ -18,8 +35,8 @@ const store = createStore({
         );
       });
     },
-    cheers(state) {
-      return state.cheers.sort((a, b) => {
+    tips(state) {
+      return state.tips.sort((a, b) => {
         return (
           new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf()
         );
@@ -37,31 +54,51 @@ const store = createStore({
       state.roomstate = Object.assign({}, state.roomstate, payload);
     },
     SOCKET_cheer(state, payload) {
+      if (state.cheers.includes(payload._id)) return;
       state.cheers.push(payload);
+      if (state.cheers.length > maxArraySize) state.cheers.shift();
     },
     SOCKET_host(state, payload) {
+      if (state.hosts.includes(payload._id)) return;
       state.hosts.push(payload);
+      if (state.hosts.length > maxArraySize) state.hosts.shift();
     },
     SOCKET_subscription(state, payload) {
+      if (state.subscriptions.includes(payload._id)) return;
       state.subscriptions.push(payload);
+      if (state.subscriptions.length > maxArraySize)
+        state.subscriptions.shift();
     },
     SOCKET_tip(state, payload) {
+      if (state.tips.includes(payload._id)) return;
       state.tips.push(payload);
+      if (state.tips.length > maxArraySize) state.tips.shift();
     },
     setLists(state, payload) {
-      state.cheers = payload.cheers;
-      state.hosts = payload.hosts;
-      state.subscriptions = payload.subscriptions;
-      state.tips = payload.tips;
+      add(payload.cheers, state.cheers);
+      add(payload.hosts, state.hosts);
+      add(payload.subscriptions, state.subscriptions);
+      add(payload.tips, state.tips);
+
+      function add(array, target) {
+        for (let i = 0; i < array.length; i++) {
+          const ids = target.map((x) => x._id);
+          if (!ids.includes(array[i]._id)) {
+            target.push(array[i]);
+            if (target.length > maxArraySize) target.shift();
+          }
+        }
+      }
     },
   },
   actions: {
-    setState({ commit }, payload) {
+    SOCKET_state({ commit }, payload) {
       commit('SOCKET_appState', payload.appState);
       commit('SOCKET_roomstate', payload.roomstate);
     },
   },
   modules: {},
+  plugins: [now],
 });
 
 export default store;

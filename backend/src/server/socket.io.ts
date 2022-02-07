@@ -1,5 +1,6 @@
 import http from 'http';
 import { Server } from 'socket.io';
+import * as state from '../events/state';
 import logger from '../logger';
 
 let io: Server;
@@ -9,6 +10,10 @@ export default function (server: http.Server) {
 
   io.on('connection', (socket) => {
     logger.info('SOCKET CONNECTED');
+    socket.emit('state', {
+      appState: state.getAppState(),
+      roomstate: state.getRoomstate(),
+    });
 
     socket.on('disconnect', () => {
       logger.info('SOCKET DISCONNECTED');
