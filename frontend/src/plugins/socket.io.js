@@ -16,10 +16,12 @@ export default new VueSocketIO({
 
 socket.on('connect', () => {
   console.log('SOCKET CONNECTED');
+  store.commit('SOCKET_appState', { clientWs: true });
 });
 
 socket.on('disconnect', () => {
   console.log('SOCKET DISCONNECTED');
+  store.commit('SOCKET_appState', { clientWs: false });
 });
 
 export function emit(event, data) {

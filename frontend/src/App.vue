@@ -9,7 +9,11 @@ export default {
 </script>
 
 <style>
-#app {
-  text-align: center;
+body {
+  overflow: hidden;
+  padding: 0;
+  margin: 10px;
 }
+
+#app {}
 </style>
