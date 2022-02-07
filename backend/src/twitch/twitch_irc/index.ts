@@ -3,12 +3,16 @@ import events from '../../events';
 import logger from '../../logger';
 import messageHandler from './message_handler';
 
-const channel = 'dbkynd'; // todo
+const channel = 'annemunition'; // todo
 
 // https://tmijs.com/
 
 const client = new Client({
   channels: [channel],
+  identity: {
+    username: 'annemunition',
+    password: `oauth:${process.env.TOKEN}`,
+  },
   options: {
     skipMembership: true,
     skipUpdatingEmotesets: true,
@@ -64,7 +68,7 @@ client.on('hosted', (_channel, username, viewers, autohost) => {
     .catch();
 });
 
-client.on('message', (_channel, userstate, message, self) => {
+client.on('message', (_channel, userstate, message, _self) => {
   messageHandler(userstate, message);
 });
 
@@ -83,7 +87,7 @@ client.on('raided', (_channel, username, viewers) => {
 // Username has resubbed on a channel.
 client.on(
   'resub',
-  (_channel, _username, _months, message, userstate, methods) => {
+  (_channel, _username, _months, message, userstate, _methods) => {
     events.subscription.resub(userstate, message);
   },
 );
