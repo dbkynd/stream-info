@@ -17,6 +17,9 @@
       @click="clear('cheer', cheer)"
     />
   </div>
+  <div class="column">
+    <Status />
+  </div>
 </template>
 
 <script>
@@ -24,12 +27,14 @@ import { mapGetters } from 'vuex';
 import { api } from "@/plugins/axios";
 import Cheer from '@/components/Cheer'
 import Subscription from '@/components/Subscription'
+import Status from '@/components/Status'
 
 export default {
   name: 'Home',
   components: {
     Cheer,
     Subscription,
+    Status,
   },
   computed: {
     ...mapGetters(['cheers', 'hosts', 'subscriptions', 'tips'])
