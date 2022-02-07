@@ -3,8 +3,8 @@ import CheerService from '../../../database/lib/cheer';
 import HostService from '../../../database/lib/host';
 import SubscriptionService from '../../../database/lib/subscription';
 import TipService from '../../../database/lib/tip';
-import * as state from '../../../events/state';
 import * as twitchIrc from '../../../twitch/twitch_irc';
+import ClearService from '../../services/clear/clear_service';
 
 const router = express.Router();
 
@@ -38,6 +38,20 @@ router.post('/say', (req, res, next) => {
   }
   try {
     twitchIrc.say(message);
+    res.sendStatus(204);
+  } catch (e) {
+    next(e);
+  }
+});
+
+router.post('/clear', (req, res, next) => {
+  const { name, id } = req.body as { [key: string]: string | undefined };
+  if (!name || !id) {
+    res.sendStatus(400);
+    return;
+  }
+  try {
+    ClearService(name, id);
     res.sendStatus(204);
   } catch (e) {
     next(e);

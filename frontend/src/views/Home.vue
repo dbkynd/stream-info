@@ -5,7 +5,7 @@
         :key="subscription._id"
         :class="{uncleared: !subscription.cleared}"
         :data="subscription"
-        @click="clear(subscription)"
+        @click="clear('subscription', subscription)"
       />
   </div>
   <div class="column">
@@ -14,7 +14,7 @@
       :key="cheer._id"
       :class="{uncleared: !cheer.cleared}"
       :data="cheer"
-      @click="clear(cheer)"
+      @click="clear('cheer', cheer)"
     />
   </div>
 </template>
@@ -52,8 +52,9 @@ export default {
     })
   },
   methods: {
-    clear(item) {
+    clear(name, item) {
       item.cleared = true
+      api.post('/clear', { name, id: item._id }).catch()
     },
   },
 }

@@ -13,8 +13,16 @@ async function list(): Promise<CheerDoc[]> {
   return Cheer.find({}).sort({ _id: -1 }).limit(15);
 }
 
+async function clear(id: string): Promise<void> {
+  const doc = await Cheer.findById(id);
+  if (!doc) return;
+  doc.cleared = true;
+  await doc.save();
+}
+
 export default {
   create,
   save,
   list,
+  clear,
 };
