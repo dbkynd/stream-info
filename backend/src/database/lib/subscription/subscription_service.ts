@@ -14,7 +14,7 @@ function save(doc: SubscriptionDoc): Promise<SubscriptionDoc> {
 }
 
 async function list(): Promise<SubscriptionDoc[]> {
-  return Subscription.find({});
+  return Subscription.find({}).sort({ _id: -1 }).limit(15);
 }
 
 export default {

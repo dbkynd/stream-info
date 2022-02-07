@@ -8,7 +8,7 @@ async function save(doc: HostDoc): Promise<HostDoc> {
   return doc.save();
 }
 async function list(): Promise<HostDoc[]> {
-  return Host.find({});
+  return Host.find({}).sort({ _id: -1 }).limit(15);
 }
 
 export default {

@@ -10,7 +10,7 @@ async function save(doc: CheerDoc): Promise<CheerDoc> {
   return doc.save();
 }
 async function list(): Promise<CheerDoc[]> {
-  return Cheer.find({});
+  return Cheer.find({}).sort({ _id: -1 }).limit(15);
 }
 
 export default {

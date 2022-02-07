@@ -11,7 +11,7 @@ async function save(doc: TipDoc): Promise<TipDoc> {
 }
 
 async function list(): Promise<TipDoc[]> {
-  return Tip.find({});
+  return Tip.find({}).sort({ _id: -1 }).limit(15);
 }
 
 export default {
