@@ -90,6 +90,10 @@ const store = createStore({
         }
       }
     },
+    SOCKET_clear(state, payload) {
+      const doc = state[payload.name].find((x) => x._id === payload.id);
+      if (doc) doc.cleared = true;
+    },
   },
   actions: {
     SOCKET_state({ commit }, payload) {

@@ -5,7 +5,7 @@
         :key="subscription._id"
         :class="{uncleared: !subscription.cleared}"
         :data="subscription"
-        @click="clear('subscription', subscription)"
+        @click="clear('subscriptions', subscription)"
       />
   </div>
   <div class="column">
@@ -14,7 +14,7 @@
       :key="cheer._id"
       :class="{uncleared: !cheer.cleared}"
       :data="cheer"
-      @click="clear('cheer', cheer)"
+      @click="clear('cheers', cheer)"
     />
   </div>
   <div class="column">
@@ -93,7 +93,7 @@ export default {
 }
 
 .column > div:nth-child(1) {
-  border-left: 8px solid #f9d71ae8;
+  border-left: 8px solid #f9d71a;
 }
 
 .name,
