@@ -21,7 +21,11 @@ socket.on('connect', () => {
 
 socket.on('disconnect', () => {
   console.log('SOCKET DISCONNECTED');
-  store.commit('SOCKET_appState', { clientWs: false });
+  store.commit('SOCKET_appState', {
+    clientWs: false,
+    seWs: false,
+    twitchIrc: false,
+  });
 });
 
 export function emit(event, data) {
