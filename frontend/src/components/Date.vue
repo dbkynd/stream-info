@@ -29,8 +29,10 @@ export default {
 </script>
 
 <style scoped>
-  .date{
-    font-size: 0.8rem;
-    height: 1.0rem;
-  }
+.date {
+  font-size: 0.8rem;
+  height: 1.0rem;
+  position: absolute;
+  right: 0.5rem;
+}
 </style>
