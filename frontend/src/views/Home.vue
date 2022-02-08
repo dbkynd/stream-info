@@ -1,24 +1,49 @@
 <template>
-  <div class="column">
-      <Subscription
-        v-for="subscription in subscriptions"
-        :key="subscription._id"
-        :class="{uncleared: !subscription.cleared}"
-        :data="subscription"
-        @click="clear('subscriptions', subscription)"
-      />
+  <div id="container">
+    <div class="column">
+      <div>
+        <Subscription
+          v-for="subscription in subscriptions"
+          :key="subscription._id"
+          :class="{uncleared: !subscription.cleared}"
+          :data="subscription"
+          @click="clear('subscriptions', subscription)"
+        />
+      </div>
+    </div>
+    <div class="column">
+      <div>
+        <Cheer
+          v-for="cheer in cheers"
+          :key="cheer._id"
+          :class="{uncleared: !cheer.cleared}"
+          :data="cheer"
+          @click="clear('cheers', cheer)"
+        />
+      </div>
+    </div>
+    <div class="column">
+      <div>
+        <Tip
+          v-for="tip in tips"
+          :key="tip._id"
+          :class="{uncleared: !tip.cleared}"
+          :data="tip"
+          @click="clear('tips', tip)"
+        />
+      </div>
+    </div>
+    <div class="column">
+      <div>
+        <Host
+          v-for="host in hosts"
+          :key="host._id"
+          :class="{uncleared: !host.cleared}"
+          :data="host"
+          @click="clear('hosts', host)"
+        />
+      </div>
   </div>
-  <div class="column">
-    <Cheer
-      v-for="cheer in cheers"
-      :key="cheer._id"
-      :class="{uncleared: !cheer.cleared}"
-      :data="cheer"
-      @click="clear('cheers', cheer)"
-    />
-  </div>
-  <div class="column">
-    <Status />
   </div>
 </template>
 
@@ -27,14 +52,38 @@ import { mapGetters } from 'vuex';
 import { api } from "@/plugins/axios";
 import Cheer from '@/components/Cheer'
 import Subscription from '@/components/Subscription'
-import Status from '@/components/Status'
+import Host from '@/components/Host'
+import Tip from '@/components/Tip'
+// import Status from '@/components/Status'
+import IdleJs from 'idle-js';
+
+const idle = new IdleJs({
+  idle: 30000, // idle time in ms
+  events: ['mousemove', 'keydown', 'mousedown', 'touchstart'], // events that will trigger the idle resetter
+  onIdle: function () {
+    console.log('scrolling')
+    const e = document.getElementById('container')
+    if (!e) return
+    for (let i = 0; i < e.children.length; i++) {
+      e.children[i].scrollTo(0, 0)
+    }
+  }, // callback function to be executed after idle time
+  onActive: function () {}, // callback function to be executed after back form idleness
+  onHide: function () {}, // callback function to be executed when window become hidden
+  onShow: function () {}, // callback function to be executed when window become visible
+  keepTracking: true, // set it to false if you want to be notified only on the first idleness change
+  startAtIdle: false, // set it to true if you want to start in the idle state
+})
+idle.start()
 
 export default {
   name: 'Home',
   components: {
     Cheer,
     Subscription,
-    Status,
+    Host,
+    Tip,
+    // Status,
   },
   computed: {
     ...mapGetters(['cheers', 'hosts', 'subscriptions', 'tips'])
@@ -69,9 +118,9 @@ export default {
 .column {
   width: 25%;
   float: left;
-  height: 100%;
+  height: 100vh;
   overflow-y: scroll;
-  overflow-x: hidden;
+  scrollbar-width: none;
 }
 
 .column::-webkit-scrollbar {
@@ -79,6 +128,10 @@ export default {
 }
 
 .column > div {
+  margin: 0.5em 0.5em 0 0.5em ;
+}
+
+.column > div > div {
   background: #323436;
   border-left: 8px solid #3d7ba6;
   border-radius: 4px;
@@ -86,13 +139,14 @@ export default {
   opacity: 0.85;
   padding: 0 12px 8px;
   cursor: default;
+  position: relative;
 }
 
-.column > div.uncleared {
+.column > div > div.uncleared {
   background: #6441a4;
 }
 
-.column > div:nth-child(1) {
+.column > div > div:nth-child(1) {
   border-left: 8px solid #f9d71a;
 }
 

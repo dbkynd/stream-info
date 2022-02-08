@@ -1,7 +1,7 @@
 <template>
   <div>
       <Date :date="data.createdAt"/>
-      <div class="name">
+      <div>
         <span class="name">
           {{ data.payload.userstate['display-name'] }}
         </span>
@@ -19,7 +19,7 @@
 import Date from "@/components/Date";
 
 export default {
-  name: "Cheers",
+  name: "Cheer",
   props: ['data'],
   components: {
     Date,
