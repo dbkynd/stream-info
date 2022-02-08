@@ -27,7 +27,7 @@ import Date from '@/components/Date'
 import Icons from '@/components/Icons'
 
 export default {
-  name: "NotificationCard",
+  name: "Subscription",
   props: ['data'],
   components: {
     Date, Icons
