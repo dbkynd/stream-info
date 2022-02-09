@@ -1,0 +1,11 @@
+.github
+.idea
+.git
+.editorconfig
+README.md
+
+**/node_modules
+**/dist
+
+backend/.cache
+backend/logs
