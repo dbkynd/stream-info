@@ -85,7 +85,7 @@ jobs:
             # Run a new container from a new image
             docker run -d \
             --restart always \
-            --env-file .env \
+            --env-file /root/streaminfo/.env \
             -p 80:3000 \
             --name $(echo $IMAGE_NAME) \
             $(echo $REGISTRY)/$(echo $IMAGE_NAME):$(echo $GITHUB_SHA | head -c7)
