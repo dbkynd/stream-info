@@ -21,7 +21,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 if (process.env.NODE_ENV === 'production') {
-  const wwwDir = path.join(process.cwd(), '../frontend/dist');
+  const wwwDir = path.join(__dirname, '../../../frontend/dist');
   app.use(express.static(wwwDir));
   app.get('/', (req, res, next) => {
     res.sendFile(path.join(wwwDir, 'index.html'));
