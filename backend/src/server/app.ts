@@ -1,5 +1,12 @@
 import path from 'path';
 import express from 'express';
+import {
+  expressCspHeader,
+  NONCE,
+  SELF,
+  INLINE,
+  EVAL,
+} from 'express-csp-header';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import * as logger from '../logger';
@@ -11,10 +18,19 @@ import sessionStore from './sessionStore';
 
 const app = express();
 
-app.use(helmet());
+// app.use(helmet());
 const format = process.env.NODE_ENV === 'production' ? 'combined' : 'dev';
 app.use(morgan(format, { stream: logger.stream }));
 app.use(express.json());
+
+app.use(
+  expressCspHeader({
+    directives: {
+      'script-src': [SELF],
+    },
+    reportOnly: true,
+  }),
+);
 
 app.use(sessionStore);
 app.use(passport.initialize());
