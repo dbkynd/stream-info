@@ -6,9 +6,9 @@
         {{ data.payload.userstate['display-name'] }}
       </span>
       <span class="amount">
-        {{ data.payload.userstate['msg-param-cumulative-months'] }}
+        {{ months }}
       </span>
-      <span>
+      <span v-show="months !== 'NEW SUB'">
         months
       </span>
       <span v-show="isYear" class="icons">
@@ -16,7 +16,7 @@
       </span>
     </div>
     <div class="message">
-      {{ data.payload.message }}
+      <SubMessage :payload="data.payload"/>
     </div>
     <Icons :userstate="data.payload.userstate"/>
   </div>
@@ -25,16 +25,19 @@
 <script>
 import Date from '@/components/Date'
 import Icons from '@/components/Icons'
+import SubMessage from '@/components/SubMessage'
 
 export default {
   name: "Subscription",
   props: ['data'],
   components: {
-    Date, Icons
+    Date, Icons, SubMessage
   },
   computed: {
     months() {
-      return this.data.payload.userstate['msg-param-cumulative-months']
+      const months = this.data.payload.userstate['msg-param-cumulative-months']
+      if (months === true) return 'NEW SUB'
+      return months
     },
     isYear() {
       return this.months % 12 === 0
