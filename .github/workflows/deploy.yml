@@ -115,6 +115,6 @@ jobs:
             docker run -d \
             --restart always \
             --env-file /root/streaminfo/.env \
-            -p 443:3000 \
+            -p 3000:3000 \
             --name $(echo $IMAGE_NAME) \
             $(echo $REGISTRY)/$(echo $IMAGE_NAME):$(echo $GITHUB_SHA | head -c7)
