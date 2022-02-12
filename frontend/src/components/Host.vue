@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Date :date="data.createdAt"/>
+    <Timestamp :date="data.createdAt"/>
     <div>
       <span class="name">
         {{ name }}
@@ -16,13 +16,13 @@
 </template>
 
 <script>
-import Date from "@/components/Date";
+import Timestamp from "@/components/Timestamp";
 
 export default {
   name: "Host",
   props: ['data'],
   components: {
-    Date,
+    Timestamp,
   },
   computed: {
     name() {

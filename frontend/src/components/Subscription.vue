@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Date :date="data.createdAt" />
+    <Timestamp :date="data.createdAt" />
     <div>
       <span class="name">
         {{ data.payload.userstate['display-name'] }}
@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import Date from '@/components/Date'
+import Timestamp from '@/components/Timestamp'
 import Icons from '@/components/Icons'
 import SubMessage from '@/components/SubMessage'
 
@@ -31,7 +31,7 @@ export default {
   name: "Subscription",
   props: ['data'],
   components: {
-    Date, Icons, SubMessage
+    Timestamp, Icons, SubMessage
   },
   computed: {
     months() {
