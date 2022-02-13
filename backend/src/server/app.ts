@@ -23,6 +23,8 @@ app.use(sessionStore);
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use('/api', Api);
+
 if (process.env.NODE_ENV === 'production') {
   app.use(history());
   const wwwDir = path.join(__dirname, '../../../frontend/dist');
@@ -35,7 +37,5 @@ if (process.env.NODE_ENV === 'production') {
     res.sendFile(path.join(wwwDir, 'index.html'));
   });
 }
-
-app.use('/api', Api);
 
 export default app;
