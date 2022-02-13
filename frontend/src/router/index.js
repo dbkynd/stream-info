@@ -2,12 +2,18 @@ import { createRouter, createWebHistory } from 'vue-router';
 import Home from '../views/Home.vue';
 import InvalidToken from '../views/InvalidToken';
 import Settings from '../views/Settings.vue';
+import Unauthorized from '../views/Unauthorized';
 
 const routes = [
   {
     path: '/',
     name: 'Home',
     component: Home,
+  },
+  {
+    path: '/unauthorized',
+    name: 'Unauthorized',
+    component: Unauthorized,
   },
   {
     path: '/settings',
