@@ -12,7 +12,7 @@
         months
       </span>
       <span v-show="isYear" class="icons">
-        <img src="@/assets/cake.jpg" alt="">
+        <img src="@/assets/cake.svg" alt="">
       </span>
     </div>
     <div class="message">
