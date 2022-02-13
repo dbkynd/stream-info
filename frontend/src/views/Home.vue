@@ -95,7 +95,7 @@ export default {
     api.get('/user').then(() => {
       socket.connect()
     }).catch(() => {
-      window.location.href = '/auth/login';
+      window.location.href = '/api/auth/login';
     })
   },
   methods: {
