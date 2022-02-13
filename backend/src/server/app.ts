@@ -11,7 +11,7 @@ import sessionStore from './sessionStore';
 
 const app = express();
 
-app.use(helmet());
+// app.use(helmet());
 const format = process.env.NODE_ENV === 'production' ? 'combined' : 'dev';
 app.use(morgan(format, { stream: logger.stream }));
 app.use(express.json());
