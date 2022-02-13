@@ -1,5 +1,6 @@
 import { createStore } from 'vuex';
 import VuexNow from 'vuex-now';
+import { api } from '@/plugins/axios';
 
 const maxArraySize = 100;
 const now = VuexNow(1000 * 60);
@@ -99,6 +100,11 @@ const store = createStore({
     SOCKET_state({ commit }, payload) {
       commit('SOCKET_appState', payload.appState);
       commit('SOCKET_roomstate', payload.roomstate);
+    },
+    getLists({ commit }) {
+      api.get('/lists').then(({ data }) => {
+        commit('setLists', data);
+      });
     },
   },
   modules: {},

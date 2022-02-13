@@ -58,8 +58,8 @@ import Tip from '@/components/Tip'
 import IdleJs from 'idle-js';
 
 const idle = new IdleJs({
-  idle: 30000, // idle time in ms
-  events: ['mousemove', 'keydown', 'mousedown', 'touchstart'], // events that will trigger the idle resetter
+  idle: 30000,
+  events: ['mousemove', 'keydown', 'mousedown', 'touchstart'],
   onIdle: function () {
     console.log('scrolling')
     const e = document.getElementById('container')
@@ -67,12 +67,9 @@ const idle = new IdleJs({
     for (let i = 0; i < e.children.length; i++) {
       e.children[i].scrollTo(0, 0)
     }
-  }, // callback function to be executed after idle time
-  onActive: function () {}, // callback function to be executed after back form idleness
-  onHide: function () {}, // callback function to be executed when window become hidden
-  onShow: function () {}, // callback function to be executed when window become visible
-  keepTracking: true, // set it to false if you want to be notified only on the first idleness change
-  startAtIdle: false, // set it to true if you want to start in the idle state
+  },
+  keepTracking: true,
+  startAtIdle: false,
 })
 idle.start()
 
@@ -89,20 +86,8 @@ export default {
     ...mapGetters(['cheers', 'hosts', 'subscriptions', 'tips'])
   },
   created() {
-    /*axios.get('http://127.0.0.1:3000/stats').then(({data}) => {
-      const validToken = data.validToken
-      console.log('Valid Token', validToken)
-      if (!validToken) {
-        this.$router.push('token')
-      }
-    })*/
-    api.get('/user').then(() => {
-      api.get('/lists').then(({data}) => {
-        this.$store.commit('setLists', data)
-      })
-    }).catch(() => {
-      window.location.href = 'http://localhost:3000/auth/login'
-      return
+    api.get('/user').catch(() => {
+      window.location.href = '/auth/login';
     })
   },
   methods: {

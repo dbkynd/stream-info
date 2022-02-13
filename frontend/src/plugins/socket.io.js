@@ -17,6 +17,7 @@ export default new VueSocketIO({
 socket.on('connect', () => {
   console.log('SOCKET CONNECTED');
   store.commit('SOCKET_appState', { clientWs: true });
+  store.dispatch('getLists').catch();
 });
 
 socket.on('disconnect', () => {
