@@ -43,7 +43,12 @@
           @click="clear('hosts', host)"
         />
       </div>
-  </div>
+      <div class="settings" @click="openSettings">
+        <button>
+          <img src="@/assets/cogwheel.svg" alt="">
+        </button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -95,6 +100,9 @@ export default {
       item.cleared = true
       api.post('/clear', { name, id: item._id }).catch()
     },
+    openSettings() {
+      this.$router.push('Settings');
+    }
   },
 }
 </script>
@@ -135,13 +143,21 @@ export default {
   border-left: 8px solid #f9d71a;
 }
 
-.name,
-.amount {
-  color: #f9d71a;
+.name {
+  color: #fff;
 }
 
 .amount {
+  color: #f9d71a;
+  margin-left: 0.3em;
+}
+
+.name,
+.amount {
   font-size: 1.25rem;
-  margin-left: 0.5rem;
+}
+
+.settings img {
+  height: 24px;
 }
 </style>
