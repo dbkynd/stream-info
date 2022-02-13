@@ -4,10 +4,8 @@ import express from 'express';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import * as logger from '../logger';
-import userAuthMiddleware from './middleware/userAuth';
 import passport from './passport';
-import apiRoutes from './routes/api';
-import publicRoutes from './routes/public';
+import Api from './routes';
 import sessionStore from './sessionStore';
 
 const app = express();
@@ -25,17 +23,19 @@ app.use(sessionStore);
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(history());
-
 if (process.env.NODE_ENV === 'production') {
+  app.use(history());
   const wwwDir = path.join(__dirname, '../../../frontend/dist');
   app.use(express.static(wwwDir));
   app.get('/', (req, res, next) => {
+    if (!req.isAuthenticated()) {
+      res.redirect('/api/auth/login');
+      return;
+    }
     res.sendFile(path.join(wwwDir, 'index.html'));
   });
 }
 
-app.use(publicRoutes);
-app.use('/api', userAuthMiddleware, apiRoutes);
+app.use('/api', Api);
 
 export default app;

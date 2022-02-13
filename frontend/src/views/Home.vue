@@ -61,6 +61,7 @@ import Host from '@/components/Host'
 import Tip from '@/components/Tip'
 // import Status from '@/components/Status'
 import IdleJs from 'idle-js';
+import * as socket from '@/plugins/socket.io';
 
 const idle = new IdleJs({
   idle: 30000,
@@ -74,7 +75,7 @@ const idle = new IdleJs({
     }
   },
   keepTracking: true,
-  startAtIdle: false,
+  startAtIdle: true,
 })
 idle.start()
 
@@ -91,7 +92,9 @@ export default {
     ...mapGetters(['cheers', 'hosts', 'subscriptions', 'tips'])
   },
   created() {
-    api.get('/user').catch(() => {
+    api.get('/user').then(() => {
+      socket.connect()
+    }).catch(() => {
       window.location.href = '/auth/login';
     })
   },
@@ -101,7 +104,7 @@ export default {
       api.post('/clear', { name, id: item._id }).catch()
     },
     openSettings() {
-      this.$router.push('Settings');
+      this.$router.push('settings');
     }
   },
 }
