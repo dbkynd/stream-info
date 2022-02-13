@@ -1,4 +1,5 @@
 import path from 'path';
+import history from 'connect-history-api-fallback';
 import express from 'express';
 import helmet from 'helmet';
 import morgan from 'morgan';
@@ -23,6 +24,8 @@ app.use(express.json());
 app.use(sessionStore);
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use(history());
 
 if (process.env.NODE_ENV === 'production') {
   const wwwDir = path.join(__dirname, '../../../frontend/dist');
