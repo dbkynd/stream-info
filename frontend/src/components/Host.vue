@@ -2,14 +2,9 @@
   <div>
     <Timestamp :date="data.createdAt"/>
     <div>
-      <span class="name">
-        {{ name }}
-      </span>
-      <span class="amount">
-        {{ data.payload.viewers }}
-      </span>
+      <span class="name">{{ name }}</span> {{ data.payload.raid ? 'raided' : 'hosted' }} with<span class="amount">{{ data.payload.viewers }}</span> viewers
     </div>
-    <div class="message">
+    <div class="game">
       {{ data.payload.game }}
     </div>
   </div>
@@ -33,5 +28,7 @@ export default {
 </script>
 
 <style scoped>
-
+.game {
+  font-size: 0.8rem;
+}
 </style>
