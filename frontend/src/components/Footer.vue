@@ -26,6 +26,11 @@ export default {
       expanded: false,
     }
   },
+  methods: {
+    logout() {
+      window.location.href = '/api/auth/logout';
+    }
+  }
 }
 </script>
 

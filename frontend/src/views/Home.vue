@@ -43,14 +43,6 @@
           @click="clear('hosts', host)"
         />
       </div>
-      <div class="settings">
-        <button @click="openSettings">
-          <img src="@/assets/cogwheel.svg" alt="">
-        </button>
-        <button @click="logout">
-          Logout
-        </button>
-      </div>
     </div>
     <Footer />
   </div>
@@ -107,12 +99,6 @@ export default {
       item.cleared = true
       api.post('/clear', { name, id: item._id }).catch()
     },
-    openSettings() {
-      this.$router.push('settings');
-    },
-    logout() {
-      window.location.href = '/api/auth/logout';
-    }
   },
 }
 </script>
@@ -165,9 +151,5 @@ export default {
 .name,
 .amount {
   font-size: 1.25rem;
-}
-
-.settings img {
-  height: 24px;
 }
 </style>
