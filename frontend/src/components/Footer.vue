@@ -14,12 +14,20 @@
         RIGHT
       </v-col>
     </v-row>
+    <v-row v-show="expanded">
+      <Hours />
+    </v-row>
   </v-footer>
 </template>
 
 <script>
+import Hours from '@/components/Hours'
+
 export default {
   name: "Footer",
+  components: {
+    Hours,
+  },
   data() {
     return {
       height: '3rem',
@@ -35,11 +43,13 @@ export default {
 </script>
 
 <style scoped>
-v-footer {
-  height: 1rem;
+.v-footer {
+  height: 2.0rem;
+  transition: height 0.15s ease-out;
 }
-.expanded {
+.v-footer.expanded {
   height: 30rem;
+  transition: height 0.25s ease-in;
 }
 .left {
   text-align: left;
