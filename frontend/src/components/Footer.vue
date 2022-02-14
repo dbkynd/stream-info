@@ -1,5 +1,5 @@
 <template>
-  <v-footer fixed padless bottom width="100%" :class="{expanded: expanded}">
+  <v-footer fixed padless bottom width="100%" :class="{expanded: expanded}" @mouseleave="expanded = false">
     <v-row>
       <v-col cols="5" class="left">
         LEFT
@@ -46,9 +46,11 @@ export default {
 .v-footer {
   height: 2.0rem;
   transition: height 0.15s ease-out;
+  background: #232426;
+  opacity: 0.95;
 }
 .v-footer.expanded {
-  height: 30rem;
+  height: 25rem;
   transition: height 0.25s ease-in;
 }
 .left {

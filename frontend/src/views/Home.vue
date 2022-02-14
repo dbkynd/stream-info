@@ -126,7 +126,7 @@ export default {
   border-radius: 4px;
   margin-bottom: 8px;
   opacity: 0.85;
-  padding: 0 12px 8px;
+  padding: 0 8px 8px;
   cursor: default;
   position: relative;
 }
@@ -151,5 +151,9 @@ export default {
 .name,
 .amount {
   font-size: 1.25rem;
+}
+
+.message {
+  color: #aeb2b4
 }
 </style>
