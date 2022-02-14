@@ -1,5 +1,5 @@
 <template>
-  <div id="container">
+  <div>
     <div class="column">
       <div>
         <SubEvent
@@ -52,6 +52,7 @@
         </button>
       </div>
     </div>
+    <Footer />
   </div>
 </template>
 
@@ -62,7 +63,7 @@ import Cheer from '@/components/Cheer'
 import SubEvent from '@/components/SubEvent'
 import Host from '@/components/Host'
 import Tip from '@/components/Tip'
-// import Status from '@/components/Status'
+import Footer from '@/components/Footer'
 import IdleJs from 'idle-js';
 import * as socket from '@/plugins/socket.io';
 
@@ -89,7 +90,7 @@ export default {
     SubEvent,
     Host,
     Tip,
-    // Status,
+    Footer,
   },
   computed: {
     ...mapGetters(['cheers', 'hosts', 'subscriptions', 'tips'])
