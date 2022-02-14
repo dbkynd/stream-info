@@ -43,9 +43,12 @@
           @click="clear('hosts', host)"
         />
       </div>
-      <div class="settings" @click="openSettings">
-        <button>
+      <div class="settings">
+        <button @click="openSettings">
           <img src="@/assets/cogwheel.svg" alt="">
+        </button>
+        <button @click="logout">
+          Logout
         </button>
       </div>
     </div>
@@ -105,6 +108,9 @@ export default {
     },
     openSettings() {
       this.$router.push('settings');
+    },
+    logout() {
+      window.location.href = '/api/auth/logout';
     }
   },
 }

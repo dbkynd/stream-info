@@ -3,6 +3,7 @@ import Home from '../views/Home.vue';
 import InvalidToken from '../views/InvalidToken';
 import Settings from '../views/Settings.vue';
 import Unauthorized from '../views/Unauthorized';
+import Logout from '../views/Logout.vue';
 
 const routes = [
   {
@@ -14,6 +15,11 @@ const routes = [
     path: '/unauthorized',
     name: 'Unauthorized',
     component: Unauthorized,
+  },
+  {
+    path: '/logout',
+    name: 'Logout',
+    component: Logout,
   },
   {
     path: '/settings',

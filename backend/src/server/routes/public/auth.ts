@@ -20,7 +20,7 @@ router.get(
 // BASE/auth/logout
 router.get('/logout', (req, res, next) => {
   req.session.destroy(function () {
-    res.sendStatus(204);
+    res.redirect(`${appUrl}logout`);
   });
 });
 
