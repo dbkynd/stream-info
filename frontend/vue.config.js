@@ -2,9 +2,10 @@ module.exports = {
   pages: {
     index: {
       entry: 'src/main.js',
-      title: 'StreamInfo',
+      title: 'Stream Info',
     },
   },
+
   devServer: {
     proxy: {
       '^/api': {
@@ -16,6 +17,12 @@ module.exports = {
         changeOrigin: true,
         ws: true,
       },
+    },
+  },
+
+  pluginOptions: {
+    vuetify: {
+      // https://github.com/vuetifyjs/vuetify-loader/tree/next/packages/vuetify-loader
     },
   },
 };
