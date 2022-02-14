@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Timestamp :date="data.createdAt" />
+
     <div>
       <span class="name">
         {{ data.payload.userstate['display-name'] }}
@@ -11,20 +11,19 @@
       <span v-show="months !== newSubText">
         months
       </span>
-      <span v-show="isYear" class="icons">
+      <span v-show="isYear" class="cake">
         <img src="@/assets/cake.svg" alt="">
       </span>
     </div>
+
     <div class="message">
       <SubMessage :payload="data.payload"/>
     </div>
-    <Icons :userstate="data.payload.userstate"/>
+
   </div>
 </template>
 
 <script>
-import Timestamp from '@/components/Timestamp'
-import Icons from '@/components/Icons'
 import SubMessage from '@/components/SubMessage'
 
 export default {
@@ -36,7 +35,7 @@ export default {
     }
   },
   components: {
-    Timestamp, Icons, SubMessage
+    SubMessage
   },
   computed: {
     months() {
@@ -52,16 +51,15 @@ export default {
 </script>
 
 <style scoped>
-.icons img {
-  height: 18px;
-  position: relative;
-  top: 4px;
-  margin-left: 2px;
-}
-
 .shadow {
   text-shadow:
     0 0 3px #000000,
     0 0 7px #f9d71a
+}
+
+.cake img {
+  height: 18px;
+  position: relative;
+  top: 4px;
 }
 </style>

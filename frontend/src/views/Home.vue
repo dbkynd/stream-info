@@ -2,7 +2,7 @@
   <div id="container">
     <div class="column">
       <div>
-        <Subscription
+        <SubEvent
           v-for="subscription in subscriptions"
           :key="subscription._id"
           :class="{uncleared: !subscription.cleared}"
@@ -59,7 +59,7 @@
 import { mapGetters } from 'vuex';
 import { api } from "@/plugins/axios";
 import Cheer from '@/components/Cheer'
-import Subscription from '@/components/Subscription'
+import SubEvent from '@/components/SubEvent'
 import Host from '@/components/Host'
 import Tip from '@/components/Tip'
 // import Status from '@/components/Status'
@@ -86,7 +86,7 @@ export default {
   name: 'Home',
   components: {
     Cheer,
-    Subscription,
+    SubEvent,
     Host,
     Tip,
     // Status,
