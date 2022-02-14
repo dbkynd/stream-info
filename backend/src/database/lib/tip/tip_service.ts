@@ -1,3 +1,4 @@
+import trim from '../trim';
 import Tip, { TipDoc } from './tip_model';
 
 function create(payload: TipPayload, createdAt?: string): TipDoc {
@@ -6,8 +7,9 @@ function create(payload: TipPayload, createdAt?: string): TipDoc {
   return doc;
 }
 
-async function save(doc: TipDoc): Promise<TipDoc> {
-  return doc.save();
+async function save(doc: TipDoc): Promise<void> {
+  await doc.save();
+  trim(Tip).catch();
 }
 
 async function list(): Promise<TipDoc[]> {

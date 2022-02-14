@@ -1,3 +1,4 @@
+import trim from '../trim';
 import Subscription, { SubscriptionDoc } from './subscription_model';
 
 function create(
@@ -9,8 +10,9 @@ function create(
   return doc;
 }
 
-function save(doc: SubscriptionDoc): Promise<SubscriptionDoc> {
-  return doc.save();
+async function save(doc: SubscriptionDoc): Promise<void> {
+  await doc.save();
+  trim(Subscription).catch();
 }
 
 async function list(): Promise<SubscriptionDoc[]> {

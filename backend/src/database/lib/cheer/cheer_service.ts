@@ -1,3 +1,4 @@
+import trim from '../trim';
 import Cheer, { CheerDoc } from './cheer_model';
 
 function create(payload: CheerPayload, createdAt?: string): CheerDoc {
@@ -6,9 +7,11 @@ function create(payload: CheerPayload, createdAt?: string): CheerDoc {
   return doc;
 }
 
-async function save(doc: CheerDoc): Promise<CheerDoc> {
-  return doc.save();
+async function save(doc: CheerDoc): Promise<void> {
+  await doc.save();
+  trim(Cheer).catch();
 }
+
 async function list(): Promise<CheerDoc[]> {
   return Cheer.find({}).sort({ _id: -1 }).limit(15);
 }
