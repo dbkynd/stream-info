@@ -83,3 +83,13 @@ interface TwitchSubscription {
   user_name: string;
   user_login: string;
 }
+
+interface TwitchGameResponse {
+  data: TwitchGame[];
+}
+
+interface TwitchGame {
+  id: string;
+  name: string;
+  box_art_url: string;
+}
