@@ -1,6 +1,7 @@
 import HostService from '../database/lib/host';
 import logger from '../logger';
 import * as io from '../server/socket.io';
+import twitchCache from '../twitch/cache';
 import twitchApi from '../twitch/twitch_api';
 
 export default async (payload: HostPayload): Promise<void> => {
@@ -10,7 +11,7 @@ export default async (payload: HostPayload): Promise<void> => {
   logger.debug('new host/raid');
 
   // Get userdata for the display name and id of the hostee / raider
-  const [userData] = await twitchApi.getUsers([payload.username]);
+  const [userData] = await twitchCache.getUsers([payload.username]);
   if (userData) {
     payload.displayName = userData.display_name;
     const [channelData] = await twitchApi.getChannels([userData.id]);

@@ -1,5 +1,6 @@
 import HostService from '../../database/lib/host';
 import * as io from '../../server/socket.io';
+import twitchCache from '../../twitch/cache';
 import twitchApi from '../../twitch/twitch_api';
 import getChannels from '../../twitch/twitch_api/__stubs__/getChannels';
 import getUsers from '../../twitch/twitch_api/__stubs__/getUsers';
@@ -7,7 +8,7 @@ import hosted from '../hosted';
 
 jest.useFakeTimers();
 
-jest.spyOn(twitchApi, 'getUsers').mockImplementation(() => {
+jest.spyOn(twitchCache, 'getUsers').mockImplementation(() => {
   return Promise.resolve(getUsers.data);
 });
 
