@@ -23,6 +23,6 @@ export default function (server: http.Server) {
   });
 }
 
-export function emit(event: string, data?: unknown): void {
+export function emit(event: string, data?: any): void {
   if (io) io.emit(event, data);
 }

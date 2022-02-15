@@ -1,4 +1,5 @@
 import HostService from '../../database/lib/host';
+import * as io from '../../server/socket.io';
 import twitchApi from '../../twitch/twitch_api';
 import getChannels from '../../twitch/twitch_api/__stubs__/getChannels';
 import getUsers from '../../twitch/twitch_api/__stubs__/getUsers';
@@ -15,6 +16,7 @@ jest.spyOn(twitchApi, 'getChannels').mockImplementation(() => {
 });
 
 const saveSpy = jest.spyOn(HostService, 'save');
+const emitSpy = jest.spyOn(io, 'emit');
 
 describe('hosted event', () => {
   afterEach(() => {
@@ -31,15 +33,25 @@ describe('hosted event', () => {
 
     await hosted(payload);
 
+    const expected = {
+      _id: expect.anything(),
+      cleared: false,
+      createdAt: expect.anything(),
+      payload: {
+        username: 'annemunition',
+        viewers: 100,
+        autohost: false,
+        raid: false,
+        game: "Tom Clancy's Rainbow Six Siege",
+        displayName: 'AnneMunition',
+      },
+    };
+
     expect(saveSpy).toHaveBeenCalled();
-    expect(saveSpy.mock.calls[0][0].payload).toMatchObject({
-      username: 'annemunition',
-      viewers: 100,
-      autohost: false,
-      raid: false,
-      game: "Tom Clancy's Rainbow Six Siege",
-      displayName: 'AnneMunition',
-    });
+    expect(saveSpy.mock.calls[0][0].toJSON()).toEqual(expected);
+    expect(emitSpy).toHaveBeenCalled();
+    expect(emitSpy.mock.calls[0][0]).toBe('host');
+    expect(emitSpy.mock.calls[0][1].toJSON()).toEqual(expected);
   });
 
   it('does not save if autohost', async () => {
@@ -78,14 +90,24 @@ describe('hosted event', () => {
 
     await hosted(payload);
 
+    const expected = {
+      _id: expect.anything(),
+      cleared: false,
+      createdAt: expect.anything(),
+      payload: {
+        username: 'annemunition',
+        viewers: 100,
+        autohost: false,
+        raid: true,
+        game: "Tom Clancy's Rainbow Six Siege",
+        displayName: 'AnneMunition',
+      },
+    };
+
     expect(saveSpy).toHaveBeenCalled();
-    expect(saveSpy.mock.calls[0][0].payload).toMatchObject({
-      username: 'annemunition',
-      viewers: 100,
-      autohost: false,
-      raid: true,
-      game: "Tom Clancy's Rainbow Six Siege",
-      displayName: 'AnneMunition',
-    });
+    expect(saveSpy.mock.calls[0][0].toJSON()).toEqual(expected);
+    expect(emitSpy).toHaveBeenCalled();
+    expect(emitSpy.mock.calls[0][0]).toBe('host');
+    expect(emitSpy.mock.calls[0][1].toJSON()).toEqual(expected);
   });
 });
