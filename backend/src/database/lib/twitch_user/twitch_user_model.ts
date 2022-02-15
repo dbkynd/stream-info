@@ -2,6 +2,7 @@ import { Document, Schema, model } from 'mongoose';
 
 const schema = new Schema({
   twitchId: { type: String, unique: true },
+  twitchName: String,
   payload: Object,
   expires: {
     type: Date,
@@ -11,6 +12,7 @@ const schema = new Schema({
 
 export interface TwitchUserDoc extends Document {
   twitchId: string;
+  twitchName: string;
   payload: TwitchUser;
   expires: string;
 }

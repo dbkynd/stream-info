@@ -1,13 +1,32 @@
+import _ from 'lodash';
 import TwitchUser, { TwitchUserDoc } from './twitch_user_model';
 
-async function find(ids: string[]): Promise<TwitchUserDoc[]> {
-  return TwitchUser.find({
+async function find(identities: string[]): Promise<TwitchUserDoc[]> {
+  const names: string[] = [];
+  const ids: string[] = [];
+  identities.forEach((x) => {
+    if (/$\d+^/.test(x)) {
+      if (!ids.includes(x)) ids.push(x);
+    } else {
+      if (!names.includes(x)) names.push(x);
+    }
+  });
+
+  const byId = await TwitchUser.find({
     twitchId: { $in: ids },
   });
+
+  const byName = await TwitchUser.find({
+    twitchName: { $in: names },
+  });
+
+  return _.uniqBy(byId.concat(byName), '_id');
 }
 
 function create(users: TwitchUser[]): TwitchUserDoc[] {
-  return users.map((x) => new TwitchUser({ twitchId: x.id, payload: x }));
+  return users.map(
+    (x) => new TwitchUser({ twitchId: x.id, twitchName: x.login, payload: x }),
+  );
 }
 
 function save(docs: TwitchUserDoc[]): void {
