@@ -23,7 +23,7 @@ describe('hosted event', () => {
     jest.clearAllMocks();
   });
 
-  it('saves host to database', async () => {
+  it('saves and emits host', async () => {
     const payload = {
       username: 'annemunition',
       viewers: 100,
@@ -54,7 +54,7 @@ describe('hosted event', () => {
     expect(emitSpy.mock.calls[0][1].toJSON()).toEqual(expected);
   });
 
-  it('does not save if autohost', async () => {
+  it('does nothing if autohost', async () => {
     const payload = {
       username: 'annemunition',
       viewers: 100,
@@ -67,7 +67,7 @@ describe('hosted event', () => {
     expect(saveSpy).not.toHaveBeenCalled();
   });
 
-  it('does not save if less than 10 viewers', async () => {
+  it('does nothing if less than 10 viewers', async () => {
     const payload = {
       username: 'annemunition',
       viewers: 9,
@@ -80,7 +80,7 @@ describe('hosted event', () => {
     expect(saveSpy).not.toHaveBeenCalled();
   });
 
-  it('saves raid to database', async () => {
+  it('saves and emits raid', async () => {
     const payload = {
       username: 'annemunition',
       viewers: 100,
