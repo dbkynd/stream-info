@@ -23,9 +23,14 @@ async function clear(id: string): Promise<void> {
   await doc.save();
 }
 
+async function clearAll(): Promise<void> {
+  await Tip.updateMany({ cleared: false }, { cleared: true });
+}
+
 export default {
   create,
   save,
   list,
   clear,
+  clearAll,
 };

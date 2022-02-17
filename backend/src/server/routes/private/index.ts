@@ -47,7 +47,16 @@ router.post('/clear', (req, res, next) => {
     return;
   }
   try {
-    ClearService(name, id);
+    ClearService.clearOne(name, id);
+    res.sendStatus(204);
+  } catch (e) {
+    next(e);
+  }
+});
+
+router.post('/clear/all', (req, res, next) => {
+  try {
+    ClearService.clearAll();
     res.sendStatus(204);
   } catch (e) {
     next(e);

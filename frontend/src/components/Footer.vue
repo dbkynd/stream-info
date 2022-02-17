@@ -16,12 +16,14 @@
     </v-row>
     <v-row v-show="expanded">
       <Hours />
+      <v-btn color="blue" @click="clearAll">Clear All</v-btn>
     </v-row>
   </v-footer>
 </template>
 
 <script>
 import Hours from '@/components/Hours'
+import { api } from '@/plugins/axios'
 
 export default {
   name: "Footer",
@@ -37,6 +39,10 @@ export default {
   methods: {
     logout() {
       window.location.href = '/api/auth/logout';
+    },
+    clearAll() {
+      api.post('/clear/all').catch();
+      this.$store.dispatch('clearAll');
     }
   }
 }
