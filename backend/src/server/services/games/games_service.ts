@@ -1,3 +1,3 @@
-export default () => {
-  return 'Games'; // TODO
+export default async (): Promise<string> => {
+  return Promise.resolve('Games'); // TODO
 };
