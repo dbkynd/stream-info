@@ -16,12 +16,12 @@ process.env.STREAMELEMENTS_TOKEN = 'someToken';
 
 describe('chatBot routes module', () => {
   describe('GET /clips', () => {
-    test('401 - no token', (done) => {
-      req.get('/clips').expect(401, done);
+    test('400 - no token', (done) => {
+      req.get('/clips').expect(400, done);
     });
 
-    test('400 - no action or target', (done) => {
-      req.get('/clips?token=someToken').expect(400, done);
+    test('401 - bad token', (done) => {
+      req.get('/clips?token=invalid').expect(401, done);
     });
 
     test('400 - no target', (done) => {

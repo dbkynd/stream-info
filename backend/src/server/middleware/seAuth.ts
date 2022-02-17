@@ -5,8 +5,12 @@ export default function (
   res: express.Response,
   next: express.NextFunction,
 ): express.Response | void {
-  const { token } = req.query;
-  if (!token || token !== process.env.STREAMELEMENTS_TOKEN) {
+  const { token } = req.query as { [key: string]: string | undefined };
+  if (!token) {
+    res.sendStatus(400);
+    return;
+  }
+  if (token !== process.env.STREAMELEMENTS_TOKEN) {
     res.sendStatus(401);
     return;
   }
