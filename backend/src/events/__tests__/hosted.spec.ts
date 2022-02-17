@@ -6,6 +6,8 @@ import getChannels from '../../twitch/twitch_api/__stubs__/getChannels';
 import getUsers from '../../twitch/twitch_api/__stubs__/getUsers';
 import hosted from '../hosted';
 
+jest.mock('../../logger');
+
 jest.useFakeTimers();
 
 jest.spyOn(twitchCache, 'getUsers').mockImplementation(() => {
