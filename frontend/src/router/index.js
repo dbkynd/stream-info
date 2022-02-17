@@ -1,9 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Home from '../views/Home.vue';
-import InvalidToken from '../views/InvalidToken';
-import Settings from '../views/Settings.vue';
+import Home from '../views/Home';
 import Unauthorized from '../views/Unauthorized';
-import Logout from '../views/Logout.vue';
+import Logout from '../views/Logout';
 
 const routes = [
   {
@@ -20,16 +18,6 @@ const routes = [
     path: '/logout',
     name: 'Logout',
     component: Logout,
-  },
-  {
-    path: '/settings',
-    name: 'Settings',
-    component: Settings,
-  },
-  {
-    path: '/token',
-    name: 'InvalidToken',
-    component: InvalidToken,
   },
 ];
 
