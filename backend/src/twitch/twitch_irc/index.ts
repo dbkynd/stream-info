@@ -128,8 +128,8 @@ export function deleteMessage(messageUUID: string): void {
 }
 
 export function say(message: string): void {
-  logger.debug(`twitch SAY: ${message}`);
-  if (process.env.NODE_ENV !== 'development') {
+  if (!process.env.NO_ACTIONS) {
+    logger.debug(`twitch SAY: ${message}`);
     client.say(channel, message).catch();
   }
 }
