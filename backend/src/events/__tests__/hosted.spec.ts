@@ -2,20 +2,19 @@ import HostService from '../../database/lib/host';
 import * as io from '../../server/socket.io';
 import twitchCache from '../../twitch/cache';
 import twitchApi from '../../twitch/twitch_api';
-import getChannels from '../../twitch/twitch_api/__stubs__/getChannels';
-import getUsers from '../../twitch/twitch_api/__stubs__/getUsers';
 import hosted from '../hosted';
+import * as fixtures from './__fixtures__/hosted.fixtures';
 
 jest.mock('../../logger');
 
 jest.useFakeTimers();
 
 jest.spyOn(twitchCache, 'getUsers').mockImplementation(() => {
-  return Promise.resolve(getUsers.data);
+  return Promise.resolve(fixtures.users.data);
 });
 
 jest.spyOn(twitchApi, 'getChannels').mockImplementation(() => {
-  return Promise.resolve(getChannels.data);
+  return Promise.resolve(fixtures.channels.data);
 });
 
 const saveSpy = jest.spyOn(HostService, 'save');

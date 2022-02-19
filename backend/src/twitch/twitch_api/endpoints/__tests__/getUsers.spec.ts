@@ -1,7 +1,7 @@
 import nock from 'nock';
 import * as token from '../../../../token';
 import twitchApi from '../../index';
-import * as fixtures from '../__fixtures__/getUsers.fixture';
+import * as fixtures from './__fixtures__/getUsers.fixture';
 
 jest.spyOn(token, 'getKeys').mockImplementation(() => {
   return {
@@ -11,7 +11,7 @@ jest.spyOn(token, 'getKeys').mockImplementation(() => {
 });
 
 describe('getUsers method', () => {
-  it('returns an array of users', async () => {
+  it('gets user by login', async () => {
     nock('https://api.twitch.tv', {
       reqheaders: {
         authorization: 'Bearer foo',
@@ -19,17 +19,16 @@ describe('getUsers method', () => {
       },
     })
       .get('/helix/users')
-      .query({ id: '51533859', login: 'dbkynd' })
-      .reply(200, fixtures.usersMultiple);
+      .query({ login: 'dbkynd' })
+      .reply(200, fixtures.users);
 
-    const actual = await twitchApi.getUsers(['51533859', 'dbkynd']);
+    const actual = await twitchApi.getUsers(['dbkynd']);
     expect(Array.isArray(actual)).toBe(true);
-    expect(actual).toEqual(fixtures.usersMultiple.data);
-    expect(actual[0].id).toBe('51533859');
-    expect(actual[1].login).toBe('dbkynd');
+    expect(actual).toEqual(fixtures.users.data);
+    expect(actual[0].login).toBe('dbkynd');
   });
 
-  it('return an emty array if no matches', async () => {
+  it('gets user by id', async () => {
     nock('https://api.twitch.tv', {
       reqheaders: {
         authorization: 'Bearer foo',
@@ -37,10 +36,12 @@ describe('getUsers method', () => {
       },
     })
       .get('/helix/users')
-      .query({ id: '404', login: 'notfound' })
-      .reply(200, { data: [] });
+      .query({ id: '59351240' })
+      .reply(200, fixtures.users);
 
-    const actual = await twitchApi.getUsers(['404', 'notfound']);
-    expect(actual).toEqual([]);
+    const actual = await twitchApi.getUsers(['59351240']);
+    expect(Array.isArray(actual)).toBe(true);
+    expect(actual).toEqual(fixtures.users.data);
+    expect(actual[0].id).toBe('59351240');
   });
 });
