@@ -7,5 +7,7 @@ export default function validateToken(token: string): Promise<TwitchToken> {
   const options = {
     headers: { authorization: `OAuth ${token}` },
   };
-  return axios.get(url, options).then(({ data }) => data);
+  return axios
+    .get(url, options)
+    .then(({ data }: { data: TwitchToken }) => data);
 }

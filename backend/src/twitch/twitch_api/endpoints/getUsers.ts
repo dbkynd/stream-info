@@ -1,7 +1,7 @@
 import axios from '../axios';
 import headers from '../headers';
 
-//https://dev.twitch.tv/docs/api/reference#get-users
+// https://dev.twitch.tv/docs/api/reference#get-users
 
 export default function getUsers(identities: string[]): Promise<TwitchUser[]> {
   const query = identities

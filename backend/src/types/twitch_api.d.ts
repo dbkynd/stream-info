@@ -23,28 +23,6 @@ interface TwitchToken {
   expires_in: number;
 }
 
-interface TwitchClipResponse {
-  data: TwitchClip[];
-}
-
-interface TwitchClip {
-  id: string;
-  url: string;
-  embed_url: string;
-  broadcaster_id: string;
-  broadcaster_name: string;
-  creator_id: string;
-  creator_name: string;
-  video_id: string;
-  game_id: string;
-  language: string;
-  title: string;
-  view_count: number;
-  created_at: string;
-  thumbnail_url: string;
-  duration: number;
-}
-
 interface TwitchChannelResponse {
   data: TwitchChannel[];
 }
@@ -92,4 +70,27 @@ interface TwitchGame {
   id: string;
   name: string;
   box_art_url: string;
+}
+
+interface TwitchClipResponse {
+  data: TwitchClip[];
+  pagination: unknown;
+}
+
+interface TwitchClip {
+  id: string;
+  url: string;
+  embed_url: string;
+  broadcaster_id: string;
+  broadcaster_name: string;
+  creator_id: string;
+  creator_name: string;
+  video_id: string;
+  game_id: string;
+  language: string;
+  title: string;
+  view_count: number;
+  created_at: string;
+  thumbnail_url: string;
+  duration: number;
 }

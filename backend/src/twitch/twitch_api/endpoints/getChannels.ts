@@ -1,7 +1,7 @@
 import axios from '../axios';
 import headers from '../headers';
 
-//https://dev.twitch.tv/docs/api/reference#get-channel-information
+// https://dev.twitch.tv/docs/api/reference#get-channel-information
 
 export default function getChannels(ids: string[]): Promise<TwitchChannel[]> {
   const query = ids
