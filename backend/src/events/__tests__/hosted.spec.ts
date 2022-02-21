@@ -17,7 +17,9 @@ jest.spyOn(twitchApi, 'getChannels').mockImplementation(() => {
   return Promise.resolve(fixtures.channels.data);
 });
 
-const saveSpy = jest.spyOn(HostService, 'save');
+const saveSpy = jest.spyOn(HostService, 'save').mockImplementation(() => {
+  return Promise.resolve();
+});
 const emitSpy = jest.spyOn(io, 'emit');
 
 describe('hosted event', () => {
