@@ -1,6 +1,6 @@
 import nock from 'nock';
 import { songNotPlaying } from '../../../config';
-import * as songServiceFixtures from '../__fixtures__/song_service.fixture';
+import * as songServiceFixtures from './__fixtures__/song_service.fixture';
 import SongService from '../song/song_service';
 
 describe('song service module', () => {
