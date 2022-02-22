@@ -1,18 +1,17 @@
 import _ from 'lodash';
 import { uptimeOffline, uptimeTemplate } from '../../../config';
-// import * as store from '../../../store';
-
-const timeStarted = Date.now();
+import * as stream from '../../../twitch/twitch_polling/stream';
 
 export default (): string => {
-  // const { consideredOnline, timeStarted } = store.get('streamStatus', {});
-  // if (!consideredOnline || !timeStarted) return uptimeOffline;
-  // TODO: Use Store
+  const { showsOnline, timeStarted } = stream.getStatus();
+  if (!showsOnline || !timeStarted) return uptimeOffline;
 
-  const duration = Date.now() - new Date(timeStarted).valueOf();
+  let duration = Date.now() - new Date(timeStarted).valueOf();
 
   const days = Math.floor(duration / (1000 * 60 * 60 * 24));
+  duration -= days * (1000 * 60 * 60 * 24);
   const hours = Math.floor(duration / (1000 * 60 * 60));
+  duration -= hours * (1000 * 60 * 60);
   const minutes = Math.floor(duration / (1000 * 60));
 
   const daysString = `${days} day${s(days)}`;
