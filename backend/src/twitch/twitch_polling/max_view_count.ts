@@ -1,8 +1,9 @@
 import CountService from '../../database/lib/count';
 
-export default async (viewers: number) => {
+export default async (stream: TwitchStream) => {
+  if (!stream) return;
   const count = await CountService.get('viewerCount');
-  if (viewers > count) {
-    await CountService.set('viewerCount', viewers);
+  if (stream.viewer_count > count) {
+    await CountService.set('viewerCount', stream.viewer_count);
   }
 };

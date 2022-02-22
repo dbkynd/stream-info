@@ -24,7 +24,7 @@ export default async () => {
   lastGames(stream).catch(() => {
     // Do Nothing
   });
-  maxViewCount(stream.viewer_count).catch(() => {
+  maxViewCount(stream).catch(() => {
     // Do Nothing
   });
 };
