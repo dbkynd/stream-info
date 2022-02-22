@@ -5,6 +5,7 @@ import SubscriptionService from '../../../database/lib/subscription';
 import TipService from '../../../database/lib/tip';
 import * as twitchIrc from '../../../twitch/twitch_irc';
 import ClearService from '../../services/clear/clear_service';
+import HoursService from '../../services/hours/hours_service';
 
 const router = express.Router();
 
@@ -58,6 +59,15 @@ router.post('/clear/all', (req, res, next) => {
   try {
     ClearService.clearAll();
     res.sendStatus(204);
+  } catch (e) {
+    next(e);
+  }
+});
+
+router.get('/hours', async (req, res, next) => {
+  try {
+    const response = await HoursService();
+    res.status(200).json(response);
   } catch (e) {
     next(e);
   }

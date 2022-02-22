@@ -6,8 +6,8 @@ interface TwitchUser {
   id: string;
   login: string;
   display_name: string;
-  type: string;
-  broadcaster_type: string;
+  type: 'staff' | 'admin' | 'global_mod' | '';
+  broadcaster_type: 'partner' | 'affiliate' | '';
   description: string;
   profile_image_url: string;
   offline_image_url: string;
@@ -55,7 +55,7 @@ interface TwitchSubscription {
   gifter_id: string;
   gifter_login: string;
   gifter_name: string;
-  is_gift: false;
+  is_gift: boolean;
   plan_name: string;
   tier: '1000' | '2000' | '3000' | 'prime';
   user_id: string;
@@ -75,6 +75,9 @@ interface TwitchGame {
 
 interface TwitchClipResponse {
   data: TwitchClip[];
+  pagination: {
+    cursor?: string;
+  };
 }
 
 interface TwitchClip {
@@ -97,8 +100,8 @@ interface TwitchClip {
 
 interface TwitchStreamResponse {
   data: TwitchStream[];
-  pagination: {
-    cursor: string;
+  pagination?: {
+    cursor?: string;
   };
 }
 
@@ -109,12 +112,44 @@ interface TwitchStream {
   user_name: string;
   game_id: string;
   game_name: string;
-  type: string;
+  type: 'live' | '';
   title: string;
-  viewer_count: 78365;
+  viewer_count: number;
   started_at: string;
   language: string;
   thumbnail_url: string;
   tag_ids: string[];
-  is_mature: false;
+  is_mature: boolean;
+}
+
+interface TwitchUserVideosResponse {
+  data: TwitchVideo[];
+  pagination?: {
+    cursor?: string;
+  };
+}
+
+interface TwitchVideo {
+  id: string;
+  stream_id: 'archive' | null;
+  user_id: string;
+  user_login: string;
+  user_name: string;
+  title: string;
+  description: string;
+  created_at: string;
+  published_at: string;
+  url: string;
+  thumbnail_url: string;
+  viewable: 'public' | 'private';
+  view_count: number;
+  language: string;
+  type: 'upload' | 'archive' | 'highlight';
+  duration: string;
+  muted_segments: MutedSegments[];
+}
+
+interface MutedSegments {
+  duration: number;
+  offset: number;
 }
