@@ -20,4 +20,7 @@ export const clips: TwitchClipResponse = {
       duration: 60,
     },
   ],
+  pagination: {
+    cursor: 'eyJiIjpudWxsLCJhIjoiIn0',
+  },
 };
