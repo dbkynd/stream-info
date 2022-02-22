@@ -1,24 +1,23 @@
 export const clips: TwitchClipResponse = {
   data: [
     {
-      id: 'PlayfulBlindingTitanHassanChop-ffylHXuDrR_X5c_2',
-      url: 'https://clips.twitch.tv/PlayfulBlindingTitanHassanChop-ffylHXuDrR_X5c_2',
+      id: 'AwkwardHelplessSalamanderSwiftRage',
+      url: 'https://clips.twitch.tv/AwkwardHelplessSalamanderSwiftRage',
       embed_url:
-        'https://clips.twitch.tv/embed?clip=PlayfulBlindingTitanHassanChop-ffylHXuDrR_X5c_2',
-      broadcaster_id: '51533859',
-      broadcaster_name: 'AnneMunition',
-      creator_id: '126123258',
-      creator_name: 'ThatWazGuy',
-      video_id: '',
-      game_id: '491931',
+        'https://clips.twitch.tv/embed?clip=AwkwardHelplessSalamanderSwiftRage',
+      broadcaster_id: '67955580',
+      broadcaster_name: 'ChewieMelodies',
+      creator_id: '53834192',
+      creator_name: 'BlackNova03',
+      video_id: '205586603',
+      game_id: '488191',
       language: 'en',
-      title: 'Precision Grenade Kill',
-      view_count: 68,
-      created_at: '2021-02-12T22:18:28Z',
+      title: 'babymetal',
+      view_count: 10,
+      created_at: '2017-11-30T22:34:18Z',
       thumbnail_url:
-        'https://clips-media-assets2.twitch.tv/AT-cm%7C1048410697-preview-480x272.jpg',
-      duration: 25.1,
+        'https://clips-media-assets.twitch.tv/157589949-preview-480x272.jpg',
+      duration: 60,
     },
   ],
-  pagination: {},
 };

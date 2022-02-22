@@ -19,13 +19,13 @@ describe('getUsers method', () => {
       },
     })
       .get('/helix/users')
-      .query({ login: 'dbkynd' })
+      .query({ login: 'twitchdev' })
       .reply(200, fixtures.users);
 
-    const actual = await twitchApi.getUsers(['dbkynd']);
+    const actual = await twitchApi.getUsers(['twitchdev']);
     expect(Array.isArray(actual)).toBe(true);
     expect(actual).toEqual(fixtures.users.data);
-    expect(actual[0].login).toBe('dbkynd');
+    expect(actual[0].login).toBe('twitchdev');
   });
 
   it('gets user by id', async () => {
@@ -36,12 +36,12 @@ describe('getUsers method', () => {
       },
     })
       .get('/helix/users')
-      .query({ id: '59351240' })
+      .query({ id: '141981764' })
       .reply(200, fixtures.users);
 
-    const actual = await twitchApi.getUsers(['59351240']);
+    const actual = await twitchApi.getUsers(['141981764']);
     expect(Array.isArray(actual)).toBe(true);
     expect(actual).toEqual(fixtures.users.data);
-    expect(actual[0].id).toBe('59351240');
+    expect(actual[0].id).toBe('141981764');
   });
 });

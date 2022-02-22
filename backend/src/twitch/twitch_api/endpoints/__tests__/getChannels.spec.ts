@@ -19,12 +19,12 @@ describe('getChannels method', () => {
       },
     })
       .get('/helix/channels')
-      .query({ broadcaster_id: '51533859' })
+      .query({ broadcaster_id: '141981764' })
       .reply(200, fixtures.channels);
 
-    const actual = await twitchApi.getChannels(['51533859']);
+    const actual = await twitchApi.getChannels(['141981764']);
     expect(Array.isArray(actual)).toBe(true);
     expect(actual).toEqual(fixtures.channels.data);
-    expect(actual[0].broadcaster_login).toBe('annemunition');
+    expect(actual[0].broadcaster_login).toBe('twitchdev');
   });
 });

@@ -1,13 +1,13 @@
 export const channels: TwitchChannelResponse = {
   data: [
     {
-      broadcaster_id: '51533859',
-      broadcaster_login: 'annemunition',
-      broadcaster_name: 'AnneMunition',
+      broadcaster_id: '141981764',
+      broadcaster_login: 'twitchdev',
+      broadcaster_name: 'TwitchDev',
       broadcaster_language: 'en',
-      game_id: '519103',
-      game_name: 'PowerWash Simulator',
-      title: 'i must clean // @AnneMunition',
+      game_id: '509670',
+      game_name: 'Science & Technology',
+      title: 'TwitchDev Monthly Update // May 6, 2021',
       delay: 0,
     },
   ],

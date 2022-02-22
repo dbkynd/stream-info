@@ -19,16 +19,14 @@ describe('getClips method', () => {
       },
     })
       .get('/helix/clips')
-      .query({ id: 'PlayfulBlindingTitanHassanChop-ffylHXuDrR_X5c_2' })
+      .query({ id: 'AwkwardHelplessSalamanderSwiftRage' })
       .reply(200, fixtures.clips);
 
     const actual = await twitchApi.getClips([
-      'PlayfulBlindingTitanHassanChop-ffylHXuDrR_X5c_2',
+      'AwkwardHelplessSalamanderSwiftRage',
     ]);
     expect(Array.isArray(actual)).toBe(true);
     expect(actual).toEqual(fixtures.clips.data);
-    expect(actual[0].id).toBe(
-      'PlayfulBlindingTitanHassanChop-ffylHXuDrR_X5c_2',
-    );
+    expect(actual[0].id).toBe('AwkwardHelplessSalamanderSwiftRage');
   });
 });
