@@ -2,6 +2,7 @@ import dayjs from 'dayjs';
 import { uptimeGracePeriod } from '../../config';
 import twitchApi from '../twitch_api';
 import lastGames from './last_games';
+import maxViewCount from './max_view_count';
 
 interface Status {
   isOnline?: boolean;
@@ -23,7 +24,9 @@ export default async () => {
   lastGames(stream).catch(() => {
     // Do Nothing
   });
-  // storeMaxViewCount(stream.viewer_count) // TODO
+  maxViewCount(stream.viewer_count).catch(() => {
+    // Do Nothing
+  });
 };
 
 function uptime(stream: TwitchStream | undefined): void {
