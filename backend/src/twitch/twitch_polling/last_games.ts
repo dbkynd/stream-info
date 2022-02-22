@@ -1,4 +1,4 @@
-import LastGameService from '../../database/lib/last_games';
+import LastGameService from '../../database/lib/last_game';
 
 export const gamesToNotSave = [
   'Gaming Talk Shows',

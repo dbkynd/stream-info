@@ -1,5 +1,5 @@
 import { gamesDelimiter, gamesNoGames, gamesTemplate } from '../../../config';
-import LastGameService from '../../../database/lib/last_games';
+import LastGameService from '../../../database/lib/last_game';
 import {
   gamesToNotSave,
   mutateName,

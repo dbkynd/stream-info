@@ -1,4 +1,4 @@
-import LastGame, { LastGameDoc } from './last_games_model';
+import LastGame, { LastGameDoc } from './last_game_model';
 
 async function list(): Promise<LastGameDoc[]> {
   return LastGame.find({}).sort({ _id: -1 });
