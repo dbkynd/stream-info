@@ -1,12 +1,11 @@
-import dayjs, { Dayjs } from 'dayjs';
-import duration from 'dayjs/plugin/duration';
+import dayjs from 'dayjs';
 import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
+import moment, { Moment } from 'moment-timezone';
 import ArchiveVideoService from '../../../database/lib/archived_videos';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
-dayjs.extend(duration);
 
 export default async (): Promise<{
   thisQuarter: number;
@@ -21,14 +20,13 @@ export default async (): Promise<{
 };
 
 export function determineTimeRage() {
-  const startOfQuarter = qMonths(dayjs().tz('America/Los_Angeles')).startOf(
-    'month',
-  );
-  const endOfQuarter = dayjs(startOfQuarter).add(2, 'months').endOf('month');
-  const startOfLastQuarter = dayjs(startOfQuarter)
+  const now = moment().tz('America/Los_Angeles');
+  const startOfQuarter = qMonths(now.startOf('month'));
+  const endOfQuarter = moment(startOfQuarter).add(2, 'months').endOf('month');
+  const startOfLastQuarter = moment(startOfQuarter)
     .subtract(3, 'months')
     .startOf('month');
-  const endOfLastQuarter = dayjs(endOfQuarter)
+  const endOfLastQuarter = moment(endOfQuarter)
     .subtract(3, 'months')
     .endOf('month');
   return {
@@ -39,19 +37,22 @@ export function determineTimeRage() {
   };
 }
 
-function qMonths(date: Dayjs): Dayjs {
+export function qMonths(date: any) {
   const month = date.month() + 1;
-  if (month % 3 !== 0) {
-    qMonths(date.subtract(1, 'month'));
+  let sub = 0;
+  while ((month - sub) % 3 !== 0) {
+    sub++;
   }
-  return date;
+  return date.subtract(sub, 'month');
 }
 
-async function getHours(start: Dayjs, end: Dayjs): Promise<number> {
-  const videos = await ArchiveVideoService.getInRange(start, end);
+export async function getHours(start: Moment, end: Moment): Promise<number> {
+  const videos = await ArchiveVideoService.getInRange(
+    start.toISOString(),
+    end.toISOString(),
+  );
   const sum = videos.reduce((prev, next) => {
     return prev + next.length;
   }, 0);
-  const duration = dayjs.duration(sum, 'seconds');
-  return Math.round(duration.asHours());
+  return Math.round(sum / 60 / 60);
 }

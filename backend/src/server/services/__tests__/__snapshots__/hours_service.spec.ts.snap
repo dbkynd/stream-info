@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`hoursStreamed module determineTimeRage method dates matches snapshot 1`] = `
+Object {
+  "endOfLastQ4": "Sat Nov 30 2019 23:59:59 GMT-0800",
+  "endOfNextQ1": "Sun Feb 28 2021 23:59:59 GMT-0800",
+  "endOfQ1": "Sat Feb 29 2020 23:59:59 GMT-0800",
+  "endOfQ2": "Sun May 31 2020 23:59:59 GMT-0700",
+  "endOfQ3": "Mon Aug 31 2020 23:59:59 GMT-0700",
+  "endOfQ4": "Mon Nov 30 2020 23:59:59 GMT-0800",
+  "middleOfNextQ1": "Fri Jan 15 2021 00:00:00 GMT-0800",
+  "middleOfQ1": "Wed Jan 15 2020 00:00:00 GMT-0800",
+  "middleOfQ2": "Wed Apr 15 2020 00:00:00 GMT-0700",
+  "middleOfQ3": "Wed Jul 15 2020 00:00:00 GMT-0700",
+  "middleOfQ4": "Thu Oct 15 2020 00:00:00 GMT-0700",
+  "startOfLastQ4": "Sun Sep 01 2019 00:00:00 GMT-0700",
+  "startOfNextQ1": "Tue Dec 01 2020 00:00:00 GMT-0800",
+  "startOfQ1": "Sun Dec 01 2019 00:00:00 GMT-0800",
+  "startOfQ2": "Sun Mar 01 2020 00:00:00 GMT-0800",
+  "startOfQ3": "Mon Jun 01 2020 00:00:00 GMT-0700",
+  "startOfQ4": "Tue Sep 01 2020 00:00:00 GMT-0700",
+}
+`;

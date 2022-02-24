@@ -1,4 +1,3 @@
-import { Dayjs } from 'dayjs';
 import ArchiveVideo, {
   ArchiveVideoBulkUpdate,
   ArchiveVideoDoc,
@@ -30,8 +29,8 @@ async function bulkUpdate(ops: ArchiveVideoBulkUpdate[]): Promise<void> {
 }
 
 async function getInRange(
-  start: Dayjs,
-  end: Dayjs,
+  start: string,
+  end: string,
 ): Promise<ArchiveVideoDoc[]> {
   return ArchiveVideo.find({
     createdAt: { $gte: start, $lte: end },
