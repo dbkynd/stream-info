@@ -11,4 +11,4 @@ export const songNotPlaying = 'No song is currently playing.';
 
 export const gamesTemplate = 'The last played games are: <GAMES>';
 export const gamesDelimiter = ' | ';
-export const gamesNoGames = 'There are no currently saved games.';
+export const gamesNoGames = 'No games have been saved.';
