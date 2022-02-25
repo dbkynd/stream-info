@@ -6,6 +6,7 @@ const router = Router();
 router.get('/live', (req, res, next) => {
   try {
     const response = getLiveSubs();
+    res.setHeader('Access-Control-Allow-Origin', '*');
     res.status(200).json(response);
   } catch (e) {
     next(e);
