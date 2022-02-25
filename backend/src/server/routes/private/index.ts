@@ -73,4 +73,12 @@ router.get('/hours', async (req, res, next) => {
   }
 });
 
+router.post('/restart', (req, res, next) => {
+  if (req.user === '51533859') {
+    // TODO
+    res.sendStatus(204);
+    process.exit(0);
+  }
+});
+
 export default router;
