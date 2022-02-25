@@ -122,7 +122,7 @@ describe('chatBot routes module', () => {
   describe('GET /whatnow', () => {
     test('200 - OK', (done) => {
       jest.spyOn(WhatnowService, 'default').mockImplementationOnce(() => {
-        return 'Whatnow response';
+        return Promise.resolve('Whatnow response');
       });
       req.get('/whatnow').expect(200, 'Whatnow response', done);
     });
