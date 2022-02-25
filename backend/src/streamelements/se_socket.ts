@@ -5,6 +5,7 @@ import events from '../events';
 import logger from '../logger';
 
 let socket: typeof Socket;
+let channelId: string;
 
 export function connect(): void {
   socket = io('https://realtime.streamelements.com', {
@@ -19,9 +20,8 @@ export function connect(): void {
   });
 
   socket.on('authenticated', async (data: SE_WS_AuthData) => {
-    const { channelId } = data;
+    channelId = data.channelId;
     logger.info(`Connected to StreamElements channel ${channelId}`);
-    // todo store channel is
     events.state.updateAppState({ seWs: true });
   });
 
@@ -42,4 +42,8 @@ export function connect(): void {
 
 export function disconnect(): void {
   if (socket) socket.close();
+}
+
+export function getChannelId(): string {
+  return channelId;
 }
