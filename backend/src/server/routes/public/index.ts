@@ -3,11 +3,13 @@ import * as MultiService from '../../services/multi/multi_service';
 import StatsService from '../../services/stats/stats_service';
 import authRoutes from './auth';
 import chatBotRoutes from './chat_bot';
+import liveSubsRoutes from './live_subs';
 
 const router = express.Router();
 
 router.use('/auth', authRoutes);
 router.use('/chat', chatBotRoutes);
+router.use(liveSubsRoutes);
 
 router.get('/stats', (req, res, next) => {
   try {
