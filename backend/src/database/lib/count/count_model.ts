@@ -6,7 +6,7 @@ const schema = new Schema({
 });
 
 export interface CountDoc extends Document {
-  name: string;
+  name: 'viewerCount' | 'liveSubs';
   count: number;
 }
 

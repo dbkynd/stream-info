@@ -81,9 +81,9 @@ router.get('/uptime', (req, res, next) => {
 });
 
 // $(customapi.BASE_URL/chat/whatnow)
-router.get('/whatnow', (req, res, next) => {
+router.get('/whatnow', async (req, res, next) => {
   try {
-    const response = WhatNowService();
+    const response = await WhatNowService();
     res.status(200).send(response);
   } catch (e) {
     next(e);

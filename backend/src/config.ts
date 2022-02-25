@@ -12,3 +12,7 @@ export const songNotPlaying = 'No song is currently playing.';
 export const gamesTemplate = 'The last played games are: <GAMES>';
 export const gamesDelimiter = ' | ';
 export const gamesNoGames = 'No games have been saved.';
+
+export const whatnowResponse =
+  "<COUNT> of Anne's subscribers are currently live. Find out who at: https://annemunition.tv/armory <RECORD>";
+export const whatnowRecord = 'NEW RECORD! PogChamp';
