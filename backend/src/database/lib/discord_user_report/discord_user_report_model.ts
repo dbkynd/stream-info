@@ -7,6 +7,7 @@ const schema = new Schema({
   message: String,
   discordMessageId: String,
   id: Number,
+  createdAt: { type: Date, default: Date.now() },
 });
 
 schema.pre('save', function (next) {
@@ -24,6 +25,7 @@ export interface DiscordUserReportDoc extends Document {
   message: string;
   discordMessageId: string;
   id: number;
+  createdAt: Date;
 }
 
 export default model<DiscordUserReportDoc>('discord_user_reports', schema);
