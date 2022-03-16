@@ -6,9 +6,7 @@ import logger from '../logger';
 let io: Server;
 
 export default function (server: http.Server) {
-  io = new Server(server, {
-    path: '/ws/socket.io',
-  });
+  io = new Server(server);
 
   io.on('connection', (socket) => {
     logger.info('SOCKET CONNECTED');

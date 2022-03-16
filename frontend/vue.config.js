@@ -12,7 +12,7 @@ module.exports = {
         target: 'http://localhost:3000',
         changeOrigin: true,
       },
-      '^/ws': {
+      '^/socket.io/': {
         target: 'http://localhost:3000',
         changeOrigin: true,
         ws: true,

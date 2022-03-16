@@ -6,7 +6,7 @@ let socket;
 
 export function connect() {
   if (socket) return;
-  socket = io({ path: '/ws/socket.io' });
+  socket = io();
   new VueSocketIO({
     debug: false,
     connection: socket,
