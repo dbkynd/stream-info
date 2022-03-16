@@ -1,5 +1,5 @@
 <template>
-  <v-footer fixed padless bottom width="100%" :class="{expanded: expanded}" @mouseleave="expanded = false">
+  <v-footer fixed padless bottom width="100%" :class="{expanded: expanded}" @mouseleave="mouseleave" @mouseenter="mouseenter">
     <v-row>
       <v-col cols="5" class="left">
         LEFT
@@ -34,6 +34,7 @@ export default {
     return {
       height: '3rem',
       expanded: false,
+      closeTimer: null,
     }
   },
   methods: {
@@ -43,6 +44,17 @@ export default {
     clearAll() {
       api.post('/clear/all').catch();
       this.$store.dispatch('clearAll');
+    },
+    mouseleave() {
+      this.closeTimer = setTimeout(() => {
+        this.close();
+      }, 500)
+    },
+    close() {
+      this.expanded = false
+    },
+    mouseenter() {
+      if (this.closeTimer) clearTimeout(this.closeTimer);
     }
   }
 }
