@@ -4,7 +4,16 @@ import logger from '../logger';
 
 let queue: { [key: string]: string } = {};
 
-setInterval(flush, 1000 * 60 * 5);
+let timer: NodeJS.Timer | undefined;
+
+function start() {
+  timer = setInterval(flush, 1000 * 60 * 5);
+}
+
+function stop() {
+  if (timer) clearInterval(timer);
+  timer = undefined;
+}
 
 function add(userstate: CommonUserstate, message: string): void {
   const { emotes } = userstate;
@@ -42,4 +51,6 @@ async function get(words: string[]): Promise<MyEmotes> {
 export default {
   add,
   get,
+  start,
+  stop,
 };

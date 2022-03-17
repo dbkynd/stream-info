@@ -1,5 +1,6 @@
 import * as database from './database';
 import * as emotes from './emotes';
+import twitchEmoteTimer from './emotes/twitch';
 import logger from './logger';
 import * as server from './server';
 import * as streamelements from './streamelements/se_socket';
@@ -12,6 +13,7 @@ export async function start(): Promise<void> {
   await token.validate();
   await database.connect();
   await emotes.init();
+  twitchEmoteTimer.start();
   streamelements.connect();
   await twitchIrc.connect();
   server.start();
@@ -24,6 +26,7 @@ export async function stop(): Promise<void> {
     server.stop,
     twitchIrc.disconnect,
     streamelements.disconnect,
+    twitchEmoteTimer.stop,
     database.disconnect,
   ];
 
