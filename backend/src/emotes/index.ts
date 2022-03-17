@@ -23,6 +23,8 @@ export async function init() {
   } catch (e) {}
 }
 
+const emotesToSkip = ['Hey', 'Happy'];
+
 export async function parseMessage(
   msg: string | undefined,
 ): Promise<ParsedEmotes> {
@@ -37,6 +39,8 @@ export async function parseMessage(
   const twitchCachedEmoteData = await twitchEmotes.get(words);
 
   words.forEach((word) => {
+    if (emotesToSkip.includes(word)) return;
+
     const ffzWord = ffzEmoteData[word];
     const bttvWord = bttvEmoteData[word];
     const twitchWord = twitchCachedEmoteData[word];
