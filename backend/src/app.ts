@@ -1,4 +1,5 @@
 import * as database from './database';
+import * as emotes from './emotes';
 import logger from './logger';
 import * as server from './server';
 import * as streamelements from './streamelements/se_socket';
@@ -10,6 +11,7 @@ export async function start(): Promise<void> {
   logger.info('Validating token');
   await token.validate();
   await database.connect();
+  await emotes.init();
   streamelements.connect();
   await twitchIrc.connect();
   server.start();

@@ -1,5 +1,6 @@
 import getArchivedVideosByUser from './endpoints/getArchivedVideosByUser';
 import getChannels from './endpoints/getChannels';
+import getCheermotes from './endpoints/getCheermotes';
 import getClips from './endpoints/getClips';
 import getStreams from './endpoints/getStreams';
 import getSubscriptions from './endpoints/getSubscriptions';
@@ -13,6 +14,7 @@ export default {
   getArchivedVideosByUser,
   getChannels,
   getClips,
+  getCheermotes,
   // getGames,
   // getModerators,
   getStreams,

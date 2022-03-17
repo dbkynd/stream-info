@@ -1,5 +1,6 @@
 import tmi from 'tmi.js';
 import CheerService from '../database/lib/cheer';
+import * as emotes from '../emotes';
 import logger from '../logger';
 import * as io from '../server/socket.io';
 
@@ -13,6 +14,7 @@ export default async (
   const payload: CheerPayload = {
     userstate,
     message,
+    emotes: await emotes.parseMessage(message),
   };
 
   // Emit to client regardless if successful database save

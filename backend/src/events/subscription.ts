@@ -1,5 +1,6 @@
 import tmi from 'tmi.js';
 import SubscriptionService from '../database/lib/subscription';
+import * as emotes from '../emotes';
 import logger from '../logger';
 import * as io from '../server/socket.io';
 
@@ -26,13 +27,13 @@ function isDuplicate(userstate: SubUserstates): boolean {
 export function newSub(userstate: tmi.SubUserstate): void {
   if (isDuplicate(userstate)) return;
   logger.debug('new subscription');
-  process(userstate);
+  process(userstate).then();
 }
 
 export function resub(userstate: tmi.SubUserstate, message?: string): void {
   if (isDuplicate(userstate)) return;
   logger.debug('new resub');
-  process(userstate, message);
+  process(userstate, message).then();
 }
 
 export function subgift(userstate: tmi.SubGiftUserstate): void {
@@ -49,7 +50,7 @@ export function subgift(userstate: tmi.SubGiftUserstate): void {
     }
   } else {
     // Process single subgift if not a mass gift
-    process(userstate);
+    process(userstate).then();
   }
 }
 
@@ -70,20 +71,21 @@ export function submysterygift(
     }, 5000 + numOfSubs * 250),
     save: () => {
       if (massGifts[id].timeout) clearTimeout(massGifts[id].timeout);
-      process(userstate, undefined, massGifts[id].recipients);
+      process(userstate, undefined, massGifts[id].recipients).then();
     },
   };
 }
 
-function process(
+async function process(
   userstate: SubUserstates,
   message?: string,
   recipients?: tmi.SubGiftUserstate[],
-): void {
+): Promise<void> {
   const payload: SubscriptionPayload = {
     userstate,
     message,
     recipients,
+    emotes: await emotes.parseMessage(message),
   };
 
   // Emit to client regardless if successful database save

@@ -153,3 +153,42 @@ interface MutedSegments {
   duration: number;
   offset: number;
 }
+
+interface TwitchCheermoteResponse {
+  data: Cheermote[];
+}
+
+interface Cheermote {
+  prefix: string;
+  tiers: [
+    {
+      min_bits: number;
+      id: string;
+      color: string;
+      images: {
+        dark: {
+          animated: CheermoteImages;
+          static: CheermoteImages;
+        };
+        light: {
+          animated: CheermoteImages;
+          static: CheermoteImages;
+        };
+      };
+      can_cheer: boolean;
+      show_in_bits_card: boolean;
+    },
+  ];
+  type: string;
+  order: number;
+  last_updated: string;
+  is_charitable: boolean;
+}
+
+interface CheermoteImages {
+  '1': string;
+  '1.5': string;
+  '2': string;
+  '3': string;
+  '4': string;
+}

@@ -1,11 +1,13 @@
 import TipService from '../database/lib/tip';
+import * as emotes from '../emotes';
 import logger from '../logger';
 import * as io from '../server/socket.io';
 
-export default (event: SE_WS_Event): void => {
+export default async (event: SE_WS_Event): Promise<void> => {
   logger.debug('new tip');
 
   const payload: TipPayload = event.data as TipPayload; // TODO refine types
+  payload.emotes = await emotes.parseMessage(event.data.message);
 
   // Emit to client regardless if successful database save
   const tipDoc = TipService.create(payload, event.createdAt);
