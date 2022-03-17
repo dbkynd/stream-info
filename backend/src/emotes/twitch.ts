@@ -40,7 +40,8 @@ async function get(words: string[]): Promise<MyEmotes> {
   results.forEach((emoticon) => {
     if (!emotes[emoticon.code]) {
       emotes[emoticon.code] = {
-        static: `http://static-cdn.jtvnw.net/emoticons/v1/${emoticon.id}/1.0`,
+        static: `https://static-cdn.jtvnw.net/emoticons/v1/${emoticon.id}/2.0`,
+        animated: `https://static-cdn.jtvnw.net/emoticons/v2/${emoticon.id}/default/dark/2.0`,
         source: 'twitch',
       };
     }

@@ -12,8 +12,11 @@ async function fetch(): Promise<void> {
     const set = roomInfo.sets[key];
     set.emoticons.forEach((emoticon) => {
       if (!emotes[emoticon.name]) {
+        const size1 = emoticon.urls['1'];
+        const size2 = emoticon.urls['2'];
+        const url = size2 || size1;
         emotes[emoticon.name] = {
-          static: `https:${emoticon.urls['1']}`,
+          static: `https:${url}`,
           source: 'ffz',
         };
       }
