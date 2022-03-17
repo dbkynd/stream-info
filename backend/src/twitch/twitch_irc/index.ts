@@ -3,7 +3,7 @@ import events from '../../events';
 import logger from '../../logger';
 import messageHandler from './message_handler';
 
-const channel = 'dbkynd'; // todo
+const channel = 'annemunition'; // todo
 
 // https://tmijs.com/
 
@@ -21,7 +21,9 @@ const client = new tmi.Client({
 
 export async function connect(): Promise<void> {
   await client.connect();
-  logger.info(`Connected to Twitch IRC as ${client.getUsername()}`);
+  logger.info(
+    `Connected to Twitch channel: ${channel} as: ${client.getUsername()}`,
+  );
 }
 
 export async function disconnect(): Promise<void> {
