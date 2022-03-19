@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="column_container">
     <div class="column">
       <div>
         <SubEvent
@@ -64,10 +64,12 @@ const idle = new IdleJs({
   events: ['mousemove', 'keydown', 'mousedown', 'touchstart'],
   onIdle: function () {
     console.log('scrolling')
-    const e = document.getElementById('container')
+    const e = document.getElementById('column_container')
     if (!e) return
     for (let i = 0; i < e.children.length; i++) {
-      e.children[i].scrollTo(0, 0)
+      if (e.children[i].classList.contains('column')) {
+        e.children[i].scrollTo(0, 0)
+      }
     }
   },
   keepTracking: true,
