@@ -21,7 +21,7 @@ passport.use(
       if (!allowedIds.includes(profile.id))
         return done(null, false, { message: 'Not allowed.' });
       try {
-        const user = await UserService.update(profile);
+        const user = await UserService.updateProfile(profile);
         done(null, user.twitchId);
       } catch (e) {
         done(e, false);

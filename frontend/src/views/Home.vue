@@ -2,6 +2,17 @@
   <div id="column_container">
     <div class="column">
       <div>
+        <Tip
+          v-for="tip in tips"
+          :key="tip._id"
+          :class="{uncleared: !tip.cleared}"
+          :data="tip"
+          @click="clear('tips', tip)"
+        />
+      </div>
+    </div>
+    <div class="column">
+      <div>
         <SubEvent
           v-for="subscription in subscriptions"
           :key="subscription._id"
@@ -19,17 +30,6 @@
           :class="{uncleared: !cheer.cleared}"
           :data="cheer"
           @click="clear('cheers', cheer)"
-        />
-      </div>
-    </div>
-    <div class="column">
-      <div>
-        <Tip
-          v-for="tip in tips"
-          :key="tip._id"
-          :class="{uncleared: !tip.cleared}"
-          :data="tip"
-          @click="clear('tips', tip)"
         />
       </div>
     </div>
@@ -93,7 +93,12 @@ export default {
   created() {
     api.get('/user').then(() => {
       socket.connect()
-    }).catch(() => {
+    }).then(() => {
+      api.get('/user/settings').then(({data}) => {
+        this.$store.commit('setSettings', data);
+      })
+    })
+      .catch(() => {
       window.location.href = '/api/auth/login';
     })
   },
@@ -192,5 +197,11 @@ export default {
   width: 100%;
   height: 50%;
   background: -webkit-linear-gradient(top, rgba(20, 20, 20, 0) 0%, rgba(20, 20, 20, 1) 100%);
+}
+
+.glow {
+  text-shadow:
+    0 0 3px #000000,
+    0 0 7px #f9d71a
 }
 </style>

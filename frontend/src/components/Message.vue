@@ -7,6 +7,9 @@ export default {
   name: "EmoteMessage",
   props: ['payload'],
   computed: {
+    animated() {
+      return this.$store.state.settings.animated;
+    },
     parsedMessage() {
       const { message, emotes } = this.payload;
       if (!emotes) return message;
@@ -41,7 +44,8 @@ export default {
             }),
           );
           const p = e.pos[i];
-          const img = `<img class="emoticon" src="${e.static}" alt="${e.name}" title="${e.name}"/>`;
+          const src = this.animated && e.animated ? e.animated : e.static;
+          const img = `<img class="emoticon" src="${src}" alt="${e.name}" title="${e.name}"/>`;
           m.splice(p.first, p.last - p.first + 1, img);
         });
 

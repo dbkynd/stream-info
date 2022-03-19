@@ -4,7 +4,7 @@
       <span class="name">
         {{ data.payload.userstate['display-name'] }}
       </span>
-      <span class="amount" :class="{shadow: months === newSubText || isYear}">
+      <span class="amount" :class="{glow: glow && months === newSubText || isYear}">
         {{ months }}
       </span>
       <span v-show="months !== newSubText">
@@ -14,10 +14,6 @@
 
     <div class="message">
       <SubMessage :payload="data.payload"/>
-    </div>
-
-    <div class="cardFooter">
-      <v-img v-show="isYear" class="cake" src="@/assets/cake.svg" alt="" :title="years" />
     </div>
   </div>
 </template>
@@ -47,18 +43,15 @@ export default {
     },
     years() {
       return this.months / 12 + ' years!'
+    },
+    glow() {
+      return this.$store.state.settings.glow;
     }
   },
 }
 </script>
 
 <style scoped>
-.shadow {
-  text-shadow:
-    0 0 3px #000000,
-    0 0 7px #f9d71a
-}
-
 .cake {
   height: 20px;
 }

@@ -4,6 +4,10 @@
     <Subscription v-if="!isGift" :data="data" />
     <Gift v-else-if="isGift" :data="data"/>
     <SubFooter :userstate="data.payload.userstate"/>
+
+    <div class="cardFooter">
+      <v-img v-show="isYear" class="cake" src="@/assets/cake.svg" alt="" :title="years" />
+    </div>
   </div>
 </template>
 

@@ -13,6 +13,7 @@ const store = createStore({
     hosts: [],
     subscriptions: [],
     tips: [],
+    settings: {},
   },
   getters: {
     cheers(state) {
@@ -108,6 +109,9 @@ const store = createStore({
       );
       uncleared.forEach((x) => (x.cleared = true));
     },
+    setSettings(state, payload) {
+      this.state.settings = Object.assign({}, state.settings, payload);
+    },
   },
   actions: {
     SOCKET_state({ commit }, payload) {
@@ -117,6 +121,11 @@ const store = createStore({
     getLists({ commit }) {
       api.get('/lists').then(({ data }) => {
         commit('setLists', data);
+      });
+    },
+    updateSettings({ commit }, payload) {
+      api.put('/user/settings', { settings: payload }).then(() => {
+        commit('setSettings', payload);
       });
     },
   },
