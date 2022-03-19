@@ -44,6 +44,7 @@
         />
       </div>
     </div>
+    <div class="gradient"></div>
     <Footer />
   </div>
 </template>
@@ -180,5 +181,16 @@ export default {
 
 .cardFooter {
   height: 13px;
+}
+
+.gradient {
+  pointer-events: none;
+  position: absolute;
+  z-index: 2;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background: -webkit-linear-gradient(top, rgba(20, 20, 20, 0) 0%, rgba(20, 20, 20, 1) 100%);
 }
 </style>
