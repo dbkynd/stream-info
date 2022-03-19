@@ -1,11 +1,8 @@
 <template>
   <div class="notfound">
-    <h1>404</h1>
+    <h1>404 Not Found</h1>
     <div>
-      <v-img src="@/assets/notlikethis.png" alt="" />
-    </div>
-    <div>
-      There is nothing here.
+      <v-img src="@/assets/modCheck.gif" alt="" />
     </div>
   </div>
 </template>
@@ -25,6 +22,7 @@ export default {
 }
 
 .v-img {
+  margin-top: 1em;
   height: 250px;
 }
 </style>
