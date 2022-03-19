@@ -125,7 +125,3 @@ const store = createStore({
 });
 
 export default store;
-
-setInterval(() => {
-  // store.commit('updateTime');
-}, 10000);
