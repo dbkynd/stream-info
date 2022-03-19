@@ -1,8 +1,11 @@
 <template>
   <div class="status">
-    <div :class="{ enabled: status.clientWs }"/>
-    <div :class="{ enabled: status.twitchIrc }"/>
-    <div :class="{ enabled: status.seWs }"/>
+<!--    <div :class="{ enabled: status.clientWs }">Web Socket</div>
+    <div :class="{ enabled: status.twitchIrc }">StreamElements</div>
+    <div :class="{ enabled: status.seWs }">Twitch Chat</div>-->
+    <div :class="{ enabled: status.clientWs }"></div>
+    <div :class="{ enabled: status.twitchIrc }"></div>
+    <div :class="{ enabled: status.seWs }"></div>
   </div>
 </template>
 
@@ -18,14 +21,23 @@ export default {
 </script>
 
 <style scoped>
+.status {
+  width: 100%;
+  display: flex;
+  margin-left: 8px;
+}
+
 .status > div {
   background-color: red;
-  height: 20px;
-  width: 20px;
-  border-radius: 10px;
+  height: 16px;
+  width: 16px;
+  border-radius: 8px;
+  margin-right: 5px;
+  /*font-size: 11px;
+  padding: 2px 10px*/
 }
 
 .status > div.enabled {
-  background-color: green;
+  background-color: #19820e;
 }
 </style>
