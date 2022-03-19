@@ -1,38 +1,37 @@
 <template>
   <v-footer fixed padless bottom width="100%" :class="{expanded: expanded}" @mouseleave="mouseleave" @mouseenter="mouseenter">
-      <v-row v-if="!expanded" no-gutters>
-        <v-col cols="4">
-          <v-row no-gutters>
-            <Status />
-          </v-row>
-        </v-col>
-        <v-col cols-="4">
-          <v-row justify="center">
-            <div class="chevron" @click="expanded = !expanded">
-              <v-icon>mdi-chevron-up</v-icon>
-            </div>
-          </v-row>
-        </v-col>
-        <v-col cols="4">
-          <v-row no-gutters>
-            <v-spacer />
-            <Multi />
-          </v-row>
-        </v-col>
-      </v-row>
+    <v-row v-if="!expanded" no-gutters>
+      <v-col cols="4">
+        <v-row no-gutters>
+          <Status/>
+        </v-row>
+      </v-col>
+      <v-col cols-="4">
+        <v-row justify="center">
+          <div class="chevron" @click="expanded = !expanded">
+            <v-icon>mdi-chevron-up</v-icon>
+          </div>
+        </v-row>
+      </v-col>
+      <v-col cols="4">
+        <v-row no-gutters>
+          <v-spacer/>
+          <Multi/>
+        </v-row>
+      </v-col>
+    </v-row>
 
     <v-container v-else>
       <v-row>
-          <v-col cols="12">
-            <v-row>
-              <v-btn color="pink" @click="openSusFollowersPage" append-icon="mdi-open-in-new">Sus Follower Terms</v-btn>
-              <v-btn color="blue" @click="clearAll" append-icon="mdi-notification-clear-all">Clear All</v-btn>
-              <v-btn color="red" @click="logout" append-icon="mdi-logout">Logout</v-btn>
-            </v-row>
-          </v-col>
+        <v-btn color="pink" @click="openSusFollowersPage" append-icon="mdi-open-in-new">Sus Follower Terms</v-btn>
+        <v-btn color="blue" @click="clearAll" append-icon="mdi-notification-clear-all">Clear All</v-btn>
+        <v-btn color="red-darken-2" @click="logout" append-icon="mdi-logout">Logout</v-btn>
       </v-row>
       <v-row>
-        <Hours />
+        <Hours/>
+      </v-row>
+      <v-row>
+        <ChatToggles/>
       </v-row>
     </v-container>
   </v-footer>
@@ -40,9 +39,10 @@
 
 <script>
 import Hours from '@/components/Hours'
-import { api } from '@/plugins/axios'
+import {api} from '@/plugins/axios'
 import Status from '@/components/Status';
 import Multi from '@/components/Multi';
+import ChatToggles from '@/components/ChatToggles';
 
 export default {
   name: "Footer",
@@ -50,6 +50,7 @@ export default {
     Hours,
     Status,
     Multi,
+    ChatToggles,
   },
   data() {
     return {
@@ -91,6 +92,7 @@ export default {
   padding-right: 0;
   z-index: 3;
 }
+
 .chevron {
   cursor: pointer;
   position: absolute;
