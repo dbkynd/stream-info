@@ -33,7 +33,7 @@ async function fetch(): Promise<void> {
   emoticons = Object.assign(globalEmotes, channelEmotes);
 }
 
-function get() {
+function get(): MyEmotes {
   return emoticons;
 }
 

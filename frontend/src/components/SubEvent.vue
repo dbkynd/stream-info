@@ -6,7 +6,7 @@
     <SubFooter :userstate="data.payload.userstate"/>
 
     <div class="cardFooter">
-      <v-img v-show="isYear" class="cake" src="@/assets/cake.svg" alt="" :title="years" />
+<!--      <v-img v-show="isYear" class="cake" src="@/assets/cake.svg" alt="" :title="years" />-->
     </div>
   </div>
 </template>

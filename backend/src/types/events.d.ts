@@ -1,7 +1,7 @@
 interface CheerPayload {
   userstate: import('tmi').ChatUserstate;
   message: string;
-  emotes: ParsedEmotes;
+  emotes?: ParsedEmotes;
 }
 
 interface HostPayload {
@@ -18,7 +18,7 @@ interface TipPayload extends SE_WS_Data {
   providerId: 'twitch';
   displayName: string;
   currency: string;
-  emotes: ParsedEmotes;
+  emotes?: ParsedEmotes;
 }
 
 type SubUserstates =
@@ -30,5 +30,5 @@ interface SubscriptionPayload {
   userstate: SubUserstates;
   message?: string;
   recipients?: import('tmi').SubGiftUserstate[];
-  emotes: ParsedEmotes;
+  emotes?: ParsedEmotes;
 }

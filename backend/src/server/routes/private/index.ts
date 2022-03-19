@@ -4,6 +4,7 @@ import HostService from '../../../database/lib/host';
 import SubscriptionService from '../../../database/lib/subscription';
 import TipService from '../../../database/lib/tip';
 import UserService from '../../../database/lib/user';
+import * as emotes from '../../../emotes';
 import * as twitchIrc from '../../../twitch/twitch_irc';
 import ClearService from '../../services/clear/clear_service';
 import HoursService from '../../services/hours/hours_service';
@@ -43,12 +44,12 @@ router.put('/user/settings', async (req, res, next) => {
 
 router.get('/lists', async (req, res, next) => {
   try {
-    const payload = {
+    const payload = await emotes.parseBulkMessages({
       cheers: await CheerService.list(),
       hosts: await HostService.list(),
       subscriptions: await SubscriptionService.list(),
       tips: await TipService.list(),
-    };
+    });
     res.status(200).json(payload);
   } catch (e) {
     next(e);

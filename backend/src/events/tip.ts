@@ -7,10 +7,14 @@ export default async (event: SE_WS_Event): Promise<void> => {
   logger.debug('new tip');
 
   const payload: TipPayload = event.data as TipPayload; // TODO refine types
-  payload.emotes = await emotes.parseMessage(event.data.message);
 
   // Emit to client regardless if successful database save
   const tipDoc = TipService.create(payload, event.createdAt);
-  io.emit('tip', tipDoc);
-  TipService.save(tipDoc).catch();
+  io.emit('tip', {
+    ...tipDoc,
+    emotes: await emotes.parseTipMessage(event.data.message),
+  });
+  TipService.save(tipDoc).catch((err) => {
+    logger.error(err);
+  });
 };

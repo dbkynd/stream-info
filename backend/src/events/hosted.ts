@@ -25,5 +25,7 @@ export default async (payload: HostPayload): Promise<void> => {
   // Emit to client regardless if successful database save
   const hostDoc = HostService.create(payload);
   io.emit('host', hostDoc);
-  await HostService.save(hostDoc);
+  HostService.save(hostDoc).catch((err) => {
+    logger.error(err);
+  });
 };

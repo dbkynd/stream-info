@@ -21,6 +21,7 @@ function add(userstate: CommonUserstate, message: string): void {
   for (const id in emotes) {
     const i = emotes[id][0].split('-');
     const code = message.slice(parseInt(i[0]), parseInt(i[1]) + 1);
+    if (code.includes(' ')) continue;
     if (!queue[code]) {
       queue[code] = id;
     }

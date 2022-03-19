@@ -25,7 +25,7 @@ async function fetch(): Promise<void> {
   emoticons = emotes;
 }
 
-function get() {
+function get(): MyEmotes {
   return emoticons;
 }
 

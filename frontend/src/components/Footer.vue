@@ -74,7 +74,7 @@ export default {
   },
   data() {
     return {
-      expanded: true,
+      expanded: false,
       closeTimer: null,
     }
   },
@@ -92,7 +92,7 @@ export default {
       }, 500)
     },
     close() {
-      // this.expanded = false
+      this.expanded = false
     },
     mouseenter() {
       if (this.closeTimer) clearTimeout(this.closeTimer);

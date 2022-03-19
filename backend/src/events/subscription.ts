@@ -27,13 +27,13 @@ function isDuplicate(userstate: SubUserstates): boolean {
 export function newSub(userstate: tmi.SubUserstate): void {
   if (isDuplicate(userstate)) return;
   logger.debug('new subscription');
-  process(userstate).then();
+  process(userstate);
 }
 
 export function resub(userstate: tmi.SubUserstate, message?: string): void {
   if (isDuplicate(userstate)) return;
   logger.debug('new resub');
-  process(userstate, message).then();
+  process(userstate, message);
 }
 
 export function subgift(userstate: tmi.SubGiftUserstate): void {
@@ -50,7 +50,7 @@ export function subgift(userstate: tmi.SubGiftUserstate): void {
     }
   } else {
     // Process single subgift if not a mass gift
-    process(userstate).then();
+    process(userstate);
   }
 }
 
@@ -71,21 +71,20 @@ export function submysterygift(
     }, 5000 + numOfSubs * 250),
     save: () => {
       if (massGifts[id].timeout) clearTimeout(massGifts[id].timeout);
-      process(userstate, undefined, massGifts[id].recipients).then();
+      process(userstate, undefined, massGifts[id].recipients);
     },
   };
 }
 
-async function process(
+function process(
   userstate: SubUserstates,
   message?: string,
   recipients?: tmi.SubGiftUserstate[],
-): Promise<void> {
+): void {
   const payload: SubscriptionPayload = {
     userstate,
     message,
     recipients,
-    emotes: await emotes.parseMessage(message),
   };
 
   // Emit to client regardless if successful database save
@@ -93,6 +92,11 @@ async function process(
     payload,
     userstate['tmi-sent-ts'],
   );
-  io.emit('subscription', subscriptionDoc);
-  SubscriptionService.save(subscriptionDoc).catch();
+  io.emit('subscription', {
+    ...subscriptionDoc,
+    emotes: emotes.parseSubMessage(userstate, message),
+  });
+  SubscriptionService.save(subscriptionDoc).catch((err) => {
+    logger.error(err);
+  });
 }

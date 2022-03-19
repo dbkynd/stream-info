@@ -6,7 +6,7 @@ async function fetch(): Promise<void> {
   cheermotes = await twitchApi.getCheermotes();
 }
 
-function get() {
+function get(): Cheermote[] {
   return cheermotes;
 }
 
