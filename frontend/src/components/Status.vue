@@ -1,9 +1,6 @@
 <template>
     <div class="status_indicators">
-  <!--    <div :class="{ enabled: status.clientWs }">Web Socket</div>
-      <div :class="{ enabled: status.twitchIrc }">StreamElements</div>
-      <div :class="{ enabled: status.seWs }">Twitch Chat</div>-->
-      <v-card :class="{ enabled: status.clientWs }"></v-card>
+      <div :class="{ enabled: status.clientWs }"></div>
       <div :class="{ enabled: status.twitchIrc }"></div>
       <div :class="{ enabled: status.seWs }"></div>
     </div>
@@ -25,7 +22,7 @@ export default {
   display:flex;
   align-items:center;
   padding: 4px 0 4px;
-  margin-left: 4px;
+  margin-left: 8px;
 }
 
 .status_indicators > div {
@@ -37,6 +34,6 @@ export default {
 }
 
 .status_indicators > div.enabled {
-  background-color: #0f6809;
+  background-color: #3d7ba6;
 }
 </style>

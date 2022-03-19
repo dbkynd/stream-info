@@ -1,6 +1,5 @@
 <template>
   <v-footer fixed padless bottom width="100%" :class="{expanded: expanded}" @mouseleave="mouseleave" @mouseenter="mouseenter">
-
       <v-row v-if="!expanded" no-gutters>
         <v-col cols="4">
           <v-row no-gutters>
@@ -10,7 +9,7 @@
         <v-col cols-="4">
           <v-row justify="center">
             <div class="chevron" @click="expanded = !expanded">
-              <v-icon>mdi-chevron-double-up</v-icon>
+              <v-icon>mdi-chevron-up</v-icon>
             </div>
           </v-row>
         </v-col>
@@ -22,30 +21,25 @@
         </v-col>
       </v-row>
 
-<!--    <div v-if="!expanded">
-    </div>
-    <div v-else>
+    <v-container v-else>
       <v-row>
-        <v-col cols="5" class="left">
-          LEFT
-        </v-col>
-        <v-col cols="2" class="middle">
-
-        </v-col>
-        <v-col cols="5" class="right">
-          RIGHT
-        </v-col>
+          <v-col cols="12">
+            <v-row>
+              <v-btn color="pink" append-icon="mdi-open-in-new">Sus Follower Terms</v-btn>
+              <v-btn color="blue" @click="clearAll" append-icon="mdi-notification-clear-all">Clear All</v-btn>
+              <v-btn color="red" @click="logout" append-icon="mdi-logout">Logout</v-btn>
+            </v-row>
+          </v-col>
       </v-row>
       <v-row>
         <Hours />
-        <v-btn color="blue" @click="clearAll">Clear All</v-btn>
       </v-row>
-    </div>-->
+    </v-container>
   </v-footer>
 </template>
 
 <script>
-// import Hours from '@/components/Hours'
+import Hours from '@/components/Hours'
 import { api } from '@/plugins/axios'
 import Status from '@/components/Status';
 import Multi from '@/components/Multi';
@@ -53,13 +47,12 @@ import Multi from '@/components/Multi';
 export default {
   name: "Footer",
   components: {
-    // Hours,
+    Hours,
     Status,
     Multi,
   },
   data() {
     return {
-      height: '3rem',
       expanded: false,
       closeTimer: null,
     }
@@ -89,30 +82,16 @@ export default {
 
 <style scoped>
 .v-footer {
-  height: 2.0rem;
-  transition: height 0.15s ease-out;
   background: #232426;
   opacity: 0.95;
   padding-left: 0;
   padding-right: 0;
+  z-index: 3;
 }
-.v-footer.expanded {
-  height: 25rem;
-  transition: height 0.25s ease-in;
-}
-.left {
-  text-align: left;
-}
-.middle {
-  text-align: center;
-}
-.right {
-  text-align: right;
-}
-
 .chevron {
   cursor: pointer;
   position: absolute;
   top: 0;
 }
+
 </style>

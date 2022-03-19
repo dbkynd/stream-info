@@ -24,7 +24,7 @@ export default {
 .multi {
   cursor: pointer;
   background-color: #be53bc;
-  margin-right: 4px;
+  margin-right: 8px;
   padding: 2px 12px;
   border-radius: 5px;
   font-size: 12px;
