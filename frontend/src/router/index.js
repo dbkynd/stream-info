@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import Home from '../views/Home';
 import Unauthorized from '../views/Unauthorized';
 import Logout from '../views/Logout';
+import NotFound from '../views/NotFound';
 
 const routes = [
   {
@@ -18,6 +19,11 @@ const routes = [
     path: '/logout',
     name: 'Logout',
     component: Logout,
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'NotFound',
+    component: NotFound,
   },
 ];
 
