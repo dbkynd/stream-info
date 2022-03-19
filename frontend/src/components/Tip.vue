@@ -9,21 +9,21 @@
         ${{ data.payload.amount }}
       </span>
     </div>
-    <div class="message">
-      {{ data.payload.message }}
-    </div>
+    <Message :payload="data.payload" />
   </div>
 </template>
 
 <script>
 import Timestamp from "@/components/Timestamp";
 
+import Message from '@/components/Message';
+
 export default {
   name: "Tip",
   props: ['data'],
   components: {
-    Timestamp,
-  },
+    Timestamp, Message,
+  }
 }
 </script>
 

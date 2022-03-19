@@ -33,6 +33,8 @@ export default {
   font-size: 0.7rem;
   width: 100%;
   text-align: right;
-  margin-bottom: -6px;
+  margin-bottom: -5px;
+  position: relative;
+  left: 3px;
 }
 </style>

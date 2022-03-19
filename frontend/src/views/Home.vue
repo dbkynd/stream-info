@@ -126,7 +126,7 @@ export default {
   border-radius: 4px;
   margin-bottom: 5px;
   opacity: 0.85;
-  padding: 0 8px 12px;
+  padding: 0 8px 14px;
   cursor: default;
   position: relative;
 }
@@ -157,5 +157,12 @@ export default {
 .message, .host, .date {
   word-break: break-word;
   color: #aeb2b4;
+}
+
+.emoticon {
+  height: 28px;
+  position: relative;
+  top: 4px;
+  margin: -5px 1px;
 }
 </style>

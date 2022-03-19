@@ -1,18 +1,14 @@
 <template>
-  <div>
-    {{ parsedMessage }}
-  </div>
+  <Message :payload="payload" />
 </template>
 
 <script>
+import Message from '@/components/Message';
+
 export default {
   name: "TwitchMessage",
   props: ['payload'],
-  computed: {
-    parsedMessage() {
-      return this.payload.message;
-    }
-  }
+  components: { Message },
 }
 </script>
 

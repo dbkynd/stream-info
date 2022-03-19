@@ -9,20 +9,20 @@
           {{ data.payload.userstate['bits']}}
         </span>
       </div>
-      <div class="message">
-        {{ data.payload.message }}
-      </div>
+    <Message :payload="data.payload" />
   </div>
 </template>
 
 <script>
 import Timestamp from "@/components/Timestamp";
+import Message from '@/components/Message';
 
 export default {
   name: "Cheer",
   props: ['data'],
   components: {
     Timestamp,
+    Message,
   },
 }
 </script>
