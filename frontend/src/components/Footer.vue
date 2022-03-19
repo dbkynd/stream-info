@@ -42,8 +42,8 @@ export default {
       window.location.href = '/api/auth/logout';
     },
     clearAll() {
+      this.$store.commit('clearAll');
       api.post('/clear/all').catch();
-      this.$store.dispatch('clearAll');
     },
     mouseleave() {
       this.closeTimer = setTimeout(() => {

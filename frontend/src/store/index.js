@@ -95,6 +95,19 @@ const store = createStore({
       const doc = state[payload.name].find((x) => x._id === payload.id);
       if (doc) doc.cleared = true;
     },
+    clearAll(state) {
+      const unclearedCheers = state.cheers.filter((x) => !x.cleared);
+      const unclearedHosts = state.hosts.filter((x) => !x.cleared);
+      const unclearedSubs = state.subscriptions.filter((x) => !x.cleared);
+      const unclearedTips = state.tips.filter((x) => !x.cleared);
+      const uncleared = [].concat(
+        unclearedCheers,
+        unclearedHosts,
+        unclearedSubs,
+        unclearedTips,
+      );
+      uncleared.forEach((x) => (x.cleared = true));
+    },
   },
   actions: {
     SOCKET_state({ commit }, payload) {
