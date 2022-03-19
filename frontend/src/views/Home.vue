@@ -124,9 +124,9 @@ export default {
   background: #323436;
   border-left: 8px solid #3d7ba6;
   border-radius: 4px;
-  margin-bottom: 8px;
+  margin-bottom: 5px;
   opacity: 0.85;
-  padding: 0 8px 8px;
+  padding: 0 8px 12px;
   cursor: default;
   position: relative;
 }
@@ -151,9 +151,11 @@ export default {
 .name,
 .amount {
   font-size: 1.25rem;
+  word-break: keep-all;
 }
 
-.message {
-  color: #aeb2b4
+.message, .host, .date {
+  word-break: break-word;
+  color: #aeb2b4;
 }
 </style>

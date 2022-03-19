@@ -1,8 +1,7 @@
 <template>
-  <v-row class="date">
-    <v-spacer />
+  <div class="date">
     {{ dateFormatted }}
-  </v-row>
+  </div>
 </template>
 
 <script>
@@ -31,7 +30,9 @@ export default {
 
 <style scoped>
 .date {
-  font-size: 0.75rem;
-  margin-right: 0;
+  font-size: 0.7rem;
+  width: 100%;
+  text-align: right;
+  margin-bottom: -6px;
 }
 </style>

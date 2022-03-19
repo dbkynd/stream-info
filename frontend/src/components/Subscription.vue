@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <div>
       <span class="name">
         {{ data.payload.userstate['display-name'] }}
