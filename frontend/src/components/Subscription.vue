@@ -19,6 +19,7 @@
       <SubMessage :payload="data.payload"/>
     </div>
 
+    <div class="cardFooter"></div>
   </div>
 </template>
 

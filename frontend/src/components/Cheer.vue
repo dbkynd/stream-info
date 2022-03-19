@@ -10,6 +10,8 @@
         </span>
       </div>
     <Message :payload="data.payload" />
+
+    <div class="cardFooter"></div>
   </div>
 </template>
 

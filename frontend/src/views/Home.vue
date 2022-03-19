@@ -126,7 +126,7 @@ export default {
   border-radius: 4px;
   margin-bottom: 5px;
   opacity: 0.85;
-  padding: 0 8px 14px;
+  padding: 0 8px 0;
   cursor: default;
   position: relative;
 }
@@ -164,5 +164,9 @@ export default {
   position: relative;
   top: 4px;
   margin: -5px 1px;
+}
+
+.cardFooter {
+  height: 13px;
 }
 </style>

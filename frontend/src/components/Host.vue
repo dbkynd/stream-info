@@ -7,6 +7,7 @@
     <div class="game">
       {{ data.payload.game }}
     </div>
+    <div class="cardFooter"></div>
   </div>
 </template>
 
