@@ -25,7 +25,7 @@
       <v-row>
           <v-col cols="12">
             <v-row>
-              <v-btn color="pink" append-icon="mdi-open-in-new">Sus Follower Terms</v-btn>
+              <v-btn color="pink" @click="openSusFollowersPage" append-icon="mdi-open-in-new">Sus Follower Terms</v-btn>
               <v-btn color="blue" @click="clearAll" append-icon="mdi-notification-clear-all">Clear All</v-btn>
               <v-btn color="red" @click="logout" append-icon="mdi-logout">Logout</v-btn>
             </v-row>
@@ -75,6 +75,9 @@ export default {
     },
     mouseenter() {
       if (this.closeTimer) clearTimeout(this.closeTimer);
+    },
+    openSusFollowersPage() {
+      window.open('/terms', '_blank')
     }
   }
 }
