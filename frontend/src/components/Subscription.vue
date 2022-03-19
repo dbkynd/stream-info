@@ -4,7 +4,7 @@
       <span class="name">
         {{ data.payload.userstate['display-name'] }}
       </span>
-      <span class="amount" :class="{shadow: months === newSubText}">
+      <span class="amount" :class="{shadow: months === newSubText || isYear}">
         {{ months }}
       </span>
       <span v-show="months !== newSubText">
@@ -17,7 +17,7 @@
     </div>
 
     <div class="cardFooter">
-      <v-img v-show="isYear" class="cake" src="@/assets/cake.svg" alt="" />
+      <v-img v-show="isYear" class="cake" src="@/assets/cake.svg" alt="" :title="years" />
     </div>
   </div>
 </template>
@@ -44,6 +44,9 @@ export default {
     },
     isYear() {
       return this.months % 12 === 0
+    },
+    years() {
+      return this.months / 12 + ' years!'
     }
   },
 }

@@ -1,6 +1,8 @@
 <template>
-  <div class="date">
-    {{ dateFormatted }}
+  <div>
+    <div class="date" :title="this.date">
+      {{ dateFormatted }}
+    </div>
   </div>
 </template>
 

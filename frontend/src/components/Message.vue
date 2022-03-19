@@ -41,7 +41,7 @@ export default {
             }),
           );
           const p = e.pos[i];
-          const img = `<img class="emoticon" src="${e.static}" alt="${e.name}" />`;
+          const img = `<img class="emoticon" src="${e.static}" alt="${e.name}" title="${e.name}"/>`;
           m.splice(p.first, p.last - p.first + 1, img);
         });
 
