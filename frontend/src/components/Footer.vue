@@ -1,21 +1,26 @@
 <template>
   <v-footer fixed padless bottom width="100%" :class="{expanded: expanded}" @mouseleave="mouseleave" @mouseenter="mouseenter">
-    <v-row v-if="!expanded">
-      <v-col cols="4">
-        <Status />
-      </v-col>
-      <v-col cols-="4">
-        <v-row justify="center">
-          <div class="chevron" @click="expanded = !expanded">
-            <v-icon v-if="expanded">mdi-chevron-double-down</v-icon>
-            <v-icon v-else>mdi-chevron-double-up</v-icon>
-          </div>
-        </v-row>
-      </v-col>
-      <v-col cols="4">
 
-      </v-col>
-    </v-row>
+      <v-row v-if="!expanded" no-gutters>
+        <v-col cols="4">
+          <v-row no-gutters>
+            <Status />
+          </v-row>
+        </v-col>
+        <v-col cols-="4">
+          <v-row justify="center">
+            <div class="chevron" @click="expanded = !expanded">
+              <v-icon>mdi-chevron-double-up</v-icon>
+            </div>
+          </v-row>
+        </v-col>
+        <v-col cols="4">
+          <v-row no-gutters>
+            <v-spacer />
+            <Multi />
+          </v-row>
+        </v-col>
+      </v-row>
 
 <!--    <div v-if="!expanded">
     </div>
@@ -43,12 +48,14 @@
 // import Hours from '@/components/Hours'
 import { api } from '@/plugins/axios'
 import Status from '@/components/Status';
+import Multi from '@/components/Multi';
 
 export default {
   name: "Footer",
   components: {
     // Hours,
     Status,
+    Multi,
   },
   data() {
     return {

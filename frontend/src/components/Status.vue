@@ -1,12 +1,12 @@
 <template>
-  <div class="status">
-<!--    <div :class="{ enabled: status.clientWs }">Web Socket</div>
-    <div :class="{ enabled: status.twitchIrc }">StreamElements</div>
-    <div :class="{ enabled: status.seWs }">Twitch Chat</div>-->
-    <div :class="{ enabled: status.clientWs }"></div>
-    <div :class="{ enabled: status.twitchIrc }"></div>
-    <div :class="{ enabled: status.seWs }"></div>
-  </div>
+    <div class="status_indicators">
+  <!--    <div :class="{ enabled: status.clientWs }">Web Socket</div>
+      <div :class="{ enabled: status.twitchIrc }">StreamElements</div>
+      <div :class="{ enabled: status.seWs }">Twitch Chat</div>-->
+      <v-card :class="{ enabled: status.clientWs }"></v-card>
+      <div :class="{ enabled: status.twitchIrc }"></div>
+      <div :class="{ enabled: status.seWs }"></div>
+    </div>
 </template>
 
 <script>
@@ -21,23 +21,22 @@ export default {
 </script>
 
 <style scoped>
-.status {
-  width: 100%;
-  display: flex;
-  margin-left: 8px;
+.status_indicators {
+  display:flex;
+  align-items:center;
+  padding: 4px 0 4px;
+  margin-left: 4px;
 }
 
-.status > div {
-  background-color: red;
+.status_indicators > div {
+  background-color: #b31212;
   height: 16px;
   width: 16px;
   border-radius: 8px;
-  margin-right: 5px;
-  /*font-size: 11px;
-  padding: 2px 10px*/
+  margin-right: 6px;
 }
 
-.status > div.enabled {
-  background-color: #19820e;
+.status_indicators > div.enabled {
+  background-color: #0f6809;
 }
 </style>
