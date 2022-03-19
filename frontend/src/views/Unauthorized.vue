@@ -1,7 +1,7 @@
 <template>
   <div class="unauthorized">
     <div>
-      <img src="@/assets/biblethump.png" alt="">
+      <v-img src="@/assets/biblethump.png" alt="" />
     </div>
     <div>
       You are not authorized to view this page.
@@ -23,7 +23,7 @@ export default {
   margin-top: 5rem;
 }
 
-img {
+.v-img {
   height: 250px;
 }
 </style>

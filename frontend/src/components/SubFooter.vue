@@ -3,13 +3,13 @@
     <div class="icons">
       <div v-if="subPlan">
         <div v-if="subPlan === 'Prime'">
-          <img src="@/assets/prime.png" alt="">
+          <v-img src="@/assets/prime.png" alt="" />
         </div>
         <div v-else-if="subPlan === '2000'">
-          <img src="@/assets/silver_star.png" alt="">
+          <img src="@/assets/silver_star.png" alt="" />
         </div>
         <div v-else-if="subPlan === '3000'">
-          <img src="@/assets/gold_star.png" alt="">
+          <v-img src="@/assets/gold_star.png" alt="" />
         </div>
       </div>
     </div>

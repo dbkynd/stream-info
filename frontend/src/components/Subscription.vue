@@ -10,16 +10,15 @@
       <span v-show="months !== newSubText">
         months
       </span>
-      <span v-show="isYear" class="cake">
-        <img src="@/assets/cake.svg" alt="">
-      </span>
     </div>
 
     <div class="message">
       <SubMessage :payload="data.payload"/>
     </div>
 
-    <div class="cardFooter"></div>
+    <div class="cardFooter">
+      <v-img v-show="isYear" class="cake" src="@/assets/cake.svg" alt="" />
+    </div>
   </div>
 </template>
 
@@ -57,9 +56,7 @@ export default {
     0 0 7px #f9d71a
 }
 
-.cake img {
-  height: 18px;
-  position: relative;
-  top: 4px;
+.cake {
+  height: 20px;
 }
 </style>
