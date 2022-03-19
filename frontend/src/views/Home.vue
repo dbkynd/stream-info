@@ -110,23 +110,33 @@ export default {
   width: 25%;
   float: left;
   height: 100vh;
-  overflow-y: scroll;
   scrollbar-width: none;
+  overflow-y: scroll;
+  /*padding-top: 5px;*/
+  padding: 5px 8px 0 8px;
 }
 
 .column::-webkit-scrollbar {
   display: none;
 }
 
-.column > div {
-  margin: 0.5em 0.5em 0 0.5em ;
+.column:nth-of-type(1),
+.column:nth-of-type(2),
+.column:nth-of-type(3) {
+  padding-right: 4px;
+}
+
+.column:nth-of-type(2),
+.column:nth-of-type(3),
+.column:nth-of-type(4) {
+  padding-left: 4px;
 }
 
 .column > div > div {
   background: #323436;
   border-left: 8px solid #3d7ba6;
   border-radius: 4px;
-  margin-bottom: 5px;
+  margin-bottom: 6px;
   opacity: 0.85;
   padding: 0 8px 0;
   cursor: default;
