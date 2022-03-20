@@ -10,7 +10,7 @@ async function fetch(): Promise<void> {
   globalEmoteData.forEach((emoticon) => {
     if (!globalEmotes[emoticon.code]) {
       globalEmotes[emoticon.code] = {
-        static: `https://cdn.betterttv.net/emote/${emoticon.id}/2x`,
+        static: `https://cdn.betterttv.net/emote/${emoticon.id}/1x`,
         source: 'bttv',
       };
     }
@@ -24,7 +24,7 @@ async function fetch(): Promise<void> {
   channelEmoteData.channelEmotes.forEach((emoticon) => {
     if (!channelEmotes[emoticon.code]) {
       channelEmotes[emoticon.code] = {
-        static: `https://cdn.betterttv.net/emote/${emoticon.id}/2x`,
+        static: `https://cdn.betterttv.net/emote/${emoticon.id}/1x`,
         source: 'bttv',
       };
     }

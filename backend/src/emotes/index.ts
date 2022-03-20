@@ -113,8 +113,8 @@ function getTwitchMatches(
       if (code.includes(' ')) return;
       if (!parsedEmotes[code]) {
         parsedEmotes[code] = {
-          static: `https://static-cdn.jtvnw.net/emoticons/v1/${id}/2.0`,
-          animated: `https://static-cdn.jtvnw.net/emoticons/v2/${id}/default/dark/2.0`,
+          static: `https://static-cdn.jtvnw.net/emoticons/v2/${id}/static/dark/1.0`,
+          animated: `https://static-cdn.jtvnw.net/emoticons/v2/${id}/default/dark/1.0`,
           source: 'twitch',
           pos: [{ first: parseInt(i[0]), last: parseInt(i[1]) }],
         };
