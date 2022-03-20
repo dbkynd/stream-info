@@ -1,3 +1,4 @@
+import { recordsToFetchOnConnect } from '../../../config';
 import trim from '../trim';
 import Cheer, { CheerDoc } from './cheer_model';
 
@@ -13,7 +14,7 @@ async function save(doc: CheerDoc): Promise<void> {
 }
 
 async function list(): Promise<CheerDoc[]> {
-  return Cheer.find({}).sort({ _id: -1 }).limit(15);
+  return Cheer.find({}).sort({ _id: -1 }).limit(recordsToFetchOnConnect);
 }
 
 async function clear(id: string): Promise<void> {

@@ -1,3 +1,4 @@
+import { recordsToFetchOnConnect } from '../../../config';
 import trim from '../trim';
 import Subscription, { SubscriptionDoc } from './subscription_model';
 
@@ -16,7 +17,7 @@ async function save(doc: SubscriptionDoc): Promise<void> {
 }
 
 async function list(): Promise<SubscriptionDoc[]> {
-  return Subscription.find({}).sort({ _id: -1 }).limit(15);
+  return Subscription.find({}).sort({ _id: -1 }).limit(recordsToFetchOnConnect);
 }
 
 async function clear(id: string): Promise<void> {

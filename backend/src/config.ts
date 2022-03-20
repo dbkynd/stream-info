@@ -16,3 +16,5 @@ export const gamesNoGames = 'No games have been saved.';
 export const whatnowResponse =
   "<COUNT> of Anne's subscribers are currently live. Find out who at: https://annemunition.tv/armory <RECORD>";
 export const whatnowRecord = 'NEW RECORD! PogChamp';
+
+export const recordsToFetchOnConnect = 30;

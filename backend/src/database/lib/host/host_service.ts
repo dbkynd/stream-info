@@ -1,3 +1,4 @@
+import { recordsToFetchOnConnect } from '../../../config';
 import trim from '../trim';
 import Host, { HostDoc } from './host_model';
 
@@ -11,7 +12,7 @@ async function save(doc: HostDoc): Promise<void> {
 }
 
 async function list(): Promise<HostDoc[]> {
-  return Host.find({}).sort({ _id: -1 }).limit(15);
+  return Host.find({}).sort({ _id: -1 }).limit(recordsToFetchOnConnect);
 }
 
 async function clear(id: string): Promise<void> {
