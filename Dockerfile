@@ -1,4 +1,5 @@
 FROM node:16.13.2-alpine3.15 as base
+RUN apk add --no-cache graphicsmagick
 WORKDIR /app
 
 FROM base AS backend_prod_dependencies

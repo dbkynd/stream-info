@@ -10,6 +10,9 @@ export default {
     animated() {
       return this.$store.state.settings.animated;
     },
+    animatedCheer() {
+      return this.$store.state.settings.animatedCheer;
+    },
     parsedMessage() {
       const { message, emotes } = this.payload;
       if (!emotes) return message;
@@ -44,8 +47,16 @@ export default {
             }),
           );
           const p = e.pos[i];
-          const src = this.animated && e.animated ? e.animated : e.static;
-          const img = `<img crossorigin="anonymous" class="emoticon" src="${src}" alt="${e.name}" title="${message.slice(p.first, p.last + 1)}"/>`;
+          let src
+            if(e.source === 'cheermote') {
+              src= this.animatedCheer && e.animated ? e.animated : e.static;
+            } else {
+              src= this.animated && e.animated ? e.animated : e.static;
+            }
+          let img = `<img crossorigin class="emoticon" src="${src}" alt="${e.name}" title="${message.slice(p.first, p.last + 1)}"/>`;
+          if (e.source === 'bttv') {
+            img = `<img class="emoticon" src="${src}" alt="${e.name}" title="${message.slice(p.first, p.last + 1)}"/>`;
+          }
           m.splice(p.first, p.last - p.first + 1, img);
         });
 

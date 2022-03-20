@@ -10,11 +10,9 @@ export default async (event: SE_WS_Event): Promise<void> => {
 
   // Emit to client regardless if successful database save
   const tipDoc = TipService.create(payload, event.createdAt);
-  io.emit('tip', {
-    ...tipDoc,
-    emotes: await emotes.parseTipMessage(event.data.message),
-  });
   TipService.save(tipDoc).catch((err) => {
     logger.error(err);
   });
+  tipDoc.payload.emotes = await emotes.parseTipMessage(event.data.message);
+  io.emit('tip', tipDoc);
 };

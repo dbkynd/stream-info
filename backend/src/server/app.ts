@@ -2,6 +2,7 @@ import path from 'path';
 import express from 'express';
 import helmet from 'helmet';
 import morgan from 'morgan';
+import { emotesDir } from '../directories';
 import * as logger from '../logger';
 import passport from './passport';
 import Api from './routes';
@@ -23,6 +24,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use('/api', Api);
+
+app.use('/emotes', express.static(emotesDir));
 
 if (process.env.NODE_ENV === 'production') {
   const wwwDir = path.join(__dirname, '../../../frontend/dist');

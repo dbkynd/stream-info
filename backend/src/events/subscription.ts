@@ -92,11 +92,9 @@ function process(
     payload,
     userstate['tmi-sent-ts'],
   );
-  io.emit('subscription', {
-    ...subscriptionDoc,
-    emotes: emotes.parseSubMessage(userstate, message),
-  });
   SubscriptionService.save(subscriptionDoc).catch((err) => {
     logger.error(err);
   });
+  subscriptionDoc.payload.emotes = emotes.parseSubMessage(userstate, message);
+  io.emit('subscription', subscriptionDoc);
 }

@@ -14,6 +14,20 @@
       hide-details
       density="compact"
     />
+    <v-switch
+      v-model="animatedCheer"
+      label="Animated Cheermotes"
+      color="red"
+      hide-details
+      density="compact"
+    />
+    <v-switch
+      v-model="expandMassGiftRecipients"
+      label="Mass Gifts Expanded"
+      color="red"
+      hide-details
+      density="compact"
+    />
   </div>
 </template>
 
@@ -35,6 +49,22 @@ export default {
       },
       set(value) {
         this.$store.dispatch('updateSettings', { animated: value })
+      }
+    },
+    animatedCheer: {
+      get() {
+        return this.$store.state.settings.animatedCheer;
+      },
+      set(value) {
+        this.$store.dispatch('updateSettings', { animatedCheer: value })
+      }
+    },
+    expandMassGiftRecipients: {
+      get() {
+        return this.$store.state.settings.expandMassGiftRecipients;
+      },
+      set(value) {
+        this.$store.dispatch('updateSettings', { expandMassGiftRecipients: value })
       }
     }
   }

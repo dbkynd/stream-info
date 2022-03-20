@@ -15,11 +15,9 @@ export default (userstate: tmi.ChatUserstate, message: string): void => {
 
   // Emit to client regardless if successful database save
   const cheerDoc = CheerService.create(payload, userstate['tmi-sent-ts']);
-  io.emit('cheer', {
-    ...cheerDoc,
-    emotes: emotes.parseCheerMessage(userstate, message),
-  });
   CheerService.save(cheerDoc).catch((e) => {
     logger.error(e);
   });
+  cheerDoc.payload.emotes = emotes.parseCheerMessage(userstate, message);
+  io.emit('cheer', cheerDoc);
 };
