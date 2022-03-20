@@ -60,7 +60,7 @@ async function fetch(): Promise<void> {
   emoticons = emotes;
 }
 
-function savePNG(id: string, buffer: Buffer) {
+function savePNG(id: string, buffer: Buffer): Promise<void> {
   return new Promise((resolve, reject) => {
     const target = path.join(emotesDir, `${id}.png`);
     gm(buffer)
