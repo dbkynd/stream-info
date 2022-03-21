@@ -11,6 +11,7 @@ async function fetch(): Promise<void> {
   const globalEmoteData = await axios
     .get('https://api.betterttv.net/3/cached/emotes/global')
     .then(({ data }: { data: BTTVGlobalEmotes }) => data);
+
   const channelId = '51533859'; // TODO
   const channelEmoteData = await axios
     .get(`https://api.betterttv.net/3/cached/users/twitch/${channelId}`)

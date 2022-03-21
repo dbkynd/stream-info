@@ -33,19 +33,15 @@ const emotesToSkip = ['Hey', 'Happy'];
 
 function getMatches(words: string[], set: MyEmotes): ParsedEmotes {
   const emotes: ParsedEmotes = {};
-  let index = 0;
   words.forEach((word) => {
     if (word === ' ') return;
     if (emotesToSkip.includes(word)) return;
     const match = set[word];
     if (match) {
-      if (emotes[word]) {
-        emotes[word].pos.push(getPos(index, word));
-      } else {
-        emotes[word] = { ...match, pos: [getPos(index, word)] };
+      if (!emotes[word]) {
+        emotes[word] = { ...match };
       }
     }
-    index += word.length + 1;
   });
   return emotes;
 }
@@ -60,7 +56,6 @@ function getBttvMatches(words: string[]): ParsedEmotes {
 
 function getCheermoteMatches(words: string[]): ParsedEmotes {
   const emotes: ParsedEmotes = {};
-  let index = 0;
   const cheermoteData = cheermotes.get();
 
   words.forEach((word) => {
@@ -81,20 +76,16 @@ function getCheermoteMatches(words: string[]): ParsedEmotes {
           }
 
           const code = prefix + tier.id;
-          if (emotes[code]) {
-            emotes[code].pos.push(getPos(index, word));
-          } else {
+          if (!emotes[code]) {
             emotes[code] = {
               static: tier.images.dark.static['1'],
               animated: tier.images.dark.animated['1'],
               source: 'cheermote',
-              pos: [getPos(index, word)],
             };
           }
         }
       }
     }
-    index += word.length + 1;
   });
   return emotes;
 }
@@ -116,13 +107,7 @@ function getTwitchMatches(
           static: `https://static-cdn.jtvnw.net/emoticons/v2/${id}/static/dark/1.0`,
           animated: `https://static-cdn.jtvnw.net/emoticons/v2/${id}/default/dark/1.0`,
           source: 'twitch',
-          pos: [{ first: parseInt(i[0]), last: parseInt(i[1]) }],
         };
-      } else {
-        parsedEmotes[code].pos.push({
-          first: parseInt(i[0]),
-          last: parseInt(i[1]),
-        });
       }
     });
   }
@@ -164,10 +149,6 @@ export async function parseTipMessage(
   const bttv = getBttvMatches(words);
   const twitch = getMatches(words, set ? set : await twitchEmotes.get(words));
   return Object.assign(ffz, bttv, twitch);
-}
-
-function getPos(index: number, word: string): { first: number; last: number } {
-  return { first: index, last: index + word.length - 1 };
 }
 
 export async function parseBulkMessages(payload: {

@@ -11,7 +11,6 @@ type ParsedEmotes = {
     static: string;
     animated?: string;
     source: 'ffz' | 'bttv' | 'twitch' | 'cheermote';
-    pos: { first: number; last: number }[];
   };
 };
 

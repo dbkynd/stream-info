@@ -85,6 +85,7 @@ function process(
     userstate,
     message,
     recipients,
+    emotes: emotes.parseSubMessage(userstate, message),
   };
 
   // Emit to client regardless if successful database save
@@ -92,9 +93,8 @@ function process(
     payload,
     userstate['tmi-sent-ts'],
   );
+  io.emit('subscription', subscriptionDoc);
   SubscriptionService.save(subscriptionDoc).catch((err) => {
     logger.error(err);
   });
-  subscriptionDoc.payload.emotes = emotes.parseSubMessage(userstate, message);
-  io.emit('subscription', subscriptionDoc);
 }
