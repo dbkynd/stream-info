@@ -1,6 +1,6 @@
 import path from 'path';
 import express from 'express';
-import helmet from 'helmet';
+// import helmet from 'helmet';
 import morgan from 'morgan';
 import { emotesDir } from '../directories';
 import * as logger from '../logger';
@@ -10,11 +10,11 @@ import sessionStore from './sessionStore';
 
 const app = express();
 
-app.use(
+/*app.use(
   helmet({
     contentSecurityPolicy: false, // TODO: figure out specifics for VUE
   }),
-);
+);*/
 const format = process.env.NODE_ENV === 'production' ? 'combined' : 'dev';
 app.use(morgan(format, { stream: logger.stream }));
 app.use(express.json());

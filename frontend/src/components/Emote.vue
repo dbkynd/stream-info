@@ -1,5 +1,5 @@
 <template>
-  <img crossorigin class="emoticon" :src="src" :alt="name" :title="name"/>
+  <img class="emoticon" :src="src" :alt="name" :title="name"/>
 </template>
 
 <script>
