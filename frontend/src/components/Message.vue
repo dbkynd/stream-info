@@ -1,10 +1,9 @@
 <template>
   <div class="message">
-    <span v-for="(word, i) in messageArr" :key="i">
-      <Emote v-if="isEmote(word)" :data="payload.emotes[word]" :name="word"/>
-      <span v-else>{{ word }}</span>
-      <span v-if="i < messageArr.length">{{ " " }}</span>
-    </span>
+    <template v-for="(fragment, i) in textFragments" :key="i">
+      <Emote v-if="fragment.isEmote" :data="payload.emotes[fragment.text]" :name="fragment.text"/>
+      <span v-else class="text-fragment">{{ fragment.text }}</span>
+    </template>
   </div>
 </template>
 
@@ -16,10 +15,46 @@ export default {
   props: ['payload'],
   components: {Emote},
   computed: {
-    messageArr() {
-      if (!this.payload.message) return []
+    words() {
+      if (!this.payload.message) return [];
       return this.payload.message.split(' ');
     },
+    textFragments() {
+      const wordCount = this.words.length;
+      if (!wordCount) return this.words;
+      const fragments = [];
+      let wordFragment = [];
+
+      function addSpace(i) {
+        return i !== undefined && i !== wordCount - 1;
+      }
+
+      function addTextFragment(i) {
+        if (wordFragment.length) {
+          if (addSpace(i)) wordFragment.push(' ')
+          fragments.push({
+            isEmote: false,
+            text: wordFragment.join(' '),
+          })
+          wordFragment = [];
+        }
+      }
+
+      this.words.forEach((word, i) => {
+        if (this.isEmote(word)) {
+          addTextFragment(i)
+          fragments.push({
+            isEmote: true,
+            text: word,
+          })
+          if (addSpace(i)) wordFragment.push(' ')
+        } else {
+          wordFragment.push(word);
+        }
+      })
+      addTextFragment()
+      return fragments;
+    }
   },
   methods: {
     isEmote(word) {

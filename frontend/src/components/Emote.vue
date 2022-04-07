@@ -1,5 +1,7 @@
 <template>
-  <img class="emoticon" :src="src" :alt="name" :title="name"/>
+  <span class="emoticon">
+    <img :src="src" :alt="name" :title="name"/>
+  </span>
 </template>
 
 <script>
@@ -25,5 +27,10 @@ export default {
 </script>
 
 <style scoped>
-
+.emoticon  img {
+  height: 28px;
+  position: relative;
+  top: 4px;
+  margin: -5px 1px;
+}
 </style>

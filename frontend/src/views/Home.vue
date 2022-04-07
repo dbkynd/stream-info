@@ -177,13 +177,6 @@ export default {
   color: #aeb2b4;
 }
 
-.emoticon {
-  height: 28px;
-  position: relative;
-  top: 4px;
-  margin: -5px 1px;
-}
-
 .cardFooter {
   height: 13px;
 }
