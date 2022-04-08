@@ -9,7 +9,10 @@ async function updateProfile(profile: any): Promise<UserDoc> {
 }
 
 async function updateSettings(id: string, settings: any): Promise<void> {
-  await User.findOneAndUpdate({ twitchId: id }, { settings });
+  const user = await getUser(id);
+  if (!user) return;
+  user.settings = Object.assign({}, user.settings, settings);
+  await user.save();
 }
 
 async function getUser(id: string): Promise<UserDoc | null> {
