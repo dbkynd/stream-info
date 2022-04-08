@@ -81,6 +81,8 @@ function getCheermoteMatches(words: string[]): ParsedEmotes {
               static: tier.images.dark.static['1'],
               animated: tier.images.dark.animated['1'],
               source: 'cheermote',
+              tier: tier.id,
+              value,
             };
           }
         }

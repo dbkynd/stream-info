@@ -22,6 +22,13 @@
       density="compact"
     />
     <v-switch
+      v-model="showCheerValues"
+      label="Cheer Values"
+      color="red"
+      hide-details
+      density="compact"
+    />
+    <v-switch
       v-model="expandMassGiftRecipients"
       label="Mass Gifts Expanded"
       color="red"
@@ -65,6 +72,14 @@ export default {
       },
       set(value) {
         this.$store.dispatch('updateSettings', { expandMassGiftRecipients: value })
+      }
+    },
+    showCheerValues: {
+      get() {
+        return this.$store.state.settings.showCheerValues;
+      },
+      set(value) {
+        this.$store.dispatch('updateSettings', { showCheerValues: value })
       }
     }
   }
