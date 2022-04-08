@@ -1,14 +1,12 @@
 <template>
   <div>
       <Timestamp :date="data.createdAt"/>
+
       <div>
-        <span class="name">
-          {{ data.payload.userstate['display-name'] }}
-        </span>
-        <span class="amount">
-          {{ data.payload.userstate['bits']}}
-        </span>
+        <span class="name">{{ data.payload.userstate['display-name'] }}</span>
+        <span class="amount">&nbsp;{{ data.payload.userstate['bits']}}</span>
       </div>
+
     <Message :payload="data.payload" />
 
     <div class="cardFooter"></div>

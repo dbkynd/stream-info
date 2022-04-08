@@ -2,22 +2,21 @@
   <div class="gift">
     <div class="subtext">
       <span class="gifter">{{ gifter }}</span>
-      gifted<span v-if="!multiMonths">:</span>
+      gifted
+      <span v-if="!multiMonths">:</span>
       <span v-else class="multi">{{ multiMonths }} months:</span>
     </div>
-    <span class="name">{{ giftee }}</span>
-    <span class="amount" :class="{glow: glow && months === newSubText || isYear}">
-        {{ months }}
-      </span>
-    <span v-show="months !== newSubText">
-        months
-      </span>
+    <div>
+      <span class="name">{{ giftee }}</span>
+      <span class="amount" :class="{glow}">&nbsp;{{ months }}</span>
+      <span v-show="months !== newSubText">&nbsp;months</span>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "Gift",
+  name: "SubGift",
   props: ['data'],
   data() {
     return {
@@ -35,11 +34,15 @@ export default {
       return this.userstate['msg-param-recipient-display-name'] || this.userstate['msg-param-recipient-user-name']
     },
     tier() {
-      switch(this.userstate['msg-param-sub-plan']) {
-        case "1000": return '(Tier 1)'
-        case "2000": return '(Tier 2)'
-        case "3000": return '(Tier 3)'
-        default: return null
+      switch (this.userstate['msg-param-sub-plan']) {
+        case "1000":
+          return '(Tier 1)'
+        case "2000":
+          return '(Tier 2)'
+        case "3000":
+          return '(Tier 3)'
+        default:
+          return null
       }
     },
     multiMonths() {
@@ -59,7 +62,7 @@ export default {
       return this.months / 12 + ' years!'
     },
     glow() {
-      return this.$store.state.settings.glow;
+      return this.$store.state.settings.glow && this.months === this.newSubText || this.isYear;
     }
   }
 }
@@ -69,12 +72,15 @@ export default {
 .gift {
   color: gray;
 }
+
 .gifter {
   color: #fff;
 }
+
 .subtext {
   font-size: 14px;
 }
+
 .multi {
   color: #09ff00;
 }

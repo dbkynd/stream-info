@@ -1,58 +1,33 @@
 <template>
   <div>
-    <div>
-      <span class="name">
-        {{ data.payload.userstate['display-name'] }}
-      </span>
-      <span class="amount" :class="{glow: glow && months === newSubText || isYear}">
-        {{ months }}
-      </span>
-      <span v-show="months !== newSubText">
-        months
-      </span>
-    </div>
+    <Timestamp :date="data.createdAt" />
 
-    <div class="message">
-      <SubMessage :payload="data.payload"/>
+    <SubResub v-if="!isGift" :data="data" />
+    <SubGift v-else-if="isGift" :data="data"/>
+    <SubFooter :userstate="data.payload.userstate"/>
+
+    <div class="cardFooter">
+<!--      <v-img v-show="isYear" class="cake" src="@/assets/cake.svg" alt="" :title="years" />-->
     </div>
   </div>
 </template>
 
 <script>
-import SubMessage from '@/components/SubMessage'
+import Timestamp from '@/components/Timestamp'
+import SubFooter from '@/components/SubFooter'
+import SubResub from '@/components/SubResub'
+import SubGift from '@/components/SubGift'
 
 export default {
   name: "Subscription",
   props: ['data'],
-  data() {
-    return {
-      newSubText: 'NEW',
-    }
-  },
   components: {
-    SubMessage
+    Timestamp, SubFooter, SubResub, SubGift
   },
   computed: {
-    months() {
-      const months = this.data.payload.userstate['msg-param-cumulative-months']
-      if (months === true) return this.newSubText
-      return months
-    },
-    isYear() {
-      return this.months % 12 === 0
-    },
-    years() {
-      return this.months / 12 + ' years!'
-    },
-    glow() {
-      return this.$store.state.settings.glow;
+    isGift() {
+      return this.data.payload.userstate['msg-id'].includes('gift')
     }
   },
 }
 </script>
-
-<style scoped>
-.cake {
-  height: 20px;
-}
-</style>

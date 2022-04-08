@@ -2,7 +2,10 @@
   <div class="host">
     <Timestamp :date="data.createdAt"/>
     <div>
-      <span class="name">{{ name }}</span> {{ data.payload.raid ? 'raided' : 'hosted' }} with<span class="amount">{{ data.payload.viewers }}</span> viewers
+      <span class="name">{{ name }}</span>
+      {{ data.payload.raid ? 'raided' : 'hosted' }} with
+      <span class="amount">{{ data.payload.viewers }}</span>
+      viewers
     </div>
     <div class="game">
       {{ data.payload.game }}

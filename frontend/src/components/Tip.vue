@@ -1,15 +1,13 @@
 <template>
   <div>
     <Timestamp :date="data.createdAt"/>
+
     <div>
-      <span class="name">
-        {{ data.payload.username }}
-      </span>
-      <span class="amount">
-        ${{ data.payload.amount }}
-      </span>
+      <span class="name">{{ data.payload.username }}</span>
+      <span class="amount">&nbsp;${{ data.payload.amount }}</span>
     </div>
-    <Message :payload="data.payload" />
+
+    <Message :payload="data.payload"/>
 
     <div class="cardFooter"></div>
   </div>
