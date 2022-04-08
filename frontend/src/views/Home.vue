@@ -150,7 +150,7 @@ export default {
 }
 
 .column > div > div.uncleared {
-  background: #6441a4;
+  background: rgba(100, 65, 164, 0.75);
 }
 
 .column > div > div:nth-child(1) {
