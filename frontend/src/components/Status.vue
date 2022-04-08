@@ -34,6 +34,6 @@ export default {
 }
 
 .status_indicators > div.enabled {
-  background-color: #3d7ba6;
+  background-color: #397441;
 }
 </style>
