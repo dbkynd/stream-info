@@ -4,10 +4,9 @@
 
     <SubResub v-if="!isGift" :data="data" />
     <SubGift v-else-if="isGift" :data="data"/>
-    <SubFooter :userstate="data.payload.userstate"/>
 
     <div class="cardFooter">
-<!--      <v-img v-show="isYear" class="cake" src="@/assets/cake.svg" alt="" :title="years" />-->
+      <SubFooter :userstate="data.payload.userstate"/>
     </div>
   </div>
 </template>

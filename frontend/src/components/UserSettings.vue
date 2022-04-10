@@ -1,8 +1,22 @@
 <template>
   <div style="display: flex;">
     <v-switch
-      v-model="glow"
+      v-model="glowNew"
       label="New Sub Glow"
+      color="red"
+      hide-details
+      density="compact"
+    />
+    <v-switch
+      v-model="glowYears"
+      label="Year Glow"
+      color="red"
+      hide-details
+      density="compact"
+    />
+    <v-switch
+      v-model="showYears"
+      label="Show Years"
       color="red"
       hide-details
       density="compact"
@@ -42,12 +56,28 @@
 export default {
   name: "UserSettings",
   computed: {
-    glow: {
+    glowNew: {
       get() {
-        return this.$store.state.settings.glow;
+        return this.$store.state.settings.glowNew;
       },
       set(value) {
-        this.$store.dispatch('updateSettings', { glow: value })
+        this.$store.dispatch('updateSettings', { glowNew: value })
+      }
+    },
+    glowYears: {
+      get() {
+        return this.$store.state.settings.glowYears;
+      },
+      set(value) {
+        this.$store.dispatch('updateSettings', { glowYears: value })
+      }
+    },
+    showYears: {
+      get() {
+        return this.$store.state.settings.showYears;
+      },
+      set(value) {
+        this.$store.dispatch('updateSettings', { showYears: value })
       }
     },
     animated: {
