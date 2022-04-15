@@ -33,7 +33,7 @@ export default {
       const bits = parseInt(this.data.payload.userstate['bits']);
       const dollars = Math.round((bits + Number.EPSILON) * 100) / 10000
 
-      return `($${dollars})`;
+      return `$${dollars}`;
     }
   }
 }
