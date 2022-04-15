@@ -26,7 +26,7 @@ export default {
       let wordFragment = [];
 
       function addSpace(i) {
-        return i !== undefined && i !== wordCount - 1;
+        return i !== undefined && i !== wordCount;
       }
 
       function addTextFragment(i) {
