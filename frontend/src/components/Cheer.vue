@@ -47,6 +47,6 @@ export default {
   font-size: 0.8em;
   position: relative;
   bottom: 3px;
-  margin-left: 2px;
+  margin-left: 3px;
 }
 </style>
