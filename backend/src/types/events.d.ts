@@ -9,8 +9,9 @@ interface HostPayload {
   viewers: number;
   autohost: boolean;
   raid: boolean;
-  game?: string | undefined;
+  game?: string;
   displayName?: string;
+  streamLength?: string;
 }
 
 interface TipPayload extends SE_WS_Data {
