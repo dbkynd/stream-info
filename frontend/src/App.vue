@@ -15,4 +15,8 @@ export default {
 
 <style>
 #app {}
+
+.v-application {
+  color: #aeb2b4;
+}
 </style>

@@ -171,9 +171,8 @@ export default {
   word-break: keep-all;
 }
 
-.message, .host, .date {
+.message {
   word-break: break-word;
-  color: #aeb2b4;
 }
 
 .cardFooter {
