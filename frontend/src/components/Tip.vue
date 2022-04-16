@@ -4,7 +4,7 @@
 
     <div>
       <span class="name">{{ data.payload.username }}</span>
-      <span class="amount">&nbsp;${{ data.payload.amount }}</span>
+      <span class="amount">&nbsp;${{ amount }}</span>
     </div>
 
     <Message :payload="data.payload"/>
@@ -23,6 +23,16 @@ export default {
   props: ['data'],
   components: {
     Timestamp, Message,
+  },
+  computed: {
+    amount() {
+      const value = this.data.payload.amount;
+      if (value % 1 !== 0) {
+        return value.toFixed(2);
+      } else {
+        return value;
+      }
+    }
   }
 }
 </script>

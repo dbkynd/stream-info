@@ -5,7 +5,7 @@
       <div>
         <span class="name">{{ data.payload.userstate['display-name'] }}</span>
         <span class="amount">&nbsp;{{ data.payload.userstate['bits']}}</span>
-        <span class="dollars" v-if="cheerAmounts">&nbsp;{{dollarValue}}</span>
+        <span class="dollars" v-if="showCheerAmounts">&nbsp;${{ dollars }}</span>
       </div>
 
     <Message :payload="data.payload" />
@@ -26,14 +26,16 @@ export default {
     Message,
   },
   computed: {
-    cheerAmounts() {
+    showCheerAmounts() {
       return this.$store.state.settings.cheerAmounts;
     },
-    dollarValue() {
-      const bits = parseInt(this.data.payload.userstate['bits']);
-      const dollars = Math.round((bits + Number.EPSILON) * 100) / 10000
-
-      return `$${dollars}`;
+    dollars() {
+      const value = parseInt(this.data.payload.userstate['bits']) / 100;
+      if (value % 1 !== 0) {
+        return value.toFixed(2);
+      } else {
+        return value;
+      }
     }
   }
 }
