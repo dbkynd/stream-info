@@ -2,8 +2,7 @@ import express from 'express';
 import passport from '../../passport';
 
 const router = express.Router();
-const appUrl =
-  process.env.NODE_ENV === 'production' ? '/' : 'http://localhost:8080/';
+const appUrl = process.env.NODE_ENV === 'production' ? '/' : 'http://localhost:8080/';
 
 // BASE/auth/login
 router.get('/login', passport.authenticate('twitch'));

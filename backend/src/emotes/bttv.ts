@@ -18,12 +18,8 @@ async function fetch(): Promise<void> {
     .then(({ data }: { data: BTTVChannelEmotes }) => data);
 
   const globalGifs = globalEmoteData.filter((x) => x.imageType === 'gif');
-  const channelGifs = channelEmoteData.channelEmotes.filter(
-    (x) => x.imageType === 'gif',
-  );
-  const sharedGifs = channelEmoteData.sharedEmotes.filter(
-    (x) => x.imageType === 'gif',
-  );
+  const channelGifs = channelEmoteData.channelEmotes.filter((x) => x.imageType === 'gif');
+  const sharedGifs = channelEmoteData.sharedEmotes.filter((x) => x.imageType === 'gif');
   const gifs = [...globalGifs, ...channelGifs, ...sharedGifs];
 
   for (let i = 0; i < gifs.length; i++) {

@@ -50,11 +50,7 @@ export default async (userstate: tmi.ChatUserstate, message: string) => {
 
 async function permit(userstate: tmi.ChatUserstate, message: string) {
   // Get the username of the user we want to permit
-  const user = message
-    .toLowerCase()
-    .replace('!permit', '')
-    .trim()
-    .split(' ')[0];
+  const user = message.toLowerCase().replace('!permit', '').trim().split(' ')[0];
   if (!user) return;
 
   // Query the Twitch API for user data

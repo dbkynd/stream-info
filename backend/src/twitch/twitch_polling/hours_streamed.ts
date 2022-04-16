@@ -14,9 +14,7 @@ export default async () => {
   const operations: ArchiveVideoBulkUpdate[] = [];
   videos.forEach((video) => {
     if (lockedIds.includes(video.id.toString())) return;
-    const seconds = dayjs
-      .duration('PT' + video.duration.toUpperCase())
-      .asSeconds();
+    const seconds = dayjs.duration('PT' + video.duration.toUpperCase()).asSeconds();
     operations.push(ArchiveVideoService.createBulkOperation(video, seconds));
   });
 

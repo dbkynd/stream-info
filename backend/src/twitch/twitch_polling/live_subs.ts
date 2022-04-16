@@ -33,9 +33,7 @@ export function stop() {
 function loadFromFile(): void {
   if (fs.existsSync(subscribersFile)) {
     logger.debug('Loading Subscribers from local file.');
-    subscribers = JSON.parse(
-      fs.readFileSync(subscribersFile, { encoding: 'utf-8' }),
-    );
+    subscribers = JSON.parse(fs.readFileSync(subscribersFile, { encoding: 'utf-8' }));
   }
 }
 
@@ -58,14 +56,9 @@ async function getSubs() {
   if (!unique.length) return;
   subscribers = unique;
   logger.debug(`Done getting Subscribers (${subscribers.length})`);
-  fs.writeFile(
-    subscribersFile,
-    JSON.stringify(subscribers),
-    { encoding: 'utf8' },
-    (err) => {
-      if (err) logger.error(err);
-    },
-  );
+  fs.writeFile(subscribersFile, JSON.stringify(subscribers), { encoding: 'utf8' }, (err) => {
+    if (err) logger.error(err);
+  });
 }
 
 async function checkLive() {

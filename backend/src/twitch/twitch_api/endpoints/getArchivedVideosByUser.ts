@@ -3,9 +3,7 @@ import headers from '../headers';
 
 // https://dev.twitch.tv/docs/api/reference#get-videos
 
-export default function getArchivedVideosByUser(
-  userId: string,
-): Promise<TwitchVideo[]> {
+export default function getArchivedVideosByUser(userId: string): Promise<TwitchVideo[]> {
   const url = 'https://api.twitch.tv/helix/videos';
   const options = {
     headers: headers(),
@@ -15,7 +13,5 @@ export default function getArchivedVideosByUser(
       type: 'archive',
     },
   };
-  return axios
-    .get(url, options)
-    .then(({ data }: { data: TwitchUserVideosResponse }) => data.data);
+  return axios.get(url, options).then(({ data }: { data: TwitchUserVideosResponse }) => data.data);
 }

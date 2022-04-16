@@ -1,8 +1,7 @@
 import axios from 'axios';
 import { getChannelId } from '../../../streamelements/se_socket';
 
-const multiReg =
-  /https?:\/\/(www\.)?multistre\.am\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/;
+const multiReg = /https?:\/\/(www\.)?multistre\.am\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/;
 
 export async function getMultiCommand(): Promise<SE_Command | undefined> {
   const { data }: { data: SE_Command[] } = await axios.get(

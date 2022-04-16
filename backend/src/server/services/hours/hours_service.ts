@@ -23,12 +23,8 @@ export function determineTimeRage() {
   const now = moment().tz('America/Los_Angeles');
   const startOfQuarter = qMonths(now.startOf('month'));
   const endOfQuarter = moment(startOfQuarter).add(2, 'months').endOf('month');
-  const startOfLastQuarter = moment(startOfQuarter)
-    .subtract(3, 'months')
-    .startOf('month');
-  const endOfLastQuarter = moment(endOfQuarter)
-    .subtract(3, 'months')
-    .endOf('month');
+  const startOfLastQuarter = moment(startOfQuarter).subtract(3, 'months').startOf('month');
+  const endOfLastQuarter = moment(endOfQuarter).subtract(3, 'months').endOf('month');
   return {
     startOfLastQuarter,
     endOfLastQuarter,
@@ -47,10 +43,7 @@ export function qMonths(date: any) {
 }
 
 export async function getHours(start: Moment, end: Moment): Promise<number> {
-  const videos = await ArchiveVideoService.getInRange(
-    start.toISOString(),
-    end.toISOString(),
-  );
+  const videos = await ArchiveVideoService.getInRange(start.toISOString(), end.toISOString());
   const sum = videos.reduce((prev, next) => {
     return prev + next.length;
   }, 0);

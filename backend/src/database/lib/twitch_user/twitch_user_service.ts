@@ -24,9 +24,7 @@ async function find(identities: string[]): Promise<TwitchUserDoc[]> {
 }
 
 function create(users: TwitchUser[]): TwitchUserDoc[] {
-  return users.map(
-    (x) => new TwitchUser({ twitchId: x.id, twitchName: x.login, payload: x }),
-  );
+  return users.map((x) => new TwitchUser({ twitchId: x.id, twitchName: x.login, payload: x }));
 }
 
 function save(docs: TwitchUserDoc[]): void {

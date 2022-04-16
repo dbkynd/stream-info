@@ -16,10 +16,7 @@ describe('message_handler method', () => {
       messageHandler(clone, fixtures.asBroadcaster.message);
 
       expect(clipsSpy).toHaveBeenCalled();
-      expect(clipsSpy).toHaveBeenLastCalledWith(
-        clone,
-        fixtures.asBroadcaster.message,
-      );
+      expect(clipsSpy).toHaveBeenLastCalledWith(clone, fixtures.asBroadcaster.message);
     });
 
     it('does nothing if message was a whisper', () => {

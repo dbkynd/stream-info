@@ -47,9 +47,7 @@ function uptime(stream: TwitchStream | undefined): void {
     status.showsOnline = false;
     if (!status.isOnline) return;
     if (status.timeStopped) {
-      if (
-        dayjs() > dayjs(status.timeStopped).add(uptimeGracePeriod, 'minutes')
-      ) {
+      if (dayjs() > dayjs(status.timeStopped).add(uptimeGracePeriod, 'minutes')) {
         // Enough time has past. Streamer likely has stopped streaming for the day.
         status.isOnline = false;
         status.timeStarted = null;

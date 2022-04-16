@@ -11,7 +11,5 @@ export default function getChannels(ids: string[]): Promise<TwitchChannel[]> {
     .join('&');
   const url = `https://api.twitch.tv/helix/channels?${query}`;
   const options = { headers: headers() };
-  return axios
-    .get(url, options)
-    .then(({ data }: { data: TwitchChannelResponse }) => data.data);
+  return axios.get(url, options).then(({ data }: { data: TwitchChannelResponse }) => data.data);
 }

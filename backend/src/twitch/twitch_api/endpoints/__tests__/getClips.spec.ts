@@ -22,9 +22,7 @@ describe('getClips method', () => {
       .query({ id: 'AwkwardHelplessSalamanderSwiftRage' })
       .reply(200, fixtures.clips);
 
-    const actual = await twitchApi.getClips([
-      'AwkwardHelplessSalamanderSwiftRage',
-    ]);
+    const actual = await twitchApi.getClips(['AwkwardHelplessSalamanderSwiftRage']);
     expect(Array.isArray(actual)).toBe(true);
     expect(actual).toEqual(fixtures.clips.data);
     expect(actual[0].id).toBe('AwkwardHelplessSalamanderSwiftRage');

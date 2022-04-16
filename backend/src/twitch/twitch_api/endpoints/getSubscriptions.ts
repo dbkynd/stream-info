@@ -16,7 +16,5 @@ export default async function getSubscriptions(
       after: cursor,
     },
   };
-  return axios
-    .get(url, options)
-    .then(({ data }: { data: TwitchSubscriptionResponse }) => data);
+  return axios.get(url, options).then(({ data }: { data: TwitchSubscriptionResponse }) => data);
 }

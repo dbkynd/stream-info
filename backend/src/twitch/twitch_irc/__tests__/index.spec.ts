@@ -41,10 +41,7 @@ describe('twitch_irc module', () => {
 
   describe('disconnected event', () => {
     it('listens to the disconnected event', async () => {
-      expect(client.on).toHaveBeenCalledWith(
-        'disconnected',
-        expect.any(Function),
-      );
+      expect(client.on).toHaveBeenCalledWith('disconnected', expect.any(Function));
     });
 
     it('updates the appState', async () => {
@@ -169,15 +166,7 @@ describe('twitch_irc module', () => {
     it('passes the resub to our events handler', () => {
       const spy = jest.spyOn(events.subscription, 'resub');
       // @ts-ignore
-      client.emit(
-        'resub',
-        'channel',
-        'username',
-        'months',
-        'message',
-        'userstate',
-        'methods',
-      );
+      client.emit('resub', 'channel', 'username', 'months', 'message', 'userstate', 'methods');
       expect(spy).toHaveBeenCalledWith('userstate', 'message');
     });
 
@@ -251,33 +240,21 @@ describe('twitch_irc module', () => {
 
   describe('submysterygift event', () => {
     it('listens to the submysterygift event', async () => {
-      expect(client.on).toHaveBeenCalledWith(
-        'submysterygift',
-        expect.any(Function),
-      );
+      expect(client.on).toHaveBeenCalledWith('submysterygift', expect.any(Function));
     });
 
     it('passes the submysterygift to our events handler', () => {
       const spy = jest.spyOn(events.subscription, 'submysterygift');
       // @ts-ignore
-      client.emit(
-        'submysterygift',
-        'channel',
-        'username',
-        'numOfSubs',
-        'methods',
-        'userstate',
-      );
+      client.emit('submysterygift', 'channel', 'username', 'numOfSubs', 'methods', 'userstate');
       expect(spy).toHaveBeenCalledWith('userstate', 'numOfSubs');
     });
 
     it('logs any errors', () => {
       const err = new Error('Mock Error');
-      jest
-        .spyOn(events.subscription, 'submysterygift')
-        .mockImplementation(() => {
-          throw err;
-        });
+      jest.spyOn(events.subscription, 'submysterygift').mockImplementation(() => {
+        throw err;
+      });
       const spy = jest.spyOn(logger, 'error');
       // @ts-ignore
       client.emit('submysterygift');
@@ -287,23 +264,13 @@ describe('twitch_irc module', () => {
 
   describe('subscription event', () => {
     it('listens to the subscription event', async () => {
-      expect(client.on).toHaveBeenCalledWith(
-        'subscription',
-        expect.any(Function),
-      );
+      expect(client.on).toHaveBeenCalledWith('subscription', expect.any(Function));
     });
 
     it('passes the subscription to our events handler', () => {
       const spy = jest.spyOn(events.subscription, 'newSub');
       // @ts-ignore
-      client.emit(
-        'subscription',
-        'channel',
-        'username',
-        'method',
-        'message',
-        'userstate',
-      );
+      client.emit('subscription', 'channel', 'username', 'method', 'message', 'userstate');
       expect(spy).toHaveBeenCalledWith('userstate');
     });
 
@@ -329,10 +296,7 @@ describe('twitch_irc module', () => {
     it('deletes the message if NO_ACTIONS is undefined', () => {
       delete process.env.NO_ACTIONS;
       twitchIrc.deleteMessage('someUUID');
-      expect(client.deletemessage).toHaveBeenCalledWith(
-        expect.any(String),
-        'someUUID',
-      );
+      expect(client.deletemessage).toHaveBeenCalledWith(expect.any(String), 'someUUID');
     });
 
     /*it('logs any errors', () => {
@@ -357,10 +321,7 @@ describe('twitch_irc module', () => {
     it('says the passed message if NO_ACTIONS is undefined', () => {
       delete process.env.NO_ACTIONS;
       twitchIrc.say('someMessage');
-      expect(client.say).toHaveBeenCalledWith(
-        expect.any(String),
-        'someMessage',
-      );
+      expect(client.say).toHaveBeenCalledWith(expect.any(String), 'someMessage');
     });
   });
 });

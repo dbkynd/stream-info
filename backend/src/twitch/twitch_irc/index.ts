@@ -21,9 +21,7 @@ const client = new tmi.Client({
 
 export async function connect(): Promise<void> {
   await client.connect();
-  logger.info(
-    `Connected to Twitch channel: ${channel} as: ${client.getUsername()}`,
-  );
+  logger.info(`Connected to Twitch channel: ${channel} as: ${client.getUsername()}`);
 }
 
 export async function disconnect(): Promise<void> {
@@ -87,16 +85,13 @@ client.on('raided', async (_channel, username, viewers) => {
 });
 
 // Username has resubbed on a channel.
-client.on(
-  'resub',
-  (_channel, _username, _months, message, userstate, _methods) => {
-    try {
-      events.subscription.resub(userstate, message);
-    } catch (e) {
-      logger.error(e);
-    }
-  },
-);
+client.on('resub', (_channel, _username, _months, message, userstate, _methods) => {
+  try {
+    events.subscription.resub(userstate, message);
+  } catch (e) {
+    logger.error(e);
+  }
+});
 
 // The current state of the channel.
 client.on('roomstate', (_channel, state) => {
@@ -108,40 +103,31 @@ client.on('roomstate', (_channel, state) => {
 });
 
 // Username gifted a subscription to recipient in a channel.
-client.on(
-  'subgift',
-  (_channel, _username, _streakMonths, _recipient, _methods, userstate) => {
-    try {
-      events.subscription.subgift(userstate);
-    } catch (e) {
-      logger.error(e);
-    }
-  },
-);
+client.on('subgift', (_channel, _username, _streakMonths, _recipient, _methods, userstate) => {
+  try {
+    events.subscription.subgift(userstate);
+  } catch (e) {
+    logger.error(e);
+  }
+});
 
 // Username is gifting a subscription to someone in a channel.
-client.on(
-  'submysterygift',
-  (_channel, _username, numOfSubs, _methods, userstate) => {
-    try {
-      events.subscription.submysterygift(userstate, numOfSubs);
-    } catch (e) {
-      logger.error(e);
-    }
-  },
-);
+client.on('submysterygift', (_channel, _username, numOfSubs, _methods, userstate) => {
+  try {
+    events.subscription.submysterygift(userstate, numOfSubs);
+  } catch (e) {
+    logger.error(e);
+  }
+});
 
 // Username has subscribed to a channel.
-client.on(
-  'subscription',
-  (_channel, _username, _method, _message, userstate) => {
-    try {
-      events.subscription.newSub(userstate);
-    } catch (e) {
-      logger.error(e);
-    }
-  },
-);
+client.on('subscription', (_channel, _username, _method, _message, userstate) => {
+  try {
+    events.subscription.newSub(userstate);
+  } catch (e) {
+    logger.error(e);
+  }
+});
 
 // https://github.com/tmijs/docs/blob/gh-pages/_posts/v1.4.2/2019-03-03-Commands.md
 

@@ -11,7 +11,5 @@ export default async function getSubscriptions(): Promise<Cheermote[]> {
       broadcaster_id: '51533859', // TODO
     },
   };
-  return axios
-    .get(url, options)
-    .then(({ data }: { data: TwitchCheermoteResponse }) => data.data);
+  return axios.get(url, options).then(({ data }: { data: TwitchCheermoteResponse }) => data.data);
 }

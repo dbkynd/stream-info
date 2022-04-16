@@ -2,10 +2,7 @@ import escapeHtml from 'escape-html';
 import ClipChannelService from '../../../database/lib/clip_channel';
 import twitchApi from '../../../twitch/twitch_api';
 
-export default async function (
-  action?: string,
-  target?: string,
-): Promise<string> {
+export default async function (action?: string, target?: string): Promise<string> {
   if ((action !== 'add' && action !== 'remove') || !target) {
     return escapeHtml('!clips <add | remove> <target>');
   }

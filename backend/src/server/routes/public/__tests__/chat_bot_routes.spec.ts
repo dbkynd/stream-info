@@ -45,9 +45,7 @@ describe('chatBot routes module', () => {
       jest.spyOn(ClipsService, 'default').mockImplementationOnce(() => {
         throw new Error('Mock Error');
       });
-      req
-        .get('/clips?token=someToken&action=add&target=dbkynd')
-        .expect(500, done);
+      req.get('/clips?token=someToken&action=add&target=dbkynd').expect(500, done);
     });
   });
 

@@ -54,10 +54,7 @@ export function subgift(userstate: tmi.SubGiftUserstate): void {
   }
 }
 
-export function submysterygift(
-  userstate: tmi.SubMysteryGiftUserstate,
-  numOfSubs: number,
-): void {
+export function submysterygift(userstate: tmi.SubMysteryGiftUserstate, numOfSubs: number): void {
   if (isDuplicate(userstate)) return;
   const id = userstate['user-id'];
   if (!id) return;
@@ -89,10 +86,7 @@ function process(
   };
 
   // Emit to client regardless if successful database save
-  const subscriptionDoc = SubscriptionService.create(
-    payload,
-    userstate['tmi-sent-ts'],
-  );
+  const subscriptionDoc = SubscriptionService.create(payload, userstate['tmi-sent-ts']);
   io.emit('subscription', subscriptionDoc);
   SubscriptionService.save(subscriptionDoc).catch((err) => {
     logger.error(err);
