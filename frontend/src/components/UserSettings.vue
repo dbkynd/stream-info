@@ -62,6 +62,22 @@
           density="compact"
         />
 
+        <v-switch
+          v-model="showLastGame"
+          label="Show Last Game"
+          color="red"
+          hide-details
+          density="compact"
+        />
+
+        <v-switch
+          v-model="showStreamLength"
+          label="Show Stream Length"
+          color="red"
+          hide-details
+          density="compact"
+        />
+
         </v-expansion-panel-text>
     </v-expansion-panel>
   </v-expansion-panels>
@@ -133,6 +149,22 @@ export default {
       },
       set(value) {
         this.$store.dispatch('updateSettings', { cheerAmounts: value })
+      }
+    },
+    showLastGame: {
+      get() {
+        return this.$store.state.settings.showLastGame;
+      },
+      set(value) {
+        this.$store.dispatch('updateSettings', { showLastGame: value })
+      }
+    },
+    showStreamLength: {
+      get() {
+        return this.$store.state.settings.showStreamLength;
+      },
+      set(value) {
+        this.$store.dispatch('updateSettings', { showStreamLength: value })
       }
     }
   }
