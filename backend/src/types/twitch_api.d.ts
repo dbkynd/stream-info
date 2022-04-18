@@ -192,3 +192,9 @@ interface CheermoteImages {
   '3': string;
   '4': string;
 }
+
+interface TwitchAppToken {
+  access_token: string;
+  expires_in: number;
+  token_type: 'bearer';
+}

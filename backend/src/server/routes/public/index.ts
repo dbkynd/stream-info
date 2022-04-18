@@ -4,11 +4,13 @@ import StatsService from '../../services/stats/stats_service';
 import authRoutes from './auth';
 import chatBotRoutes from './chat_bot';
 import liveSubsRoutes from './live_subs';
+import twitchEventSubRoutes from './twitch_eventsub';
 
 const router = express.Router();
 
 router.use('/auth', authRoutes);
 router.use('/chat', chatBotRoutes);
+router.use('/twitch/eventsub', twitchEventSubRoutes);
 router.use(liveSubsRoutes);
 
 router.get('/stats', (req, res, next) => {
