@@ -2,6 +2,7 @@ import MockDate from 'mockdate';
 import mongoose from 'mongoose';
 import HostService from '../../database/lib/host';
 import * as io from '../../server/socket.io';
+import raidmode from '../../streamelements/raidmode';
 import twitchCache from '../../twitch/cache';
 import twitchApi from '../../twitch/twitch_api';
 import hosted from '../hosted';
@@ -27,6 +28,9 @@ const saveSpy = jest.spyOn(HostService, 'save').mockImplementation(() => {
   return Promise.resolve();
 });
 const emitSpy = jest.spyOn(io, 'emit');
+const raidmodeSpy = jest.spyOn(raidmode, 'enable').mockImplementation(() => {
+  // Do Nothing
+});
 
 function test(expected: any) {
   expect(saveSpy).toHaveBeenCalled();
@@ -118,6 +122,7 @@ describe('hosted event', () => {
       };
 
       test(expected);
+      expect(raidmodeSpy).toHaveBeenCalled();
     });
   });
 

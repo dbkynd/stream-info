@@ -2,6 +2,7 @@ import { DateTime, Duration } from 'luxon';
 import HostService from '../database/lib/host';
 import logger from '../logger';
 import * as io from '../server/socket.io';
+import raidmode from '../streamelements/raidmode';
 import twitchCache from '../twitch/cache';
 import twitchApi from '../twitch/twitch_api';
 
@@ -33,9 +34,9 @@ export default async (payload: HostPayload): Promise<void> => {
     }
   }
 
-  // if (payload.raid) {
-  // raidMode.auto() // todo trigger raidmode
-  // }
+  if (payload.raid) {
+    raidmode.enable();
+  }
 
   // Emit to client regardless if successful database save
   const hostDoc = HostService.create(payload);
