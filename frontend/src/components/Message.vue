@@ -9,15 +9,20 @@
 
 <script>
 import Emote from '@/components/Emote';
+import {decode} from 'html-entities';
 
 export default {
   name: "EmoteMessage",
-  props: ['payload'],
+  props: ['payload', 'decode'],
   components: {Emote},
   computed: {
+    decoded() {
+      if (this.decode === true) return decode(this.payload.message);
+      return this.payload.message
+    },
     words() {
       if (!this.payload.message) return [];
-      return this.payload.message.split(' ');
+      return this.decoded.split(' ');
     },
     textFragments() {
       const wordCount = this.words.length;

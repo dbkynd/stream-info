@@ -7,7 +7,7 @@
       <span class="amount">&nbsp;${{ amount }}</span>
     </div>
 
-    <Message :payload="data.payload"/>
+    <Message :payload="data.payload" :decode="true" />
 
     <div class="cardFooter"></div>
   </div>
