@@ -31,23 +31,22 @@ const shutdown = (signal: NodeJS.Signals) => {
 };
 
 process.on('uncaughtException', (err) => {
-  if (err) {
-    if (err.stack) {
-      pushover.push(err.message + '\n\n' + err.stack.split('\n').slice(0, 7).join('\n'));
-    } else if (err.message) {
-      pushover.push(err.message);
-    }
-    logger.error(err);
-  }
+  logException('uncaughtException', err);
 });
 
 process.on('unhandledRejection', (err: Error) => {
-  if (err) {
-    if (err.stack) {
-      pushover.push(err.message + '\n\n' + err.stack.split('\n').slice(0, 7).join('\n'));
-    } else if (err.message) {
-      pushover.push(err.message);
-    }
-    logger.error(err);
-  }
+  logException('unhandledRejection', err);
 });
+
+function logException(type: string, err: Error) {
+  if (err) {
+    logger.error(err);
+    if (err.stack) {
+      pushover.push(type + '\n\n' + err.stack.split('\n').slice(0, 10).join('\n'));
+    } else if (err.message) {
+      pushover.push(type + '\n\n' + err.message);
+    } else {
+      pushover.push('An ' + type + ' has occurred.');
+    }
+  }
+}

@@ -8,11 +8,16 @@ function init() {
     client = new Push({
       user: process.env.PUSHOVER_USER,
       token: process.env.PUSHOVER_TOKEN,
+      onerror: onError,
     });
     logger.info('Ready to send pushover notifications.');
   } else {
     logger.warn('Unable to init Pushover Notifications');
   }
+}
+
+function onError(err: Error) {
+  logger.error(err);
 }
 
 // https://pushover.net/api
