@@ -1,11 +1,11 @@
-import Push from 'pushover-notifications';
+import Pushover from 'pushover-notifications';
 import logger from './logger';
 
-let client: any;
+let client: Pushover;
 
 function init() {
   if (process.env.PUSHOVER_USER && process.env.PUSHOVER_TOKEN) {
-    client = new Push({
+    client = new Pushover({
       user: process.env.PUSHOVER_USER,
       token: process.env.PUSHOVER_TOKEN,
       onerror: onError,
@@ -23,9 +23,8 @@ function onError(err: Error) {
 // https://pushover.net/api
 function push(message: string) {
   if (!client) return;
-  const msg = { message };
 
-  client.send(msg, function (err: Error) {
+  client.send({ message }, function (err: Error) {
     if (err) {
       logger.error(err);
     }
