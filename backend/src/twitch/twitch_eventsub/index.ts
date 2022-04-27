@@ -66,9 +66,9 @@ function eventHandler(req: express.Request): void {
       }
     }
   } else if (MESSAGE_TYPE_REVOCATION === req.headers[MESSAGE_TYPE]) {
-    console.log(`${notification.subscription.type} notifications revoked!`);
-    console.log(`reason: ${notification.subscription.status}`);
-    console.log(`condition: ${JSON.stringify(notification.subscription.condition, null, 4)}`);
+    logger.warn(`${notification.subscription.type} notifications revoked!`);
+    logger.warn(`reason: ${notification.subscription.status}`);
+    logger.warn(`condition: ${JSON.stringify(notification.subscription.condition, null, 4)}`);
   }
 }
 
