@@ -2,6 +2,7 @@ import * as database from './database';
 import * as emotes from './emotes';
 import twitchEmoteTimer from './emotes/twitch';
 import logger from './logger';
+import pushover from './pushover';
 import * as server from './server';
 import * as streamelements from './streamelements/se_socket';
 import * as token from './token';
@@ -11,6 +12,8 @@ import * as twitchIrc from './twitch/twitch_irc';
 import * as twitchPolling from './twitch/twitch_polling';
 
 export async function start(): Promise<void> {
+  pushover.init();
+  if (process.env.NODE_ENV === 'production') pushover.push('Starting backend.');
   logger.info('Validating token');
   await token.validate();
   await appToken.init();
