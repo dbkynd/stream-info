@@ -10,7 +10,7 @@
         <span class="amount" :class="{glow: doGlow}">&nbsp;{{ years }}</span>
       </template>
       <span v-if="isYear">
-        <img class="cake" :src="require('@/assets/cake.svg')" alt="" :title="years" />
+        <img class="cake" :src="require('@/assets/cake.svg')" alt="" :title="cakeTitle" />
       </span>
     </div>
 
@@ -57,6 +57,10 @@ export default {
     doGlow() {
       return (this.glowNew && this.months === this.newSubText) || (this.glowYears && this.isYear);
     },
+    cakeTitle() {
+      if (this.showYears) return this.months + ' months';
+      return this.years.substring(0, this.years.length - 1);
+    }
   },
 }
 </script>
