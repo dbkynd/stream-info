@@ -1,5 +1,6 @@
 import * as app from './app';
 import logger from './logger';
+import pushover from './pushover';
 
 logger.info('Application starting...');
 
@@ -28,3 +29,25 @@ const shutdown = (signal: NodeJS.Signals) => {
     process.exit(0);
   });
 };
+
+process.on('uncaughtException', (err) => {
+  if (err) {
+    if (err.stack) {
+      pushover.push(err.message + '\n\n' + err.stack.split('\n').slice(0, 7).join('\n'));
+    } else if (err.message) {
+      pushover.push(err.message);
+    }
+    logger.error(err);
+  }
+});
+
+process.on('unhandledRejection', (err: Error) => {
+  if (err) {
+    if (err.stack) {
+      pushover.push(err.message + '\n\n' + err.stack.split('\n').slice(0, 7).join('\n'));
+    } else if (err.message) {
+      pushover.push(err.message);
+    }
+    logger.error(err);
+  }
+});
