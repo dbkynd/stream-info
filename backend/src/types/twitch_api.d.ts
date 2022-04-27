@@ -131,7 +131,7 @@ interface TwitchUserVideosResponse {
 
 interface TwitchVideo {
   id: string;
-  stream_id: 'archive' | null;
+  stream_id: string;
   user_id: string;
   user_login: string;
   user_name: string;
@@ -146,7 +146,7 @@ interface TwitchVideo {
   language: string;
   type: 'upload' | 'archive' | 'highlight';
   duration: string;
-  muted_segments: MutedSegments[];
+  muted_segments: MutedSegments[] | null;
 }
 
 interface MutedSegments {
