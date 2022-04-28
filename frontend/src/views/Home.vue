@@ -45,12 +45,13 @@
       </div>
     </div>
     <div class="gradient"></div>
+<!--    <UserSettings />-->
     <Footer />
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapState } from 'vuex';
 import { api } from "@/plugins/axios";
 import Cheer from '@/components/Cheer'
 import Subscription from '@/components/Subscription'
@@ -59,6 +60,7 @@ import Tip from '@/components/Tip'
 import Footer from '@/components/Footer'
 import IdleJs from 'idle-js';
 import * as socket from '@/plugins/socket.io';
+// import UserSettings from '@/components/UserSettings'
 
 const idle = new IdleJs({
   idle: 30000,
@@ -86,9 +88,10 @@ export default {
     Host,
     Tip,
     Footer,
+    // UserSettings,
   },
   computed: {
-    ...mapGetters(['cheers', 'hosts', 'subscriptions', 'tips'])
+    ...mapState(['cheers', 'hosts', 'subscriptions', 'tips'])
   },
   created() {
     api.get('/user').then(() => {
@@ -195,4 +198,5 @@ export default {
     0 0 3px #000000,
     0 0 7px #f9d71a
 }
+
 </style>
