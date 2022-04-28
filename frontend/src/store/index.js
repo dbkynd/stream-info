@@ -2,7 +2,7 @@ import { createStore } from 'vuex';
 import VuexNow from 'vuex-now';
 import { api } from '@/plugins/axios';
 
-const maxArraySize = 100;
+const maxArraySize = 10; // TODO revert to 100
 const now = VuexNow(1000 * 60);
 
 const store = createStore({
@@ -14,37 +14,9 @@ const store = createStore({
     subscriptions: [],
     tips: [],
     settings: {},
+    settingsDialog: true,
   },
-  getters: {
-    cheers(state) {
-      return state.cheers.sort((a, b) => {
-        return (
-          new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf()
-        );
-      });
-    },
-    hosts(state) {
-      return state.hosts.sort((a, b) => {
-        return (
-          new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf()
-        );
-      });
-    },
-    subscriptions(state) {
-      return state.subscriptions.sort((a, b) => {
-        return (
-          new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf()
-        );
-      });
-    },
-    tips(state) {
-      return state.tips.sort((a, b) => {
-        return (
-          new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf()
-        );
-      });
-    },
-  },
+  getters: {},
   mutations: {
     updateTime(state) {
       state.now = Date.now();
@@ -57,24 +29,23 @@ const store = createStore({
     },
     SOCKET_cheer(state, payload) {
       if (state.cheers.includes(payload._id)) return;
-      state.cheers.push(payload);
-      if (state.cheers.length > maxArraySize) state.cheers.shift();
+      state.cheers.unshift(payload);
+      if (state.cheers.length > maxArraySize) state.cheers.pop();
     },
     SOCKET_host(state, payload) {
       if (state.hosts.includes(payload._id)) return;
-      state.hosts.push(payload);
-      if (state.hosts.length > maxArraySize) state.hosts.shift();
+      state.hosts.unshift(payload);
+      if (state.hosts.length > maxArraySize) state.hosts.pop();
     },
     SOCKET_subscription(state, payload) {
       if (state.subscriptions.includes(payload._id)) return;
-      state.subscriptions.push(payload);
-      if (state.subscriptions.length > maxArraySize)
-        state.subscriptions.shift();
+      state.subscriptions.unshift(payload);
+      if (state.subscriptions.length > maxArraySize) state.subscriptions.pop();
     },
     SOCKET_tip(state, payload) {
       if (state.tips.includes(payload._id)) return;
-      state.tips.push(payload);
-      if (state.tips.length > maxArraySize) state.tips.shift();
+      state.tips.unshift(payload);
+      if (state.tips.length > maxArraySize) state.tips.pop();
     },
     setLists(state, payload) {
       add(payload.cheers, state.cheers);
@@ -83,11 +54,11 @@ const store = createStore({
       add(payload.tips, state.tips);
 
       function add(array, target) {
-        for (let i = 0; i < array.length; i++) {
+        for (let i = array.length - 1; i >= 0; i--) {
           const ids = target.map((x) => x._id);
           if (!ids.includes(array[i]._id)) {
-            target.push(array[i]);
-            if (target.length > maxArraySize) target.shift();
+            target.unshift(array[i]);
+            if (target.length > maxArraySize) target.pop();
           }
         }
       }
@@ -111,6 +82,10 @@ const store = createStore({
     },
     setSettings(state, payload) {
       this.state.settings = Object.assign({}, state.settings, payload);
+    },
+    setSettingsDialog(state, payload) {
+      console.log('SET', payload);
+      this.state.settingsDialog = payload;
     },
   },
   actions: {
