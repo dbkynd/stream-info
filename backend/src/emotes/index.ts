@@ -73,7 +73,7 @@ function getCheermoteMatches(words: string[]): ParsedEmotes {
             tier = found.tiers[i - 1];
           }
 
-          const code = prefix + tier.id;
+          const code = prefix + value;
           if (!emotes[code]) {
             emotes[code] = {
               static: tier.images.dark.static['1'],
