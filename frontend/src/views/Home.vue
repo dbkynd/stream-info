@@ -91,7 +91,7 @@ export default {
     // UserSettings,
   },
   computed: {
-    ...mapState(['cheers', 'hosts', 'subscriptions', 'tips'])
+    ...mapState('lists', ['cheers', 'hosts', 'subscriptions', 'tips'])
   },
   created() {
     api.get('/user').then(() => {

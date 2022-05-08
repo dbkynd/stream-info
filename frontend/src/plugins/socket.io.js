@@ -20,7 +20,7 @@ export function connect() {
   socket.on('connect', () => {
     console.log('SOCKET CONNECTED');
     store.commit('SOCKET_appState', { clientWs: true });
-    store.dispatch('getLists').catch();
+    store.dispatch('lists/getLists').catch();
   });
 
   socket.on('disconnect', () => {
