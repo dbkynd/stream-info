@@ -1,9 +1,7 @@
 <template>
-  <div>
     <div class="date" :title="this.date">
       {{ dateFormatted }}
     </div>
-  </div>
 </template>
 
 <script>
