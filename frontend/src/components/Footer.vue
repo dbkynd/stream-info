@@ -54,7 +54,7 @@
               <v-row justify="space-around" no-gutters>
                 <v-btn color="pink-darken-2" @click="openSusFollowersPage" append-icon="mdi-open-in-new">Sus Follower Terms</v-btn>
                 <v-btn color="blue" @click="clearAll" append-icon="mdi-notification-clear-all">Clear All</v-btn>
-<!--                <v-btn color="purple" @click="openSettingsDialog" append-icon="mdi-cog">Settings</v-btn>-->
+                <v-btn color="purple" @click="openSettingsDialog" append-icon="mdi-cog">Settings</v-btn>
                 <v-btn color="red-darken-2" @click="logout" append-icon="mdi-logout">Logout</v-btn>
               </v-row>
             </v-card>
@@ -96,10 +96,10 @@ export default {
     },
     mouseleave() {
       this.closeTimer = setTimeout(() => {
-        this.close();
+        this.closeFooter();
       }, 500)
     },
-    close() {
+    closeFooter() {
       this.expanded = false
     },
     mouseenter() {
@@ -108,10 +108,10 @@ export default {
     openSusFollowersPage() {
       window.open('/terms', '_blank')
     },
-    /*openSettingsDialog() {
+    openSettingsDialog() {
       this.$store.commit('setSettingsDialog', true);
-      this.close();
-    },*/
+      this.closeFooter();
+    },
   }
 }
 </script>

@@ -1,5 +1,67 @@
 <template>
-  <v-expansion-panels>
+  <v-dialog v-model="dialog">
+      <v-switch
+        v-model="glowNew"
+        label="New Sub Glow"
+        color="secondary"
+        hide-details
+      />
+      <v-switch
+        v-model="glowYears"
+        label="Year Glow"
+        color="secondary"
+        hide-details
+      />
+      <v-switch
+        v-model="showYears"
+        label="Show Years"
+        color="secondary"
+        hide-details
+      />
+      <v-switch
+        v-model="animated"
+        label="Animated Emotes"
+        color="secondary"
+        hide-details
+      />
+      <v-switch
+        v-model="expandMassGiftRecipients"
+        label="Mass Gifts Expanded"
+        color="secondary"
+        hide-details
+      />
+      <v-switch
+        v-model="animatedCheer"
+        label="Animated Cheermotes"
+        color="secondary"
+        hide-details
+      />
+      <v-switch
+        v-model="showCheerValues"
+        label="Cheer Values"
+        color="secondary"
+        hide-details
+      />
+      <v-switch
+        v-model="cheerAmounts"
+        label="Cheer Amounts"
+        color="secondary"
+        hide-details
+      />
+      <v-switch
+        v-model="showLastGame"
+        label="Host - Show Last Game"
+        color="secondary"
+        hide-details
+      />
+      <v-switch
+        v-model="showStreamLength"
+        label="Host - Show Stream Length"
+        color="secondary"
+        hide-details
+      />
+  </v-dialog>
+<!--  <v-expansion-panels>
     <v-expansion-panel>
       <v-expansion-panel-title>
         User Settings
@@ -80,13 +142,21 @@
 
         </v-expansion-panel-text>
     </v-expansion-panel>
-  </v-expansion-panels>
+  </v-expansion-panels>-->
 </template>
 
 <script>
 export default {
   name: "UserSettings",
   computed: {
+    dialog: {
+      get() {
+        return this.$store.state.settingsDialog;
+      },
+      set(value) {
+        this.$store.commit('setSettingsDialog', value)
+      }
+    },
     glowNew: {
       get() {
         return this.$store.state.settings.glowNew;

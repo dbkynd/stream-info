@@ -10,7 +10,7 @@ const store = createStore({
     roomstate: {},
     appState: {},
     settings: {},
-    settingsDialog: true,
+    settingsDialog: null,
   },
   getters: {},
   mutations: {

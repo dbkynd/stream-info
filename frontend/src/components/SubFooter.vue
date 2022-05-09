@@ -3,13 +3,13 @@
     <div class="icons">
       <div v-if="subPlan">
         <div v-if="subPlan === 'Prime'">
-          <v-img src="@/assets/prime.png" alt="" />
+          <img :src="require('@/assets/prime.png')" alt="" />
         </div>
         <div v-else-if="subPlan === '2000'">
-          <img src="@/assets/silver_star.png" alt="" />
+          <img :src="require('@/assets/silver_star.png')" alt="" />
         </div>
         <div v-else-if="subPlan === '3000'">
-          <v-img src="@/assets/gold_star.png" alt="" />
+          <img :src="require('@/assets/gold_star.png')" alt="" />
         </div>
       </div>
     </div>
@@ -29,13 +29,17 @@ export default {
 </script>
 
 <style scoped>
+.container {
+  height: 15px;
+}
+
 .icons {
   position: absolute;
-  bottom: 0;
-  right: 3px;
+  bottom: -2px;
+  right: 5px;
 }
 
 .icons img {
-  height: 18px;
+  height: 14px;
 }
 </style>

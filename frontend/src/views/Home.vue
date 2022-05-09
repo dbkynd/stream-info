@@ -45,7 +45,7 @@
       </div>
     </div>
     <div class="gradient"></div>
-<!--    <UserSettings />-->
+    <UserSettings />
     <Footer />
   </div>
 </template>
@@ -60,7 +60,7 @@ import Tip from '@/components/Tip'
 import Footer from '@/components/Footer'
 import IdleJs from 'idle-js';
 import * as socket from '@/plugins/socket.io';
-// import UserSettings from '@/components/UserSettings'
+import UserSettings from '@/components/UserSettings'
 
 const idle = new IdleJs({
   idle: 30000,
@@ -88,7 +88,7 @@ export default {
     Host,
     Tip,
     Footer,
-    // UserSettings,
+    UserSettings,
   },
   computed: {
     ...mapState('lists', ['cheers', 'hosts', 'subscriptions', 'tips'])
