@@ -3,12 +3,18 @@ import Home from '../views/Home';
 import Unauthorized from '../views/Unauthorized';
 import Logout from '../views/Logout';
 import NotFound from '../views/NotFound';
+import SusTerms from '../views/SusTerms';
 
 const routes = [
   {
     path: '/',
     name: 'Home',
     component: Home,
+  },
+  {
+    path: '/terms',
+    name: 'SusTerms',
+    component: SusTerms,
   },
   {
     path: '/unauthorized',

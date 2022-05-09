@@ -8,8 +8,11 @@ import * as emotes from '../../../emotes';
 import * as twitchIrc from '../../../twitch/twitch_irc';
 import ClearService from '../../services/clear/clear_service';
 import HoursService from '../../services/hours/hours_service';
+import SusTermRoutes from './sus_terms';
 
 const router = express.Router();
+
+router.use('/terms', SusTermRoutes);
 
 router.get('/user', (req, res, next) => {
   res.status(200).json(req.user);
