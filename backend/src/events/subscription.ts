@@ -8,67 +8,75 @@ interface MassGift {
   recipients: tmi.SubGiftUserstate[];
   targetLength: number;
   timeout: NodeJS.Timeout;
+  add(userstate: tmi.SubGiftUserstate): void;
   save(): void;
 }
 
 const lastSubs: { [key: string]: NodeJS.Timeout } = {};
 const massGifts: { [key: string]: MassGift } = {};
 
-// Cooldown on subscription messages to eliminate duplicate events
+// Cool down on subscription messages to eliminate duplicate events
 function isDuplicate(userstate: SubUserstates): boolean {
-  const id = userstate['msg-param-recipient-id'] || userstate['user-id'];
+  const { id } = userstate;
   if (lastSubs[id]) return true;
   lastSubs[id] = setTimeout(() => {
     delete lastSubs[id];
-  }, 2000);
+  }, 5000);
   return false;
 }
 
 export function newSub(userstate: tmi.SubUserstate): void {
   if (isDuplicate(userstate)) return;
-  logger.debug('new subscription');
+  logger.debug(`new subscription - ${userstate.login}`);
   process(userstate);
 }
 
 export function resub(userstate: tmi.SubUserstate, message?: string): void {
   if (isDuplicate(userstate)) return;
-  logger.debug('new resub');
+  logger.debug(`new resub - ${userstate.login}`);
   process(userstate, message);
 }
 
 export function subgift(userstate: tmi.SubGiftUserstate): void {
   if (isDuplicate(userstate)) return;
-  const id = userstate['user-id'];
-  if (!id) return;
 
-  logger.debug('new subgift');
+  // msg-param-origin-id only occurs on mass gift subs
+  // and is used to identify which gift subs belong to which mass gift
+  const id = userstate['msg-param-origin-id'];
 
-  if (massGifts[id]) {
-    massGifts[id].recipients.push(userstate);
-    if (massGifts[id].recipients.length === massGifts[id].targetLength) {
-      massGifts[id].save();
-    }
+  if (id && massGifts[id]) {
+    logger.debug(`new mass gift recipient - ${userstate['msg-param-recipient-user-name']}`);
+    massGifts[id].add(userstate);
   } else {
-    // Process single subgift if not a mass gift
+    logger.debug(`new subgift - ${userstate.login}`);
     process(userstate);
   }
 }
 
 export function submysterygift(userstate: tmi.SubMysteryGiftUserstate, numOfSubs: number): void {
   if (isDuplicate(userstate)) return;
-  const id = userstate['user-id'];
-  if (!id) return;
+  logger.debug(`new submysterygift - ${userstate.login}`);
 
-  logger.debug('new submysterygift');
+  // msg-param-origin-id only occurs on mass gift subs
+  // and is used to identify which gift subs belong to which mass gift
+  const id = userstate['msg-param-origin-id'];
+
   massGifts[id] = {
     recipients: [],
     targetLength: numOfSubs,
     timeout: setTimeout(() => {
       massGifts[id].save();
     }, 5000 + numOfSubs * 250),
+    add: (userstate) => {
+      massGifts[id].recipients.push(userstate);
+      if (massGifts[id].recipients.length === massGifts[id].targetLength) {
+        massGifts[id].save();
+      }
+    },
     save: () => {
       if (massGifts[id].timeout) clearTimeout(massGifts[id].timeout);
       process(userstate, undefined, massGifts[id].recipients);
+      delete massGifts[id];
     },
   };
 }
