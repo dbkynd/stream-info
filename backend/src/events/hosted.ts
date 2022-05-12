@@ -9,8 +9,7 @@ import twitchApi from '../twitch/twitch_api';
 export default async (payload: HostPayload): Promise<void> => {
   if (payload.autohost) return;
   if (!payload.viewers || payload.viewers < 10) return;
-
-  logger.debug('new host/raid');
+  logger.info(`new host/raid - ${payload.username}`);
 
   // Get userdata for the display name and id of the hostee / raider
   const [userData] = await twitchCache.getUsers([payload.username]);

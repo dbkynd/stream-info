@@ -45,7 +45,7 @@ async function getSubs() {
   let cursor: string | undefined;
 
   for (let i = 0; i < requestCount; i++) {
-    logger.debug(`Subscribers chunk: ${i + 1} of ${requestCount}`);
+    // logger.debug(`Subscribers chunk: ${i + 1} of ${requestCount}`);
     const chunk = await twitchApi.getSubscriptions(100, cursor);
     if (chunk.pagination?.cursor) cursor = chunk.pagination.cursor;
     subs.push(...chunk.data);
@@ -69,13 +69,14 @@ async function checkLive() {
 
   const ids = _.chunk(subscribers, 100);
   for (let i = 0; i < requestCount; i++) {
-    logger.debug(`Streams chunk: ${i + 1} of ${requestCount}`);
+    // logger.debug(`Streams chunk: ${i + 1} of ${requestCount}`);
     const chunk = await twitchApi.getStreams(ids[i]);
     live.push(...chunk);
     await dwell();
   }
 
   liveSubs = _.uniqBy(live, 'user_id');
+  logger.debug(`Done caching live sub streams (${liveSubs.length})`);
 }
 
 function dwell(): Promise<void> {

@@ -27,13 +27,13 @@ function isDuplicate(userstate: SubUserstates): boolean {
 
 export function newSub(userstate: tmi.SubUserstate): void {
   if (isDuplicate(userstate)) return;
-  logger.debug(`new subscription - ${userstate.login}`);
+  logger.info(`new subscription - ${userstate.login}`);
   process(userstate);
 }
 
 export function resub(userstate: tmi.SubUserstate, message?: string): void {
   if (isDuplicate(userstate)) return;
-  logger.debug(`new resub - ${userstate.login}`);
+  logger.info(`new resub - ${userstate.login}`);
   process(userstate, message);
 }
 
@@ -45,17 +45,17 @@ export function subgift(userstate: tmi.SubGiftUserstate): void {
   const id = userstate['msg-param-origin-id'];
 
   if (id && massGifts[id]) {
-    logger.debug(`new mass gift recipient - ${userstate['msg-param-recipient-user-name']}`);
+    logger.info(`new mass gift recipient - ${userstate['msg-param-recipient-user-name']}`);
     massGifts[id].add(userstate);
   } else {
-    logger.debug(`new subgift - ${userstate.login}`);
+    logger.info(`new subgift - ${userstate.login}`);
     process(userstate);
   }
 }
 
 export function submysterygift(userstate: tmi.SubMysteryGiftUserstate, numOfSubs: number): void {
   if (isDuplicate(userstate)) return;
-  logger.debug(`new submysterygift - ${userstate.login}`);
+  logger.info(`new submysterygift - ${userstate.login}`);
 
   // msg-param-origin-id only occurs on mass gift subs
   // and is used to identify which gift subs belong to which mass gift

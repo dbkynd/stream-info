@@ -4,7 +4,7 @@ import logger from '../logger';
 import * as io from '../server/socket.io';
 
 export default async (event: SE_WS_Event): Promise<void> => {
-  logger.debug('new tip');
+  logger.info(`new tip - ${event.data.username}`);
 
   const payload: TipPayload = event.data as TipPayload; // TODO refine types
   payload.emotes = await emotes.parseTipMessage(event.data.message);
