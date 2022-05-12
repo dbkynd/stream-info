@@ -6,12 +6,11 @@ const requiredScopes = [
   'bits:read',
   'channel:moderate',
   'channel:read:subscriptions',
-  'channel_check_subscription',
-  'channel_subscriptions',
   'chat:edit',
   'chat:read',
   'clips:edit',
   'moderation:read',
+  'channel:manage:redemptions',
 ];
 
 interface Keys {
