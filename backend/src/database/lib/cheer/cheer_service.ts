@@ -14,7 +14,7 @@ async function save(doc: CheerDoc): Promise<void> {
 }
 
 async function list(): Promise<CheerDoc[]> {
-  return Cheer.find({}).sort({ _id: -1 }).limit(recordsToFetchOnConnect);
+  return Cheer.find({}).sort({ createdAt: -1 }).limit(recordsToFetchOnConnect);
 }
 
 async function clear(id: string): Promise<void> {

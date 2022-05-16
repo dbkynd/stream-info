@@ -14,7 +14,7 @@ async function save(doc: SubscriptionDoc): Promise<void> {
 }
 
 async function list(): Promise<SubscriptionDoc[]> {
-  return Subscription.find({}).sort({ _id: -1 }).limit(recordsToFetchOnConnect);
+  return Subscription.find({}).sort({ createdAt: -1 }).limit(recordsToFetchOnConnect);
 }
 
 async function clear(id: string): Promise<void> {
