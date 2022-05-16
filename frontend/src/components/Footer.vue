@@ -66,7 +66,6 @@
 
 <script>
 import Hours from '@/components/Hours'
-import {api} from '@/plugins/axios'
 import Status from '@/components/Status';
 import Multi from '@/components/Multi';
 import ChatToggles from '@/components/ChatToggles';
@@ -91,8 +90,7 @@ export default {
       window.location.href = '/api/auth/logout';
     },
     clearAll() {
-      this.$store.commit('clearAll');
-      api.post('/clear/all').catch();
+      this.$store.commit('lists/clearAll');
     },
     mouseleave() {
       this.closeTimer = setTimeout(() => {

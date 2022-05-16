@@ -63,6 +63,7 @@ export default {
         unclearedTips,
       );
       uncleared.forEach((x) => (x.cleared = true));
+      api.post('/clear/all').catch();
     },
   },
   actions: {
