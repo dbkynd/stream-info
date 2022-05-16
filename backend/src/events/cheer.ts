@@ -6,7 +6,7 @@ import * as io from '../server/socket.io';
 
 export default (userstate: tmi.ChatUserstate, message: string): void => {
   if (userstate['user-id'] === '251095562') return; // Ignore Coil_Twitch_Bot
-  logger.info(`new cheer - ${userstate.login}`);
+  logger.info(`new cheer - ${userstate.username}`);
 
   const payload: CheerPayload = {
     userstate,
