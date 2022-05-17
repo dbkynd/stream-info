@@ -2,7 +2,9 @@
   <div class="gift">
     <div>
       <span class="name">{{ gifter }}&nbsp;</span>
-      <span v-if="isSubGift">gifted:</span>
+      <span v-if="isSubGift">gifted:
+        <span v-if="giftMonths" class="multi">{{ giftMonths }}</span>
+      </span>
       <span v-else>
         <span>gifted</span>
         <span class="amount">&nbsp;{{ months }}&nbsp;</span>
@@ -14,12 +16,6 @@
       <span class="name">{{ giftee }}</span>
       <span class="amount" :class="{glow}">&nbsp;{{ monthsText }}</span>
       <span v-show="monthsText !== newSubText">&nbsp;months</span>
-    </div>
-    <div v-if="months">
-      <div class="subtext">
-        {{ tier }}
-        <span v-if="giftedMonths"> for <span class="multi">{{ giftedMonths }}</span></span>
-      </div>
     </div>
   </div>
 </template>
@@ -71,12 +67,10 @@ export default {
           return null
       }
     },
-    giftedMonths() {
-      return 666;
-      /*if (!this.recipients.length) return null;
-      const months = this.recipients[0]['msg-param-gift-months']
+    giftMonths() {
+      const months = this.userstate['msg-param-gift-months'];
       if (months === true) return null;
-      return months + ' months';*/
+      return months + ' months';
     },
     isYear() {
       return this.monthsText % 12 === 0
