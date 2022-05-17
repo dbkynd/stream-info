@@ -13,6 +13,7 @@
       <span v-if="displayStreamLength">{{ data.payload.streamLength }}</span>
       <span v-if="useSpacer"> - </span>
       <span v-if="displayLastGame">{{ data.payload.game }}</span>
+      <div v-if="data.payload.title && showStreamTitle">{{data.payload.title}}</div>
     </div>
     <div class="cardFooter"></div>
   </div>
@@ -32,6 +33,7 @@ export default {
     ...mapState({
       showLastGame: state => state.settings.showLastGame,
       showStreamLength: state => state.settings.showStreamLength,
+      showStreamTitle: state => state.settings.showStreamTitle,
     }),
     name() {
       return this.data.payload.displayName || this.data.payload.username

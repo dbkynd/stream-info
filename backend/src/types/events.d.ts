@@ -12,6 +12,7 @@ interface HostPayload {
   game?: string;
   displayName?: string;
   streamLength?: string;
+  title?: string;
 }
 
 interface TipPayload extends SE_WS_Data {

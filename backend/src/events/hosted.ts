@@ -29,6 +29,7 @@ export default async (payload: HostPayload): Promise<void> => {
       const endTime = startTime.plus(videoLength);
       if (endTime > lowerBound && endTime < upperBound) {
         payload.streamLength = videoLength.toFormat('hh:mm:ss');
+        payload.title = video.title;
       }
     }
   }

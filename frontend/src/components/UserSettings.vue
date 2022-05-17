@@ -60,6 +60,12 @@
         color="secondary"
         hide-details
       />
+      <v-switch
+        v-model="showStreamTitle"
+        label="Host - Show Stream Title"
+        color="secondary"
+        hide-details
+      />
   </v-dialog>
 <!--  <v-expansion-panels>
     <v-expansion-panel>
@@ -235,6 +241,14 @@ export default {
       },
       set(value) {
         this.$store.dispatch('updateSettings', { showStreamLength: value })
+      }
+    },
+    showStreamTitle: {
+      get() {
+        return this.$store.state.settings.showStreamTitle;
+      },
+      set(value) {
+        this.$store.dispatch('updateSettings', { showStreamTitle: value })
       }
     }
   }
