@@ -114,7 +114,7 @@ client.on('subgift', (_channel, _username, _streakMonths, _recipient, _methods, 
 // Username is gifting a subscription to someone in a channel.
 client.on('submysterygift', (_channel, _username, numOfSubs, _methods, userstate) => {
   try {
-    events.subscription.submysterygift(userstate);
+    events.subscription.submysterygift(userstate, numOfSubs);
   } catch (e) {
     logger.error(e);
   }
