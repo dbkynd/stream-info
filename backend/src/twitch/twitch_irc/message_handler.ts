@@ -2,6 +2,7 @@ import tmi from 'tmi.js';
 import emotes from '../../emotes/twitch';
 import logger from '../../logger';
 import clipsHandler from './clips_handler';
+import checkTags from './message_tags';
 
 export default (userstate: tmi.ChatUserstate, message: string) => {
   const messageType = userstate['message-type'];
@@ -16,4 +17,6 @@ export default (userstate: tmi.ChatUserstate, message: string) => {
   } catch (err) {
     logger.error(err);
   }
+
+  checkTags(userstate);
 };
