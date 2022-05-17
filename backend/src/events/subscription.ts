@@ -4,7 +4,16 @@ import * as emotes from '../emotes';
 import logger from '../logger';
 import * as io from '../server/socket.io';
 
+interface MassGift {
+  recipients: string[];
+  targetLength: number;
+  timeout: NodeJS.Timeout;
+  add(id: string): void;
+  expire(): void;
+}
+
 const lastSubs: { [key: string]: NodeJS.Timeout } = {};
+const massGifts: { [key: string]: MassGift } = {};
 
 // Cool down on subscription messages to eliminate duplicate events
 function isDuplicate(userstate: SubUserstates): boolean {
@@ -31,18 +40,40 @@ export function resub(userstate: tmi.SubUserstate, message?: string): void {
 export function subgift(userstate: tmi.SubGiftUserstate): void {
   if (isDuplicate(userstate)) return;
 
-  // msg-param-origin-id only occurs on mass gift subs
-  // and is used to identify which sub gift belongs to which mass gift
-  if (userstate['msg-param-origin-id']) return;
+  const id = userstate['msg-param-origin-id'];
 
-  logger.info(`new subgift - ${userstate.login}`);
-  process(userstate);
+  if (id && massGifts[id]) {
+    massGifts[id].add(userstate.id as string);
+  } else {
+    logger.info(`new subgift - ${userstate.login}`);
+    process(userstate);
+  }
 }
 
-export function submysterygift(userstate: tmi.SubMysteryGiftUserstate): void {
+export function submysterygift(userstate: tmi.SubMysteryGiftUserstate, numOfSubs: number): void {
   if (isDuplicate(userstate)) return;
   logger.info(`new submysterygift - ${userstate.login}`);
   process(userstate, undefined);
+
+  const id = userstate['msg-param-origin-id'];
+
+  massGifts[id] = {
+    recipients: [],
+    targetLength: numOfSubs,
+    timeout: setTimeout(() => {
+      massGifts[id].expire();
+    }, 10000 + numOfSubs * 250),
+    add: (id: string) => {
+      massGifts[id].recipients.push(id);
+      if (massGifts[id].recipients.length === massGifts[id].targetLength) {
+        massGifts[id].expire();
+      }
+    },
+    expire: () => {
+      if (massGifts[id].timeout) clearTimeout(massGifts[id].timeout);
+      delete massGifts[id];
+    },
+  };
 }
 
 function process(userstate: SubUserstates, message?: string): void {
