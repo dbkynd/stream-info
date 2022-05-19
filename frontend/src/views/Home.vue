@@ -107,6 +107,7 @@ export default {
   },
   methods: {
     clear(name, item) {
+      if (item.cleared) return;
       item.cleared = true
       api.post('/clear', { name, id: item._id }).catch()
     },
