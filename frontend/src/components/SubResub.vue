@@ -1,19 +1,18 @@
 <template>
   <div>
     <div>
-      <span class="name">{{ data.payload.userstate['display-name'] }}</span>
+      <span class="name">{{ username }}</span>
       <template v-if="!isYear || !showYears">
-        <span class="amount" :class="{glow: doGlow}">&nbsp;{{ months }}</span>
+        <span class="amount" :class="{glow}">&nbsp;{{ months }}</span>
         <span v-if="months !== newSubText">&nbsp;months</span>
       </template>
       <template v-else>
-        <span class="amount" :class="{glow: doGlow}">&nbsp;{{ years }}</span>
+        <span class="amount" :class="{glow}">&nbsp;{{ years }}</span>
       </template>
       <span v-if="isYear">
         <img class="cake" :src="require('@/assets/cake.svg')" alt="" :title="cakeTitle" />
       </span>
     </div>
-
     <div class="message">
       <SubMessage :payload="data.payload"/>
     </div>
@@ -22,45 +21,16 @@
 
 <script>
 import SubMessage from '@/components/SubMessage'
-import { mapState } from 'vuex'
+import subComp from '@/plugins/sub_computed'
 
 export default {
   name: "SubResub",
   props: ['data'],
-  data() {
-    return {
-      newSubText: 'NEW',
-    }
-  },
   components: {
     SubMessage
   },
   computed: {
-    ...mapState({
-      glowNew: state => state.settings.glowNew,
-      glowYears: state => state.settings.glowYears,
-      showYears: state => state.settings.showYears,
-    }),
-    months() {
-      const months = this.data.payload.userstate['msg-param-cumulative-months']
-      if (months === true) return this.newSubText
-      return months
-    },
-    isYear() {
-      return this.months % 12 === 0;
-    },
-    years() {
-      const years = this.months / 12;
-      if (years === 1) return years + ' year!';
-      return years + ' years!';
-    },
-    doGlow() {
-      return (this.glowNew && this.months === this.newSubText) || (this.glowYears && this.isYear);
-    },
-    cakeTitle() {
-      if (this.showYears) return this.months + ' months';
-      return this.years.substring(0, this.years.length - 1);
-    }
+    ...subComp,
   },
 }
 </script>
