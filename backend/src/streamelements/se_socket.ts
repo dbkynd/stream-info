@@ -5,7 +5,6 @@ import events from '../events';
 import logger from '../logger';
 
 let socket: typeof Socket;
-let channelId: string;
 
 export function connect(): void {
   socket = io('https://realtime.streamelements.com', {
@@ -20,8 +19,7 @@ export function connect(): void {
   });
 
   socket.on('authenticated', async (data: SE_WS_AuthData) => {
-    channelId = data.channelId;
-    logger.info(`Connected to StreamElements channel ${channelId}`);
+    logger.info(`Connected to StreamElements channel ${data.channelId}`);
     events.state.updateAppState({ seWs: true });
   });
 
@@ -42,8 +40,4 @@ export function connect(): void {
 
 export function disconnect(): void {
   if (socket) socket.close();
-}
-
-export function getChannelId(): string {
-  return channelId;
 }

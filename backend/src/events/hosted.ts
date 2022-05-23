@@ -35,7 +35,7 @@ export default async (payload: HostPayload): Promise<void> => {
   }
 
   if (payload.raid) {
-    raidmode.enable();
+    raidmode.auto();
   }
 
   // Emit to client regardless if successful database save

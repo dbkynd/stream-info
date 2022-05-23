@@ -30,25 +30,3 @@ interface SE_WS_Data {
   items?: string[];
   avatar: string;
 }
-
-interface SE_Command {
-  cooldown: {
-    user: number;
-    global: number;
-  };
-  aliases: string[];
-  keywords: string[];
-  enabled: boolean;
-  enabledOnline: boolean;
-  enabledOffline: boolean;
-  hidden: boolean;
-  cost: number;
-  type: string;
-  accessLevel: number;
-  _id: string;
-  channel: string;
-  command: string;
-  reply: string;
-  createdAt: string;
-  updatedAt: string;
-}

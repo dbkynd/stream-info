@@ -28,7 +28,7 @@ const saveSpy = jest.spyOn(HostService, 'save').mockImplementation(() => {
   return Promise.resolve();
 });
 const emitSpy = jest.spyOn(io, 'emit');
-const raidmodeSpy = jest.spyOn(raidmode, 'enable').mockImplementation(() => {
+const raidmodeSpy = jest.spyOn(raidmode, 'auto').mockImplementation(() => {
   // Do Nothing
 });
 
@@ -209,6 +209,7 @@ describe('hosted event', () => {
           raid: false,
           displayName: 'MisMagpie',
           streamLength: '03:25:58',
+          title: "♡Chillin Killin'♡  !Coffee !Lazarus !Evasion !Socials",
         },
       };
 
