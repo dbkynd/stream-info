@@ -200,4 +200,8 @@ export default {
     0 0 7px #f9d71a
 }
 
+.subtext {
+  font-size: 0.8rem;
+}
+
 </style>

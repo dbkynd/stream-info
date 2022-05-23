@@ -1,6 +1,9 @@
 <template>
   <div>
     <div>
+      <div v-if="prepaid" class="subtext">
+        Prepaid for {{prepaid}} months!
+      </div>
       <span class="name">{{ username }}</span>
       <template v-if="!isYear || !showYears">
         <span class="amount" :class="{glow}">&nbsp;{{ months }}</span>
@@ -31,6 +34,16 @@ export default {
   },
   computed: {
     ...subComp,
+    prepaid() {
+      const duration = this.data.payload.userstate['msg-param-multimonth-duration'];
+      const tenure = this.data.payload.userstate['msg-param-multimonth-tenure']
+      if (duration === true) return;
+      if (duration && tenure === false) {
+        return duration;
+      } else {
+        return null;
+      }
+    }
   },
 }
 </script>

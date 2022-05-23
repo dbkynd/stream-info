@@ -52,7 +52,4 @@ export default {
 </script>
 
 <style scoped>
-.subtext {
-  font-size: 0.8rem;
-}
 </style>
