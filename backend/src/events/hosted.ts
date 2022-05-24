@@ -20,7 +20,7 @@ export default async (payload: HostPayload): Promise<void> => {
     const [video] = await twitchApi.getArchivedVideosByUser(userData.id, 1);
     if (video) {
       const now = DateTime.now();
-      const range = Duration.fromObject({ minutes: 3 });
+      const range = Duration.fromObject({ minutes: 10 });
       const lowerBound = now.minus(range);
       const upperBound = now.plus(range);
 

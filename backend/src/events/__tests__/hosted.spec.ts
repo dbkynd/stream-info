@@ -217,7 +217,7 @@ describe('hosted event', () => {
     });
 
     it('does not add stream length details if endtime is less than the lowerBound', async () => {
-      MockDate.set(endTime + 1000 * 60 * 3 + 1);
+      MockDate.set(endTime + 1000 * 60 * 10 + 1);
 
       const payload = {
         username: 'mismagpie',
@@ -245,7 +245,7 @@ describe('hosted event', () => {
     });
 
     it('does not add stream length details if endtime is more than the upperBound', async () => {
-      MockDate.set(endTime - 1000 * 60 * 3 - 1);
+      MockDate.set(endTime - 1000 * 60 * 10 - 1);
 
       const payload = {
         username: 'mismagpie',
