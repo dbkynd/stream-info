@@ -1,5 +1,6 @@
 import tmi from 'tmi.js';
 import ClipChannel from '../../database/lib/clip_channel';
+import twitchCache from '../cache';
 import twitchApi from '../twitch_api';
 import * as twitchIrc from '../twitch_irc';
 
@@ -45,7 +46,7 @@ export default async (userstate: tmi.ChatUserstate, message: string) => {
   if (await ClipChannel.has(clipChannelId)) return;
 
   // Delete the message containing the clip we don't allow
-  if (userstate.id) twitchIrc.deleteMessage(userstate.id);
+  if (userstate.id) await twitchIrc.deleteMessage(userstate.id);
 };
 
 async function permit(userstate: tmi.ChatUserstate, message: string) {
@@ -54,7 +55,7 @@ async function permit(userstate: tmi.ChatUserstate, message: string) {
   if (!user) return;
 
   // Query the Twitch API for user data
-  const [userData] = await twitchApi.getUsers([user]);
+  const [userData] = await twitchCache.getUsers([user]);
   if (!userData) return;
   const id = userData.id;
 
