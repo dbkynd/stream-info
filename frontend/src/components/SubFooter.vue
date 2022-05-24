@@ -12,8 +12,11 @@
           <img :src="require('@/assets/gold_star.png')" alt="Tier3" />
         </div>
       </div>
-      <div v-if="userstate['msg-id'].includes('gift')">
+      <div v-if="userstate['msg-id'].includes('gift') && !isUpgrade">
         <img :src="require('@/assets/gift-icon.png')" alt="Gift" />
+      </div>
+      <div v-if="isUpgrade">
+        <v-icon color="#00ffc6">mdi-chevron-double-up</v-icon>
       </div>
     </div>
   </div>
@@ -26,6 +29,9 @@ export default {
   computed: {
     subPlan() {
       return this.userstate['msg-param-sub-plan']
+    },
+    isUpgrade() {
+      return this.userstate['msg-id'].includes('upgrade');
     }
   }
 }
