@@ -1,6 +1,11 @@
 import MongoStore from 'connect-mongo';
 import session from 'express-session';
+import { Duration } from 'luxon';
 import * as database from '../database';
+import logger from '../logger';
+
+const sessionLength = Duration.fromObject({ day: 7 }).valueOf();
+logger.debug(`Session cookie set to ${sessionLength}`);
 
 export default session({
   secret: process.env.SESSION_SECRET,
@@ -9,7 +14,7 @@ export default session({
   cookie: {
     secure: 'auto',
     httpOnly: true,
-    maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
+    maxAge: sessionLength,
   },
   store: MongoStore.create({
     mongoUrl: database.getConnectionString(),
