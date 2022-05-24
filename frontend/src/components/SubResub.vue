@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <div v-if="prepaid" class="subtext multiMonths">
+      <div v-if="prepaid" class="subtext teal">
         Prepaid for {{prepaid}} months!
       </div>
       <span class="name">{{ username }}</span>

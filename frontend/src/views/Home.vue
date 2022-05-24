@@ -204,4 +204,8 @@ export default {
   font-size: 0.8rem;
 }
 
+.teal {
+  color: #00ffc6;
+}
+
 </style>

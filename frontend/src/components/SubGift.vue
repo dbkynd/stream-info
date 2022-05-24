@@ -3,7 +3,7 @@
     <div>
       <span class="name">{{ username }}&nbsp;</span>
       <span v-if="isSubGift">gifted:
-        <span v-if="giftMultiMonths" class="multiMonths">{{ giftMultiMonths }}</span>
+        <span v-if="giftMultiMonths" class="teal">{{ giftMultiMonths }}</span>
       </span>
       <span v-else>
         <span>gifted</span>
@@ -66,11 +66,5 @@ export default {
 
 .column > div > div.uncleared .recipient:hover {
   background: rgba(100, 65, 165, 1.0);
-}
-</style>
-
-<style>
-.multiMonths {
-  color: #00ffc6;
 }
 </style>

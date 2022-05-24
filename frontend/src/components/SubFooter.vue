@@ -16,7 +16,7 @@
         <img :src="require('@/assets/gift-icon.png')" alt="Gift" />
       </div>
       <div v-if="isUpgrade">
-        <v-icon color="#00ffc6">mdi-chevron-double-up</v-icon>
+        <v-icon class="teal">mdi-chevron-double-up</v-icon>
       </div>
     </div>
   </div>
@@ -50,5 +50,10 @@ export default {
 
 .icons img {
   height: 14px;
+}
+
+.mdi-chevron-double-up {
+  position: relative;
+  right: -6px;
 }
 </style>
