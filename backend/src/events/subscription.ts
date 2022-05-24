@@ -53,7 +53,7 @@ export function subgift(userstate: tmi.SubGiftUserstate): void {
 export function submysterygift(userstate: tmi.SubMysteryGiftUserstate, numOfSubs: number): void {
   if (isDuplicate(userstate)) return;
   logger.info(`new submysterygift - ${userstate.login}`);
-  process(userstate, undefined);
+  process(userstate);
 
   const id = userstate['msg-param-origin-id'];
 
@@ -76,7 +76,13 @@ export function submysterygift(userstate: tmi.SubMysteryGiftUserstate, numOfSubs
   };
 }
 
-function process(userstate: SubUserstates, message?: string): void {
+export function paidUpgrade(userstate: UpgradeUserstates): void {
+  if (isDuplicate(userstate)) return;
+  logger.info(`new ${userstate['msg-id']} - ${userstate.login}`);
+  process(userstate);
+}
+
+function process(userstate: SubUserstates | UpgradeUserstates, message?: string): void {
   const payload: SubscriptionPayload = {
     userstate,
     message,

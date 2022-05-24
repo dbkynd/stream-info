@@ -28,8 +28,13 @@ type SubUserstates =
   | import('tmi').SubGiftUserstate
   | import('tmi').SubMysteryGiftUserstate;
 
+type UpgradeUserstates =
+  | import('tmi').SubGiftUpgradeUserstate
+  | import('tmi').AnonSubGiftUpgradeUserstate
+  | import('tmi').PrimeUpgradeUserstate;
+
 interface SubscriptionPayload {
-  userstate: SubUserstates;
+  userstate: SubUserstates | UpgradeUserstates;
   message?: string;
   recipients?: import('tmi').SubGiftUserstate[];
   emotes?: ParsedEmotes;

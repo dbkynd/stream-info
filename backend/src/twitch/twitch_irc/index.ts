@@ -39,10 +39,28 @@ client.on('disconnected', () => {
 
 // https://github.com/tmijs/docs/blob/gh-pages/_posts/v1.4.2/2019-03-03-Events.md
 
+// Username is continuing the Gift Sub they got from an anonymous user in channel.
+client.on('anongiftpaidupgrade', (_channel, _username, userstate) => {
+  try {
+    events.subscription.paidUpgrade(userstate);
+  } catch (e) {
+    logger.error(e);
+  }
+});
+
 // Username has cheered to a channel.
 client.on('cheer', async (_channel, userstate, message) => {
   try {
     await events.cheer(userstate, message);
+  } catch (e) {
+    logger.error(e);
+  }
+});
+
+// Username is continuing the Gift Sub they got from sender in channel.
+client.on('giftpaidupgrade', (_channel, _username, _sender, userstate) => {
+  try {
+    events.subscription.paidUpgrade(userstate);
   } catch (e) {
     logger.error(e);
   }
@@ -62,9 +80,19 @@ client.on('hosted', async (_channel, username, viewers, autohost) => {
   }
 });
 
+// Received a message. This event is fired whenever you receive a chat, action or whisper message.
 client.on('message', (_channel, userstate, message, _self) => {
   try {
     messageHandler(userstate, message);
+  } catch (e) {
+    logger.error(e);
+  }
+});
+
+// User is upgrading from Prime to a normal tier sub
+client.on('primepaidupgrade', (_channel, _username, _methods, userstate) => {
+  try {
+    events.subscription.paidUpgrade(userstate);
   } catch (e) {
     logger.error(e);
   }

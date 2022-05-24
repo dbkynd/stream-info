@@ -66,89 +66,13 @@
         color="secondary"
         hide-details
       />
+      <v-switch
+        v-model="showPaidUpgrades"
+        label="Sub - Show Paid Upgrades"
+        color="secondary"
+        hide-details
+      />
   </v-dialog>
-<!--  <v-expansion-panels>
-    <v-expansion-panel>
-      <v-expansion-panel-title>
-        User Settings
-      </v-expansion-panel-title>
-      <v-expansion-panel-text>
-      <v-switch
-        v-model="glowNew"
-        label="New Sub Glow"
-        color="red"
-        hide-details
-        density="compact"
-      />
-      <v-switch
-        v-model="glowYears"
-        label="Year Glow"
-        color="red"
-        hide-details
-        density="compact"
-      />
-      <v-switch
-        v-model="showYears"
-        label="Show Years"
-        color="red"
-        hide-details
-        density="compact"
-      />
-      <v-switch
-        v-model="animated"
-        label="Animated Emotes"
-        color="red"
-        hide-details
-        density="compact"
-      />
-      <v-switch
-        v-model="animatedCheer"
-        label="Animated Cheermotes"
-        color="red"
-        hide-details
-        density="compact"
-      />
-      <v-switch
-        v-model="showCheerValues"
-        label="Cheer Values"
-        color="red"
-        hide-details
-        density="compact"
-      />
-      <v-switch
-        v-model="expandMassGiftRecipients"
-        label="Mass Gifts Expanded"
-        color="red"
-        hide-details
-        density="compact"
-      />
-        <v-switch
-          v-model="cheerAmounts"
-          label="Cheer Amounts"
-          color="red"
-          hide-details
-          density="compact"
-        />
-
-        <v-switch
-          v-model="showLastGame"
-          label="Show Last Game"
-          color="red"
-          hide-details
-          density="compact"
-        />
-
-        <v-switch
-          v-model="showStreamLength"
-          label="Show Stream Length"
-          color="red"
-          hide-details
-          density="compact"
-        />
-
-        </v-expansion-panel-text>
-    </v-expansion-panel>
-  </v-expansion-panels>-->
 </template>
 
 <script>
@@ -249,6 +173,14 @@ export default {
       },
       set(value) {
         this.$store.dispatch('updateSettings', { showStreamTitle: value })
+      }
+    },
+    showPaidUpgrades: {
+      get() {
+        return this.$store.state.settings.showPaidUpgrades;
+      },
+      set(value) {
+        this.$store.dispatch('updateSettings', { showPaidUpgrades: value })
       }
     }
   }
