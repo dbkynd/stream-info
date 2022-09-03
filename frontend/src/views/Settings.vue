@@ -173,10 +173,10 @@ export default {
         settings.newSub,
         settings.sub,
         settings.anniversary,
-        settings.paidUpgrade,
         settings.giftSub,
         settings.multiMonthGift,
         settings.massGift,
+        settings.paidUpgrade,
       ]
     }
   },
