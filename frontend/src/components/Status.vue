@@ -1,8 +1,8 @@
 <template>
     <div class="status_indicators">
-      <div :class="{ enabled: status.clientWs }"></div>
-      <div :class="{ enabled: status.twitchIrc }"></div>
-      <div :class="{ enabled: status.seWs }"></div>
+      <div :class="{ enabled: status.clientWs }" title="Backend WebSocket"></div>
+      <div :class="{ enabled: status.twitchIrc }" title="Twitch Chat"></div>
+      <div :class="{ enabled: status.seWs }" title="StreamElements WebSocket"></div>
     </div>
 </template>
 
