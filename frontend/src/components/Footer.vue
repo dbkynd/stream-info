@@ -114,7 +114,6 @@ export default {
 <style scoped>
 .v-footer {
   background: #39393d;
-  /*opacity: 0.95;*/
   padding-left: 0;
   padding-right: 0;
   z-index: 3;
@@ -132,12 +131,4 @@ export default {
   position: relative;
 }
 
-.card-title {
-  position: absolute;
-  top: -18px;
-  display: block;
-  z-index: 1000;
-  padding: 5px;
-  font-size: 0.8em;
-}
 </style>
