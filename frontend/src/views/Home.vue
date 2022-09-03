@@ -60,7 +60,6 @@ import Tip from '@/components/Tip'
 import Footer from '@/components/Footer'
 import IdleJs from 'idle-js';
 import * as socket from '@/plugins/socket.io';
-import UserSettings from '@/components/UserSettings'
 
 const idle = new IdleJs({
   idle: 30000,
@@ -88,7 +87,6 @@ export default {
     Host,
     Tip,
     Footer,
-    UserSettings,
   },
   computed: {
     ...mapState('lists', ['cheers', 'hosts', 'subscriptions', 'tips'])
@@ -208,4 +206,10 @@ export default {
   color: #00ffc6;
 }
 
+</style>
+
+<style scoped>
+html, body {
+  overflow: hidden !important;
+}
 </style>

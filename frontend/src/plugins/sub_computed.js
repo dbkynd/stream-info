@@ -5,15 +5,17 @@ export default {
     glowNew: (state) => state.settings.glowNew,
     glowYears: (state) => state.settings.glowYears,
     showYears: (state) => state.settings.showYears,
+    showMassGiftRecipients: (state) => state.settings.showMassGiftRecipients,
   }),
   newSubText() {
     return 'NEW';
   },
   username() {
-    return (
-      this.data.payload.userstate['display-name'] ||
-      this.data.payload.userstate['login']
-    );
+    const login = this.data.payload.userstate['login'];
+    const displayName = this.data.payload.userstate['display-name'];
+    if (!displayName) return login;
+    if (login.toLowerCase() !== displayName.toLowerCase()) return login;
+    return displayName;
   },
   subscriptionMonths() {
     const months = this.data.payload.userstate['msg-param-cumulative-months'];
@@ -47,6 +49,11 @@ export default {
     return (
       (this.glowNew && this.months === this.newSubText) ||
       (this.glowYears && this.isYear)
+    );
+  },
+  showRecipients() {
+    return (
+      this.userstate['msg-param-mass-gift-count'] && this.showMassGiftRecipients
     );
   },
 };

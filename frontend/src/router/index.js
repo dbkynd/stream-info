@@ -4,12 +4,18 @@ import Unauthorized from '../views/Unauthorized';
 import Logout from '../views/Logout';
 import NotFound from '../views/NotFound';
 import SusTerms from '../views/SusTerms';
+import Settings from '../views/Settings';
 
 const routes = [
   {
     path: '/',
     name: 'Home',
     component: Home,
+  },
+  {
+    path: '/settings',
+    name: 'Settings',
+    component: Settings,
   },
   {
     path: '/terms',
