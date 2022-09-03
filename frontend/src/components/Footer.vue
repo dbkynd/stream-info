@@ -34,7 +34,6 @@
       <v-row>
         <v-col cols="12">
           <v-card class="outline elevation-1">
-            <div class="card-title">Misc</div>
             <Hours/>
           </v-card>
         </v-col>
@@ -42,7 +41,6 @@
       <v-row>
         <v-col cols="12">
           <v-card class="outline elevation-1">
-            <div class="card-title">Chat State</div>
             <ChatToggles/>
           </v-card>
         </v-col>
@@ -50,7 +48,6 @@
       <v-row>
         <v-col cols="12">
             <v-card class="outline elevation-1">
-              <div class="card-title">Actions</div>
               <v-row justify="space-around" no-gutters>
                 <v-btn color="pink-darken-2" @click="openSusFollowersPage" append-icon="mdi-open-in-new">Sus Follower Terms</v-btn>
                 <v-btn color="blue" @click="clearAll" append-icon="mdi-notification-clear-all">Clear All</v-btn>
@@ -95,7 +92,7 @@ export default {
     mouseleave() {
       this.closeTimer = setTimeout(() => {
         this.closeFooter();
-      }, 500)
+      }, 600)
     },
     closeFooter() {
       this.expanded = false
