@@ -11,7 +11,7 @@
       </span>
     </div>
     <div v-if="isSubGift">
-      <span class="name">{{ giftee }}</span>
+      <span class="name giftee">{{ giftee }}</span>
       <span class="amount" :class="{glow}">&nbsp;{{ months }}</span>
       <span v-show="months !== newSubText">&nbsp;months</span>
     </div>
@@ -50,11 +50,7 @@ export default {
 </script>
 
 <style scoped>
-.gifter {
-  color: #fff;
-}
-
-.subtext {
-  font-size: 14px;
+.giftee {
+  font-size: 1.0em;
 }
 </style>

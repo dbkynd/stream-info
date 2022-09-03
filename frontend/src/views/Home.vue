@@ -163,7 +163,7 @@ export default {
   color: #fff;
 }
 
-.amount {
+.amount, .multiMonths {
   color: #f9d71a;
 }
 
