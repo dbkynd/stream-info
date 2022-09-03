@@ -34,32 +34,6 @@
               hide-details
               class="px-3"
             />
-            <h3>Mass Gifts:</h3>
-            <v-switch
-              v-model="showMassGiftRecipients"
-              label="Show Recipients"
-              color="secondary"
-              hide-details
-              class="px-3"
-            />
-            <v-switch
-              v-model="expandMassGiftRecipients"
-              label="Expanded by Default"
-              color="secondary"
-              hide-details
-              class="px-3"
-            />
-            <v-switch
-              v-model="collapseTimerGiftRecipients"
-              label="Collapse on Timer"
-              color="secondary"
-              hide-details
-              class="px-3"
-            />
-            <v-text-field type="number" hide-details single-line label="Collapse Timer (Seconds)"
-                          class="px-3">
-
-            </v-text-field>
           </v-col>
           <v-col cols="8">
             <div class="column">
@@ -260,22 +234,6 @@ export default {
         this.$store.dispatch('updateSettings', {animatedCheer: value})
       }
     },
-    expandMassGiftRecipients: {
-      get() {
-        return this.$store.state.settings.expandMassGiftRecipients;
-      },
-      set(value) {
-        this.$store.dispatch('updateSettings', {expandMassGiftRecipients: value})
-      }
-    },
-    showMassGiftRecipients: {
-      get() {
-        return this.$store.state.settings.showMassGiftRecipients;
-      },
-      set(value) {
-        this.$store.dispatch('updateSettings', {showMassGiftRecipients: value})
-      }
-    },
     showCheerValues: {
       get() {
         return this.$store.state.settings.showCheerValues;
@@ -324,14 +282,6 @@ export default {
         this.$store.dispatch('updateSettings', {showPaidUpgrades: value})
       }
     },
-    collapseTimerGiftRecipients: {
-      get() {
-        return this.$store.state.settings.collapseTimerGiftRecipients;
-      },
-      set(value) {
-        this.$store.dispatch('updateSettings', {collapseTimerGiftRecipients: value})
-      }
-    }
   }
 }
 </script>

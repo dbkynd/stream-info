@@ -5,7 +5,6 @@ export default {
     glowNew: (state) => state.settings.glowNew,
     glowYears: (state) => state.settings.glowYears,
     showYears: (state) => state.settings.showYears,
-    showMassGiftRecipients: (state) => state.settings.showMassGiftRecipients,
   }),
   newSubText() {
     return 'NEW';
@@ -49,11 +48,6 @@ export default {
     return (
       (this.glowNew && this.months === this.newSubText) ||
       (this.glowYears && this.isYear)
-    );
-  },
-  showRecipients() {
-    return (
-      this.userstate['msg-param-mass-gift-count'] && this.showMassGiftRecipients
     );
   },
 };
