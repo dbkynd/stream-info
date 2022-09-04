@@ -2,8 +2,10 @@ import { createStore } from 'vuex';
 import VuexNow from 'vuex-now';
 import { api } from '@/plugins/axios';
 import lists from './lists';
+import roomstateToast from '@/plugins/roomstate_toast';
 
 const now = VuexNow(1000 * 60);
+let timer = null;
 
 const store = createStore({
   state: {
@@ -22,6 +24,11 @@ const store = createStore({
     },
     SOCKET_roomstate(state, payload) {
       state.roomstate = Object.assign({}, state.roomstate, payload);
+      if (payload.toast === false) return;
+      for (const key in payload) {
+        if (key !== 'room-id' && key !== 'channel')
+          roomstateToast(key, payload[key]);
+      }
     },
     setSettings(state, payload) {
       state.settings = Object.assign({}, state.settings, payload);
@@ -33,7 +40,7 @@ const store = createStore({
   actions: {
     SOCKET_state({ commit }, payload) {
       commit('SOCKET_appState', payload.appState);
-      commit('SOCKET_roomstate', payload.roomstate);
+      commit('SOCKET_roomstate', { ...payload.roomstate, toast: false });
     },
     updateSettings({ commit }, payload) {
       api.put('/user/settings', { settings: payload }).then(() => {

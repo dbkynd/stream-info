@@ -60,15 +60,8 @@ export default {
         return this.$store.state.roomstate.slow !== false;
       },
       set(enabled) {
-        if (enabled) {
-          this.$store.commit('SOCKET_roomstate', {slow: this.defaultSlow})
-        } else {
-          this.$store.commit('SOCKET_roomstate', {slow: false})
-        }
         const message = enabled ? `/slow ${this.defaultSlow}` : '/slowoff'
-        api.post('/say', {message}).catch(() => {
-          this.$store.commit('SOCKET_roomstate', {slow: !enabled})
-        })
+        api.post('/say', {message})
       }
     },
     followers: {
@@ -79,15 +72,8 @@ export default {
         return this.$store.state.roomstate["followers-only"] !== "-1";
       },
       set(enabled) {
-        if (enabled) {
-          this.$store.commit('SOCKET_roomstate', {'followers-only': this.defaultFollowers})
-        } else {
-          this.$store.commit('SOCKET_roomstate', {'followers-only': "-1"})
-        }
         const message = enabled ? `/followers ${this.defaultFollowers}` : '/followersoff'
-        api.post('/say', {message}).catch(() => {
-          this.$store.commit('SOCKET_roomstate', {'subs-only': !enabled})
-        })
+        api.post('/say', {message})
       }
     },
     subscribers: {
@@ -96,11 +82,8 @@ export default {
         return this.$store.state.roomstate["subs-only"];
       },
       set(enabled) {
-        this.$store.commit('SOCKET_roomstate', {'subs-only': enabled})
         const message = enabled ? '/subscribers' : '/subscribersoff'
-        api.post('/say', {message}).catch(() => {
-          this.$store.commit('SOCKET_roomstate', {'subs-only': !enabled})
-        })
+        api.post('/say', {message})
       }
     },
     r9k: {
@@ -109,11 +92,8 @@ export default {
         return this.$store.state.roomstate["r9k"];
       },
       set(enabled) {
-        this.$store.commit('SOCKET_roomstate', {'r9k': enabled})
-        const message = enabled ? '/r9k' : '/r9koff'
-        api.post('/say', {message}).catch(() => {
-          this.$store.commit('SOCKET_roomstate', {'r9k': !enabled})
-        })
+        const message = enabled ? '/uniquechat' : '/uniquechatoff'
+        api.post('/say', {message})
       }
     },
     emote: {
@@ -122,11 +102,8 @@ export default {
         return this.$store.state.roomstate["emote-only"];
       },
       set(enabled) {
-        this.$store.commit('SOCKET_roomstate', {'emote-only': enabled})
         const message = enabled ? '/emoteonly' : '/emoteonlyoff'
-        api.post('/say', {message}).catch(() => {
-          this.$store.commit('SOCKET_roomstate', {'emote-only': !enabled})
-        })
+        api.post('/say', {message})
       }
     },
     raidMode: {
@@ -135,10 +112,7 @@ export default {
         return this.$store.state.appState["raidMode"];
       },
       set(value) {
-        this.$store.commit('SOCKET_appState', {'raidMode': value})
-        api.post('/command', {'raidMode': value}).catch(() => {
-          this.$store.commit('SOCKET_appState', {'raidMode': !value})
-        })
+        api.post('/command', {'raidMode': value})
       }
     }
   }
