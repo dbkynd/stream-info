@@ -45,7 +45,6 @@
       </div>
     </div>
     <div class="gradient"></div>
-    <UserSettings />
     <Footer />
   </div>
 </template>
