@@ -1,20 +1,28 @@
+import logger from '../logger';
 import seApi from './se_api';
 
 async function say(message: string) {
-  await seApi.postChannelSay(message);
+  logger.debug(`se SAY: ${message}`);
+  if (!process.env.NO_ACTIONS) {
+    try {
+      await seApi.postChannelSay(message);
+    } catch (e) {
+      logger.error(e);
+    }
+  }
 }
 
 async function announce(message: string) {
-  await seApi.postChannelSay(`/announce ${message}`);
+  await say(`/announce ${message}`);
 }
 
 async function followersOff() {
-  await seApi.postChannelSay('/followersoff');
+  await say('/followersoff');
 }
 
 async function followers(minutes?: number) {
-  if (!minutes) await seApi.postChannelSay('/followers');
-  else await seApi.postChannelSay(`/followers ${minutes}`);
+  if (!minutes) await say('/followers');
+  else await say(`/followers ${minutes}`);
 }
 
 export default {

@@ -36,7 +36,7 @@
       density="compact"
     />
     <v-switch
-      v-model="raidMode"
+      v-model="raidmode"
       label="Raid Mode"
       color="red"
       hide-details
@@ -106,13 +106,13 @@ export default {
         api.post('/say', {message})
       }
     },
-    raidMode: {
+    raidmode: {
       // Boolean
       get() {
-        return this.$store.state.appState["raidMode"];
+        return this.$store.state.appState["raidmode"];
       },
       set(value) {
-        api.post('/command', {'raidMode': value})
+        api.post('/raidmode', {action: value.toString()})
       }
     }
   }

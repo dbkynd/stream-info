@@ -5,7 +5,7 @@ import { useToast } from 'vue-toastification';
 
 const toast = useToast();
 
-export default function (key, value) {
+export function roomstate(key, value) {
   if (key === 'slow') {
     toast({
       component: SlowModeToast,
@@ -38,6 +38,15 @@ export default function (key, value) {
     toast({
       component: BooleanToast,
       props: { name: 'Unique Chat', value },
+    });
+  }
+}
+
+export function appState(key, value) {
+  if (key === 'raidmode') {
+    toast({
+      component: BooleanToast,
+      props: { name: 'Raid', value },
     });
   }
 }

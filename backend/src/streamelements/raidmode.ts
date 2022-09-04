@@ -1,11 +1,11 @@
 import { merge } from 'lodash';
-import events from '../events';
+import { updateAppState } from '../events/state';
 import logger from '../logger';
 import commands from './commands';
 import seApi from './se_api';
 
 let followersTimer: NodeJS.Timer, raidModeOffTimer: NodeJS.Timer;
-let inAutoRaidMode = false;
+let inRaidMode = false;
 
 async function init() {
   const currentFilters = await seApi.getFilters();
@@ -13,10 +13,12 @@ async function init() {
   // Emote filter ON means raidmode is OFF
   const raidmode = !emoteFiltersEnabled;
   logger.info(`Raidmode data. Enabled: ${raidmode}`);
-  events.state.updateAppState({ raidmode });
+  updateAppState({ raidmode });
 }
 
 async function setFilters(enabled: boolean): Promise<void> {
+  logger.debug('settings streamelements filters');
+  if (process.env.NO_ACTIONS) return;
   const currentFilters = await seApi.getFilters();
   const body: SEFiltersResponse & { banphrases: string[] } = merge(currentFilters, {
     botFilters: {
@@ -31,17 +33,42 @@ async function setFilters(enabled: boolean): Promise<void> {
 function auto() {
   logger.debug('auto raidmode triggered');
   if (process.env.NODE_ENV !== 'production') return;
-  if (inAutoRaidMode) {
+  if (inRaidMode) {
     timers();
     return;
   }
-  inAutoRaidMode = true;
+  inRaidMode = true;
   logger.info('enabling raidmode');
   toggle(true).then(() => {
     commands.say('Raidmode has been enabled.');
     commands.followersOff();
   });
   timers();
+}
+
+async function manual(enable: boolean): Promise<string> {
+  logger.debug(`manual raidmode trigger - enable: ${enable}`);
+  if (enable) {
+    if (inRaidMode) {
+      return 'Raidmode already enabled.';
+    } else {
+      inRaidMode = true;
+      await toggle(true);
+      await commands.followersOff();
+      return 'Raidmode has been enabled.';
+    }
+  } else {
+    if (inRaidMode) {
+      inRaidMode = false;
+      clearTimeout(followersTimer);
+      clearTimeout(raidModeOffTimer);
+      await toggle(false);
+      await commands.followers();
+      return 'Raidmode has been disabled.';
+    } else {
+      return 'Raidmode currently disabled.';
+    }
+  }
 }
 
 function timers() {
@@ -52,7 +79,7 @@ function timers() {
       '10-minute followers-only mode will be enabled in 10 minutes. Please follow to continue chatting.',
     );
     toggle(false).then(() => {
-      inAutoRaidMode = false;
+      inRaidMode = false;
     });
   }, 1000 * 60 * 3);
 
@@ -65,7 +92,7 @@ async function toggle(enable: boolean) {
   return setFilters(!enable)
     .then(() => {
       logger.info(`Raidmode toggled. Enabled: ${enable}`);
-      events.state.updateAppState({ raidmode: enable });
+      updateAppState({ raidmode: enable });
     })
     .catch((err) => {
       logger.error(err);
@@ -76,4 +103,5 @@ async function toggle(enable: boolean) {
 export default {
   init,
   auto,
+  manual,
 };

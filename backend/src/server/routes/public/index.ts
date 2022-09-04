@@ -1,4 +1,5 @@
 import express from 'express';
+import seAuth from '../../middleware/seAuth';
 import * as MultiService from '../../services/multi/multi_service';
 import StatsService from '../../services/stats/stats_service';
 import authRoutes from './auth';
@@ -9,7 +10,7 @@ import twitchEventSubRoutes from './twitch_eventsub';
 const router = express.Router();
 
 router.use('/auth', authRoutes);
-router.use('/chat', chatBotRoutes);
+router.use('/chat', seAuth, chatBotRoutes);
 router.use('/twitch/eventsub', twitchEventSubRoutes);
 router.use(liveSubsRoutes);
 
