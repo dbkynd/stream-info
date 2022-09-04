@@ -59,14 +59,14 @@ router.get('/lists', async (req, res, next) => {
   }
 });
 
-router.post('/say', (req, res, next) => {
+router.post('/say', async (req, res, next) => {
   const { message } = req.body as { [key: string]: string | undefined };
   if (!message) {
     res.sendStatus(400);
     return;
   }
   try {
-    twitchIrc.say(message);
+    await twitchIrc.say(message);
     res.sendStatus(204);
   } catch (e) {
     next(e);

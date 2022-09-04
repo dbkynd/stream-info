@@ -51,26 +51,43 @@ import {api} from '@/plugins/axios';
 export default {
   name: "ChatToggles",
   computed: {
+    defaultSlow() {return this.$store.state.settings.defaultSlow || "60"},
+    defaultFollowers() {return this.$store.state.settings.defaultFollowers || "10"},
     slow: {
+      // false is off
+      // "30" is 30 seconds
       get() {
-        // false is off
-        // "30" is 30 seconds
         return this.$store.state.roomstate.slow !== false;
       },
-      set(value) {
-        console.log(value)
+      set(enabled) {
+        if (enabled) {
+          this.$store.commit('SOCKET_roomstate', {slow: this.defaultSlow})
+        } else {
+          this.$store.commit('SOCKET_roomstate', {slow: false})
+        }
+        const message = enabled ? `/slow ${this.defaultSlow}` : '/slowoff'
+        api.post('/say', {message}).catch(() => {
+          this.$store.commit('SOCKET_roomstate', {slow: !enabled})
+        })
       }
     },
     followers: {
+      // "-1" is off
+      // false is 0 duration
+      // "10" is 10 minutes
       get() {
-        // "-1" is off
-        // false is 0 duration
-        // "10" is 10 minutes
         return this.$store.state.roomstate["followers-only"] !== "-1";
       },
-      set(value) {
-        const current = this.$store.state.roomstate["followers-only"];
-        console.log(value, current)
+      set(enabled) {
+        if (enabled) {
+          this.$store.commit('SOCKET_roomstate', {'followers-only': this.defaultFollowers})
+        } else {
+          this.$store.commit('SOCKET_roomstate', {'followers-only': "-1"})
+        }
+        const message = enabled ? `/followers ${this.defaultFollowers}` : '/followersoff'
+        api.post('/say', {message}).catch(() => {
+          this.$store.commit('SOCKET_roomstate', {'subs-only': !enabled})
+        })
       }
     },
     subscribers: {
@@ -78,45 +95,48 @@ export default {
         // Boolean
         return this.$store.state.roomstate["subs-only"];
       },
-      set(value) {
-        this.$store.commit('SOCKET_roomstate', {'subs-only': value})
-        api.post('/command/se', {'subs-only': value}).catch(() => {
-          this.$store.commit('SOCKET_roomstate', {'subs-only': !value})
+      set(enabled) {
+        this.$store.commit('SOCKET_roomstate', {'subs-only': enabled})
+        const message = enabled ? '/subscribers' : '/subscribersoff'
+        api.post('/say', {message}).catch(() => {
+          this.$store.commit('SOCKET_roomstate', {'subs-only': !enabled})
         })
       }
     },
     r9k: {
+      // Boolean
       get() {
-        // Boolean
         return this.$store.state.roomstate["r9k"];
       },
-      set(value) {
-        this.$store.commit('SOCKET_roomstate', {'r9k': value})
-        api.post('/command/se', {'r9k': value}).catch(() => {
-          this.$store.commit('SOCKET_roomstate', {'r9k': !value})
+      set(enabled) {
+        this.$store.commit('SOCKET_roomstate', {'r9k': enabled})
+        const message = enabled ? '/r9k' : '/r9koff'
+        api.post('/say', {message}).catch(() => {
+          this.$store.commit('SOCKET_roomstate', {'r9k': !enabled})
         })
       }
     },
     emote: {
+      // Boolean
       get() {
-        // Boolean
         return this.$store.state.roomstate["emote-only"];
       },
-      set(value) {
-        this.$store.commit('SOCKET_roomstate', {'emote-only': value})
-        api.post('/command/se', {'emote-only': value}).catch(() => {
-          this.$store.commit('SOCKET_roomstate', {'emote-only': !value})
+      set(enabled) {
+        this.$store.commit('SOCKET_roomstate', {'emote-only': enabled})
+        const message = enabled ? '/emoteonly' : '/emoteonlyoff'
+        api.post('/say', {message}).catch(() => {
+          this.$store.commit('SOCKET_roomstate', {'emote-only': !enabled})
         })
       }
     },
     raidMode: {
+      // Boolean
       get() {
-        // Boolean
         return this.$store.state.appState["raidMode"];
       },
       set(value) {
         this.$store.commit('SOCKET_appState', {'raidMode': value})
-        api.post('/command/se', {'raidMode': value}).catch(() => {
+        api.post('/command', {'raidMode': value}).catch(() => {
           this.$store.commit('SOCKET_appState', {'raidMode': !value})
         })
       }
