@@ -8,12 +8,13 @@ import * as emotes from '../../../emotes';
 import * as twitchIrc from '../../../twitch/twitch_irc';
 import ClearService from '../../services/clear/clear_service';
 import HoursService from '../../services/hours/hours_service';
-import RaidModeRoute from '../common/raidmode';
+import RaidModeRoutes from '../common/raidmode';
 import SusTermRoutes from './sus_terms';
 
 const router = express.Router();
 
 router.use('/terms', SusTermRoutes);
+router.post('/raidmode', RaidModeRoutes);
 
 router.get('/user', (req, res, next) => {
   res.status(200).json(req.user);
@@ -113,7 +114,5 @@ router.post('/restart', (req, res, next) => {
     process.exit(0);
   }
 });
-
-router.post('/raidmode', RaidModeRoute);
 
 export default router;

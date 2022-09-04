@@ -77,7 +77,7 @@ export default {
   },
   data() {
     return {
-      expanded: true,
+      expanded: false,
       closeTimer: null,
       settingsDialog: false,
     }
@@ -101,10 +101,9 @@ export default {
       if (this.closeTimer) clearTimeout(this.closeTimer);
     },
     openSusFollowersPage() {
-      window.open('/terms', '_blank')
+      this.$router.push('terms');
     },
     openSettingsPage() {
-      this.closeFooter();
       this.$router.push('settings');
     },
   }

@@ -1,5 +1,9 @@
 <template>
-  <h1>User Settings</h1>
+  <v-row no-gutters class="pa-3" align="center">
+    <h1>USER SETTINGS</h1>
+    <v-spacer />
+    <v-btn @click="home" rounded="false" color="primary" class="mr-2" icon size="small"><v-icon>mdi-home</v-icon></v-btn>
+  </v-row>
   <div v-show="!loading">
     <v-row>
       <v-col cols="6">
@@ -320,6 +324,9 @@ export default {
           this.timer = null
           this.$store.dispatch('updateSettings', {defaultSlow: this.slow})
         }, 3000)
+    },
+    home() {
+      this.$router.push('/')
     }
   }
 }
