@@ -152,6 +152,16 @@
         </v-row>
       </v-col>
     </v-row>
+    <v-divider></v-divider>
+    <v-row class="mt-4 mx-3">
+      <h3>Chat Toggle Durations:</h3>
+      <v-col cols="2">
+        <v-text-field v-model="defaultSlow" label="Slow Mode (Seconds)" type="number" min="1"/>
+      </v-col>
+      <v-col cols="2">
+        <v-text-field v-model="defaultFollowers" label="Follower Only (Minutes)" type="number" min="0" />
+      </v-col>
+    </v-row>
   </div>
 </template>
 
@@ -177,15 +187,16 @@ export default {
         settings.multiMonthGift,
         settings.massGift,
         settings.paidUpgrade,
-      ]
+      ],
     }
   },
   created() {
     if (!this.$store.settings) {
-      api.get('/user/settings').then(({data}) => {
-        this.$store.commit('setSettings', data);
-        this.loading = false
-      })
+      api.get('/user/settings')
+        .then(({data}) => {
+          this.$store.commit('setSettings', data);
+          this.loading = false
+        })
         .catch(() => {
           window.location.href = '/api/auth/login';
         })
@@ -193,7 +204,26 @@ export default {
       this.loading = false
     }
   },
+  mounted() {
+    this.slow = this.defaultSlow
+  },
   computed: {
+    defaultSlow: {
+      get() {
+        return this.$store.state.settings.defaultSlow || "60"
+      },
+      set(value) {
+        this.$store.dispatch('updateSettingsWithCooldown', {defaultSlow: value})
+      },
+    },
+    defaultFollowers: {
+      get() {
+        return this.$store.state.settings.defaultFollowers || "10"
+      },
+      set(value) {
+        this.$store.dispatch('updateSettingsWithCooldown', {defaultFollowers: value})
+      },
+    },
     glowNew: {
       get() {
         return this.$store.state.settings.glowNew;
@@ -282,6 +312,15 @@ export default {
         this.$store.dispatch('updateSettings', {showPaidUpgrades: value})
       }
     },
+  },
+  methods: {
+    updateSlow() {
+        if (this.timer) return
+        this.timer = setTimeout(() => {
+          this.timer = null
+          this.$store.dispatch('updateSettings', {defaultSlow: this.slow})
+        }, 3000)
+    }
   }
 }
 </script>
