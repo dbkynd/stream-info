@@ -23,28 +23,34 @@ export default {
     },
     slow() {
       const slow = this.roomstate['slow'];
+      if (slow === undefined) return null;
       return slow === false ? null : `Slow: ${slow}`;
     },
     followers() {
       const followers = this.roomstate['followers-only'];
+      if (followers === undefined) return null;
       return followers === '-1'
         ? null
         : `Followers: ${followers === false ? 0 : followers}m`;
     },
     sub() {
       const sub = this.roomstate['subs-only'];
+      if (sub === undefined) return null;
       return sub === false ? null : 'Sub';
     },
     r9k() {
       const r9k = this.roomstate['r9k'];
+      if (r9k === undefined) return null;
       return r9k === false ? null : 'r9k';
     },
     emote() {
       const emote = this.roomstate['emote-only'];
+      if (emote === undefined) return null;
       return emote === false ? null : 'EmoteOnly';
     },
     raidmode() {
       const raidmode = this.appState.raidmode;
+      if (raidmode === undefined) return null;
       return raidmode === false ? null : 'Raidmode';
     },
     statusText() {
