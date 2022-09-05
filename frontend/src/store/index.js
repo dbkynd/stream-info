@@ -55,7 +55,7 @@ const store = createStore({
       commit('setSettings', payload);
       timer = setTimeout(() => {
         api.put('/user/settings', { settings: payload }).then(() => {});
-      }, 1000);
+      }, 500);
     },
   },
   modules: {
