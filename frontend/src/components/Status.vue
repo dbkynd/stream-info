@@ -6,7 +6,7 @@
       <div :class="{ enabled: status.seWs }" title="StreamElements WebSocket"></div>
     </div>
     <div class="roomstate">
-      {{ states }}
+      {{ statusText }}
     </div>
   </v-row>
 </template>
@@ -45,9 +45,11 @@ export default {
       const raidmode = this.appState.raidmode
       return raidmode === false ? null : 'Raidmode'
     },
-    states() {
+    statusText() {
       const arr = [this.slow, this.sub, this.followers, this.r9k, this.emote, this.raidmode]
-      return `[${arr.filter(x => x).join('|')}]`;
+      const filtered = arr.filter(x => x)
+      if (!filtered.length) return ''
+      return `[${filtered.join('|')}]`;
     }
   },
 }
