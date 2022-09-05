@@ -190,7 +190,8 @@ export default {
         settings.giftSub,
         settings.multiMonthGift,
         settings.massGift,
-        settings.paidUpgrade,
+        settings.paidUpgrade.paidUpgrade,
+        settings.paidUpgrade.primepaidupgrade
       ],
     }
   },

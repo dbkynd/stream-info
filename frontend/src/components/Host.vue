@@ -2,7 +2,7 @@
   <div class="host">
     <Timestamp :date="data.createdAt"/>
     <div>
-      <span class="name">{{ name }}&nbsp;</span>
+      <span class="name">{{ username }}&nbsp;</span>
       <div style="display: inline-block">
         {{ data.payload.raid ? 'raided' : 'hosted' }} with
         <span class="amount">{{ data.payload.viewers }}</span>
@@ -22,6 +22,7 @@
 <script>
 import Timestamp from "@/components/Timestamp";
 import {mapState} from 'vuex';
+import { displayName } from '@/plugins/utils'
 
 export default {
   name: "Host",
@@ -35,8 +36,8 @@ export default {
       showStreamLength: state => state.settings.showStreamLength,
       showStreamTitle: state => state.settings.showStreamTitle,
     }),
-    name() {
-      return this.data.payload.displayName || this.data.payload.username
+    username() {
+      return displayName(this.data.payload.username, this.data.payload.displayName);
     },
     displayLastGame() {
       return this.showLastGame && this.data.payload.game;

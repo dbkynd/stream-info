@@ -1,4 +1,5 @@
 import { mapState } from 'vuex';
+import { displayName } from '@/plugins/utils';
 
 export default {
   ...mapState({
@@ -10,11 +11,10 @@ export default {
     return 'NEW';
   },
   username() {
-    const login = this.data.payload.userstate['login'];
-    const displayName = this.data.payload.userstate['display-name'];
-    if (!displayName) return login;
-    if (login.toLowerCase() !== displayName.toLowerCase()) return login;
-    return displayName;
+    return displayName(
+      this.data.payload.userstate['login'],
+      this.data.payload.userstate['display-name'],
+    );
   },
   subscriptionMonths() {
     const months = this.data.payload.userstate['msg-param-cumulative-months'];

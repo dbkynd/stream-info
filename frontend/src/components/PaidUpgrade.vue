@@ -3,16 +3,18 @@
     <span class="name">{{ username }}&nbsp;</span>
     <div class="subtext">
       <template v-if="userstate['msg-id'] === 'primepaidupgrade'">
-        upgraded from a prime sub to a <span style="color: white;">{{tier}}</span> sub.
+        upgraded from a <span class="prime">prime sub</span> to a <span class="white">{{ tier }}</span> sub.
       </template>
       <template v-else>
-        is continuing the gift sub they got from <span style="color: white;">{{sender}}</span>.
+        is continuing the gift sub they got from <span class="white">{{ sender }}</span>.
       </template>
     </div>
   </div>
 </template>
 
 <script>
+import {displayName} from '@/plugins/utils'
+
 export default {
   name: "PaidUpgrade",
   props: ['data'],
@@ -21,10 +23,10 @@ export default {
       return this.data.payload.userstate;
     },
     username() {
-      return this.userstate['display-name'] || this.userstate['login'];
+      return displayName(this.userstate['login'], this.userstate['display-name']);
     },
     tier() {
-      switch(this.userstate['msg-param-sub-plan']) {
+      switch (this.userstate['msg-param-sub-plan']) {
         case '1000':
           return 'Tier 1';
         case '2000':
@@ -36,12 +38,17 @@ export default {
       }
     },
     sender() {
-      return this.userstate['msg-param-sender-name'] || this.userstate['msg-param-sender-login'] || 'Anonymous';
+      return displayName(this.userstate['msg-param-sender-login'] || 'Anonymous', this.userstate['msg-param-sender-name']);
     }
   }
 }
 </script>
 
 <style scoped>
-
+.white {
+  color: white;
+}
+.prime {
+  color: #0382B8;
+}
 </style>

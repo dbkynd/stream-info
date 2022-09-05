@@ -3,7 +3,7 @@
       <Timestamp :date="data.createdAt"/>
 
       <div>
-        <span class="name">{{ data.payload.userstate['display-name'] }}</span>
+        <span class="name">{{ username }}</span>
         <span class="amount">&nbsp;{{ data.payload.userstate['bits']}}</span>
         <span class="dollars" v-if="showCheerAmounts">&nbsp;${{ dollars }}</span>
       </div>
@@ -17,6 +17,7 @@
 <script>
 import Timestamp from "@/components/Timestamp";
 import Message from '@/components/Message';
+import { displayName } from '@/plugins/utils'
 
 export default {
   name: "Cheer",
@@ -26,6 +27,9 @@ export default {
     Message,
   },
   computed: {
+    username() {
+      return displayName(this.data.payload.userstate['username'], this.data.payload.userstate['display-name'])
+    },
     showCheerAmounts() {
       return this.$store.state.settings.cheerAmounts;
     },
