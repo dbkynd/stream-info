@@ -5,6 +5,7 @@ import * as io from '../server/socket.io';
 import raidmode from '../streamelements/raidmode';
 import twitchCache from '../twitch/cache';
 import twitchApi from '../twitch/twitch_api';
+import utils from '../utils';
 
 export default async (payload: HostPayload): Promise<void> => {
   if (payload.autohost) return;
@@ -12,12 +13,12 @@ export default async (payload: HostPayload): Promise<void> => {
   logger.info(`new host/raid - ${payload.username}`);
 
   // Get userdata for the display name and id of the hostee / raider
-  const [userData] = await twitchCache.getUsers([payload.username]);
+  const [userData] = await twitchCache.getUsers([payload.username]).catch(() => []);
   if (userData) {
-    payload.displayName = userData.display_name;
-    const [channelData] = await twitchApi.getChannels([userData.id]);
+    payload.displayName = utils.displayName(userData.login, userData.display_name);
+    const [channelData] = await twitchApi.getChannels([userData.id]).catch(() => []);
     if (channelData) payload.game = channelData.game_name;
-    const [video] = await twitchApi.getArchivedVideosByUser(userData.id, 1);
+    const [video] = await twitchApi.getArchivedVideosByUser(userData.id, 1).catch(() => []);
     if (video) {
       const now = DateTime.now();
       const range = Duration.fromObject({ minutes: 10 });
@@ -32,6 +33,8 @@ export default async (payload: HostPayload): Promise<void> => {
         payload.title = video.title;
       }
     }
+  } else {
+    payload.displayName = utils.displayName(payload.username, payload.displayName);
   }
 
   if (payload.raid) {
