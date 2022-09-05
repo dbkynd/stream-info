@@ -1,16 +1,19 @@
 <template>
-    <div class="date" :title="this.date">
-      {{ dateFormatted }}
-    </div>
+  <div class="date">
+    <v-spacer></v-spacer>
+    <span :title="this.date">
+        {{ dateFormatted }}
+      </span>
+  </div>
 </template>
 
 <script>
 import dayjs from 'dayjs'
-import { mapState } from 'vuex'
+import {mapState} from 'vuex'
 
 export default {
   name: "Date",
-  props: [ 'date' ],
+  props: ['date'],
   computed: {
     ...mapState('now', ['now']),
     dateFormatted() {
