@@ -1,23 +1,23 @@
 <template>
-      <div class="multi" @click="openMulti">
-        Multi
-        <v-icon class="icon">mdi-open-in-new</v-icon>
-      </div>
+  <div class="multi" @click="openMulti">
+    Multi
+    <v-icon class="icon">mdi-open-in-new</v-icon>
+  </div>
 </template>
 
 <script>
-import { api } from '@/plugins/axios'
+import { api } from '@/plugins/axios';
 
 export default {
-  name: "Multi",
+  name: 'Multi',
   methods: {
     openMulti() {
-      api.get('/multi').then(({data}) => {
-        window.open(data, '_blank')
-      })
-    }
-  }
-}
+      api.get('/multi').then(({ data }) => {
+        window.open(data, '_blank');
+      });
+    },
+  },
+};
 </script>
 
 <style scoped>

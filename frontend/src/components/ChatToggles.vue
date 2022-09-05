@@ -1,5 +1,5 @@
 <template>
-  <div style="display: flex;">
+  <div style="display: flex">
     <v-switch
       v-model="slow"
       label="Slow Mode"
@@ -46,13 +46,17 @@
 </template>
 
 <script>
-import {api} from '@/plugins/axios';
+import { api } from '@/plugins/axios';
 
 export default {
-  name: "ChatToggles",
+  name: 'ChatToggles',
   computed: {
-    defaultSlow() {return this.$store.state.settings.defaultSlow || "60"},
-    defaultFollowers() {return this.$store.state.settings.defaultFollowers || "10"},
+    defaultSlow() {
+      return this.$store.state.settings.defaultSlow || '60';
+    },
+    defaultFollowers() {
+      return this.$store.state.settings.defaultFollowers || '10';
+    },
     slow: {
       // false is off
       // "30" is 30 seconds
@@ -60,65 +64,65 @@ export default {
         return this.$store.state.roomstate.slow !== false;
       },
       set(enabled) {
-        const message = enabled ? `/slow ${this.defaultSlow}` : '/slowoff'
-        api.post('/say', {message})
-      }
+        const message = enabled ? `/slow ${this.defaultSlow}` : '/slowoff';
+        api.post('/say', { message });
+      },
     },
     followers: {
       // "-1" is off
       // false is 0 duration
       // "10" is 10 minutes
       get() {
-        return this.$store.state.roomstate["followers-only"] !== "-1";
+        return this.$store.state.roomstate['followers-only'] !== '-1';
       },
       set(enabled) {
-        const message = enabled ? `/followers ${this.defaultFollowers}` : '/followersoff'
-        api.post('/say', {message})
-      }
+        const message = enabled
+          ? `/followers ${this.defaultFollowers}`
+          : '/followersoff';
+        api.post('/say', { message });
+      },
     },
     subscribers: {
       get() {
         // Boolean
-        return this.$store.state.roomstate["subs-only"];
+        return this.$store.state.roomstate['subs-only'];
       },
       set(enabled) {
-        const message = enabled ? '/subscribers' : '/subscribersoff'
-        api.post('/say', {message})
-      }
+        const message = enabled ? '/subscribers' : '/subscribersoff';
+        api.post('/say', { message });
+      },
     },
     r9k: {
       // Boolean
       get() {
-        return this.$store.state.roomstate["r9k"];
+        return this.$store.state.roomstate['r9k'];
       },
       set(enabled) {
-        const message = enabled ? '/uniquechat' : '/uniquechatoff'
-        api.post('/say', {message})
-      }
+        const message = enabled ? '/uniquechat' : '/uniquechatoff';
+        api.post('/say', { message });
+      },
     },
     emote: {
       // Boolean
       get() {
-        return this.$store.state.roomstate["emote-only"];
+        return this.$store.state.roomstate['emote-only'];
       },
       set(enabled) {
-        const message = enabled ? '/emoteonly' : '/emoteonlyoff'
-        api.post('/say', {message})
-      }
+        const message = enabled ? '/emoteonly' : '/emoteonlyoff';
+        api.post('/say', { message });
+      },
     },
     raidmode: {
       // Boolean
       get() {
-        return this.$store.state.appState["raidmode"];
+        return this.$store.state.appState['raidmode'];
       },
       set(value) {
-        api.post('/raidmode', {action: value.toString()})
-      }
-    }
-  }
-}
+        api.post('/raidmode', { action: value.toString() });
+      },
+    },
+  },
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

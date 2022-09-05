@@ -1,13 +1,18 @@
 <template>
   <span class="emoticon">
-    <img :src="src" :alt="name" :title="name"/>
-    <span v-if="data.source === 'cheermote' && showCheerValues" :class="`tier_${data.tier}`">{{ data.value }}</span>
+    <img :src="src" :alt="name" :title="name" />
+    <span
+      v-if="data.source === 'cheermote' && showCheerValues"
+      :class="`tier_${data.tier}`"
+    >
+      {{ data.value }}
+    </span>
   </span>
 </template>
 
 <script>
 export default {
-  name: "Emote",
+  name: 'Emote',
   props: ['data', 'name'],
   computed: {
     showCheerValues() {
@@ -21,17 +26,21 @@ export default {
     },
     src() {
       if (this.data.source === 'cheermote') {
-        return this.animatedCheer && this.data.animated ? this.data.animated : this.data.static;
+        return this.animatedCheer && this.data.animated
+          ? this.data.animated
+          : this.data.static;
       } else {
-        return this.animated && this.data.animated ? this.data.animated : this.data.static;
+        return this.animated && this.data.animated
+          ? this.data.animated
+          : this.data.static;
       }
     },
-  }
-}
+  },
+};
 </script>
 
 <style scoped>
-.emoticon  img {
+.emoticon img {
   height: 28px;
   position: relative;
   top: 4px;

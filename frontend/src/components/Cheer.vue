@@ -1,12 +1,12 @@
 <template>
   <div>
-      <Timestamp :date="data.createdAt"/>
+    <Timestamp :date="data.createdAt" />
 
-      <div>
-        <span class="name">{{ username }}</span>
-        <span class="amount">&nbsp;{{ data.payload.userstate['bits']}}</span>
-        <span class="dollars" v-if="showCheerAmounts">&nbsp;${{ dollars }}</span>
-      </div>
+    <div>
+      <span class="name">{{ username }}</span>
+      <span class="amount">&nbsp;{{ data.payload.userstate['bits'] }}</span>
+      <span class="dollars" v-if="showCheerAmounts">&nbsp;${{ dollars }}</span>
+    </div>
 
     <Message :payload="data.payload" />
 
@@ -15,12 +15,12 @@
 </template>
 
 <script>
-import Timestamp from "@/components/Timestamp";
+import Timestamp from '@/components/Timestamp';
 import Message from '@/components/Message';
-import { displayName } from '@/plugins/utils'
+import { displayName } from '@/plugins/utils';
 
 export default {
-  name: "Cheer",
+  name: 'Cheer',
   props: ['data'],
   components: {
     Timestamp,
@@ -28,7 +28,10 @@ export default {
   },
   computed: {
     username() {
-      return displayName(this.data.payload.userstate['username'], this.data.payload.userstate['display-name'])
+      return displayName(
+        this.data.payload.userstate['username'],
+        this.data.payload.userstate['display-name'],
+      );
     },
     showCheerAmounts() {
       return this.$store.state.settings.cheerAmounts;
@@ -40,9 +43,9 @@ export default {
       } else {
         return value;
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style scoped>

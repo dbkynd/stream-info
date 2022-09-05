@@ -12,13 +12,13 @@
 
 <script>
 export default {
-  name: "Logout",
+  name: 'Logout',
   methods: {
     login() {
       window.location.href = '/api/auth/login';
     },
-  }
-}
+  },
+};
 </script>
 
 <style scoped>

@@ -5,7 +5,7 @@
         <Tip
           v-for="tip in tips"
           :key="tip._id"
-          :class="{uncleared: !tip.cleared}"
+          :class="{ uncleared: !tip.cleared }"
           :data="tip"
           @click="clear('tips', tip)"
         />
@@ -16,7 +16,7 @@
         <Subscription
           v-for="subscription in subscriptions"
           :key="subscription._id"
-          :class="{uncleared: !subscription.cleared}"
+          :class="{ uncleared: !subscription.cleared }"
           :data="subscription"
           @click="clear('subscriptions', subscription)"
         />
@@ -27,7 +27,7 @@
         <Cheer
           v-for="cheer in cheers"
           :key="cheer._id"
-          :class="{uncleared: !cheer.cleared}"
+          :class="{ uncleared: !cheer.cleared }"
           :data="cheer"
           @click="clear('cheers', cheer)"
         />
@@ -38,7 +38,7 @@
         <Host
           v-for="host in hosts"
           :key="host._id"
-          :class="{uncleared: !host.cleared}"
+          :class="{ uncleared: !host.cleared }"
           :data="host"
           @click="clear('hosts', host)"
         />
@@ -51,12 +51,12 @@
 
 <script>
 import { mapState } from 'vuex';
-import { api } from "@/plugins/axios";
-import Cheer from '@/components/Cheer'
-import Subscription from '@/components/Subscription'
-import Host from '@/components/Host'
-import Tip from '@/components/Tip'
-import Footer from '@/components/Footer'
+import { api } from '@/plugins/axios';
+import Cheer from '@/components/Cheer';
+import Subscription from '@/components/Subscription';
+import Host from '@/components/Host';
+import Tip from '@/components/Tip';
+import Footer from '@/components/Footer';
 import IdleJs from 'idle-js';
 import * as socket from '@/plugins/socket.io';
 
@@ -64,19 +64,18 @@ const idle = new IdleJs({
   idle: 30000,
   events: ['mousemove', 'keydown', 'mousedown', 'touchstart'],
   onIdle: function () {
-    console.log('scrolling')
-    const e = document.getElementById('column_container')
-    if (!e) return
+    const e = document.getElementById('column_container');
+    if (!e) return;
     for (let i = 0; i < e.children.length; i++) {
       if (e.children[i].classList.contains('column')) {
-        e.children[i].scrollTo(0, 0)
+        e.children[i].scrollTo(0, 0);
       }
     }
   },
   keepTracking: true,
   startAtIdle: true,
-})
-idle.start()
+});
+idle.start();
 
 export default {
   name: 'Home',
@@ -88,28 +87,31 @@ export default {
     Footer,
   },
   computed: {
-    ...mapState('lists', ['cheers', 'hosts', 'subscriptions', 'tips'])
+    ...mapState('lists', ['cheers', 'hosts', 'subscriptions', 'tips']),
   },
   created() {
-    api.get('/user').then(() => {
-      socket.connect()
-    }).then(() => {
-      api.get('/user/settings').then(({data}) => {
-        this.$store.commit('setSettings', data);
+    api
+      .get('/user')
+      .then(() => {
+        socket.connect();
       })
-    })
+      .then(() => {
+        api.get('/user/settings').then(({ data }) => {
+          this.$store.commit('setSettings', data);
+        });
+      })
       .catch(() => {
-      window.location.href = '/api/auth/login';
-    })
+        window.location.href = '/api/auth/login';
+      });
   },
   methods: {
     clear(name, item) {
       if (item.cleared) return;
-      item.cleared = true
-      api.post('/clear', { name, id: item._id }).catch()
+      item.cleared = true;
+      api.post('/clear', { name, id: item._id }).catch();
     },
   },
-}
+};
 </script>
 
 <style>
@@ -162,7 +164,8 @@ export default {
   color: #fff;
 }
 
-.amount, .multiMonths {
+.amount,
+.multiMonths {
   color: #f9d71a;
 }
 
@@ -188,13 +191,15 @@ export default {
   left: 0;
   width: 100%;
   height: 50%;
-  background: -webkit-linear-gradient(top, rgba(20, 20, 20, 0) 0%, rgba(20, 20, 20, 1) 100%);
+  background: -webkit-linear-gradient(
+    top,
+    rgba(20, 20, 20, 0) 0%,
+    rgba(20, 20, 20, 1) 100%
+  );
 }
 
 .glow {
-  text-shadow:
-    0 0 3px #000000,
-    0 0 7px #f9d71a
+  text-shadow: 0 0 3px #000000, 0 0 7px #f9d71a;
 }
 
 .subtext {
@@ -204,11 +209,11 @@ export default {
 .teal {
   color: #00ffc6;
 }
-
 </style>
 
 <style scoped>
-html, body {
+html,
+body {
   overflow: hidden !important;
 }
 </style>

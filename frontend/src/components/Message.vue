@@ -1,7 +1,11 @@
 <template>
   <div class="message">
     <template v-for="(fragment, i) in textFragments" :key="i">
-      <Emote v-if="fragment.isEmote" :data="payload.emotes[fragment.text]" :name="fragment.text"/>
+      <Emote
+        v-if="fragment.isEmote"
+        :data="payload.emotes[fragment.text]"
+        :name="fragment.text"
+      />
       <span v-else class="text-fragment">{{ fragment.text }}</span>
     </template>
   </div>
@@ -9,16 +13,16 @@
 
 <script>
 import Emote from '@/components/Emote';
-import {decode} from 'html-entities';
+import { decode } from 'html-entities';
 
 export default {
-  name: "EmoteMessage",
+  name: 'EmoteMessage',
   props: ['payload', 'decode'],
-  components: {Emote},
+  components: { Emote },
   computed: {
     decoded() {
       if (this.decode === true) return decode(this.payload.message);
-      return this.payload.message
+      return this.payload.message;
     },
     words() {
       if (!this.payload.message) return [];
@@ -36,39 +40,38 @@ export default {
 
       function addTextFragment(i) {
         if (wordFragment.length) {
-          if (addSpace(i)) wordFragment.push(' ')
+          if (addSpace(i)) wordFragment.push(' ');
           fragments.push({
             isEmote: false,
             text: wordFragment.join(' '),
-          })
+          });
           wordFragment = [];
         }
       }
 
       this.words.forEach((word, i) => {
         if (this.isEmote(word)) {
-          addTextFragment(i)
+          addTextFragment(i);
           fragments.push({
             isEmote: true,
             text: word,
-          })
-          if (addSpace(i)) wordFragment.push(' ')
+          });
+          if (addSpace(i)) wordFragment.push(' ');
         } else {
           wordFragment.push(word);
         }
-      })
-      addTextFragment()
+      });
+      addTextFragment();
       return fragments;
-    }
+    },
   },
   methods: {
     isEmote(word) {
       if (!this.payload.emotes) return false;
       return Boolean(this.payload.emotes[word]);
     },
-  }
-}
+  },
+};
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

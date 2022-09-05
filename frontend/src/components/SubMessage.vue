@@ -6,12 +6,10 @@
 import Message from '@/components/Message';
 
 export default {
-  name: "TwitchMessage",
+  name: 'TwitchMessage',
   props: ['payload'],
   components: { Message },
-}
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

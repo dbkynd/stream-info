@@ -2,7 +2,7 @@
   <div class="container">
     <v-row no-gutters align="center">
       <h1>USER SETTINGS</h1>
-      <v-spacer/>
+      <v-spacer />
       <v-btn @click="home" rounded="false" color="primary" icon size="small">
         <v-icon>mdi-home</v-icon>
       </v-btn>
@@ -44,7 +44,7 @@
                   <Subscription
                     v-for="subscription in subscriptions"
                     :key="subscription._id"
-                    :class="{uncleared: !subscription.cleared}"
+                    :class="{ uncleared: !subscription.cleared }"
                     :data="subscription"
                   />
                 </div>
@@ -52,7 +52,7 @@
             </v-col>
           </v-row>
         </v-col>
-        <v-col  cols="6">
+        <v-col cols="6">
           <h3>Emotes:</h3>
           <v-row>
             <v-col cols="4">
@@ -69,7 +69,7 @@
                   <Subscription
                     v-for="subscription in [settings.animatedEmote]"
                     :key="subscription._id"
-                    :class="{uncleared: !subscription.cleared}"
+                    :class="{ uncleared: !subscription.cleared }"
                     :data="subscription"
                   />
                 </div>
@@ -104,7 +104,7 @@
                   <Cheer
                     v-for="cheer in [settings.cheer, settings.largeCheer]"
                     :key="cheer._id"
-                    :class="{uncleared: !cheer.cleared}"
+                    :class="{ uncleared: !cheer.cleared }"
                     :data="cheer"
                   />
                 </div>
@@ -139,7 +139,7 @@
                   <Host
                     v-for="host in [settings.host]"
                     :key="host._id"
-                    :class="{uncleared: !host.cleared}"
+                    :class="{ uncleared: !host.cleared }"
                     :data="host"
                   />
                 </div>
@@ -150,18 +150,28 @@
       </v-row>
       <v-divider class="mt-4"></v-divider>
       <v-row>
-        <v-col cols="6" >
+        <v-col cols="6">
           <h3>Chat Toggle Durations:</h3>
           <v-row>
             <v-col cols="3">
-              <v-text-field v-model="defaultSlow" label="Slow Mode (Seconds)" type="number" min="1"/>
+              <v-text-field
+                v-model="defaultSlow"
+                label="Slow Mode (Seconds)"
+                type="number"
+                min="1"
+              />
             </v-col>
             <v-col cols="3">
-              <v-text-field v-model="defaultFollowers" label="Follower Only (Minutes)" type="number" min="0"/>
+              <v-text-field
+                v-model="defaultFollowers"
+                label="Follower Only (Minutes)"
+                type="number"
+                min="0"
+              />
             </v-col>
           </v-row>
         </v-col>
-        <v-col  cols="6" >
+        <v-col cols="6">
           <h3>Toast Notifications:</h3>
           <v-row>
             <v-col cols="4">
@@ -179,7 +189,12 @@
               />
             </v-col>
             <v-col cols="3" class="toast-duration">
-              <v-text-field v-model="toastDuration" label="Toast Duration (ms)" type="number" min="0"/>
+              <v-text-field
+                v-model="toastDuration"
+                label="Toast Duration (ms)"
+                type="number"
+                min="0"
+              />
             </v-col>
           </v-row>
         </v-col>
@@ -189,15 +204,15 @@
 </template>
 
 <script>
-import Subscription from '@/components/Subscription'
-import Cheer from '@/components/Cheer'
-import settings from '@/examples'
-import Host from '@/components/Host'
-import {api} from "@/plugins/axios";
+import Subscription from '@/components/Subscription';
+import Cheer from '@/components/Cheer';
+import settings from '@/examples';
+import Host from '@/components/Host';
+import { api } from '@/plugins/axios';
 
 export default {
-  name: "Settings",
-  components: {Subscription, Cheer, Host},
+  name: 'Settings',
+  components: { Subscription, Cheer, Host },
   data() {
     return {
       loading: true,
@@ -210,42 +225,47 @@ export default {
         settings.multiMonthGift,
         settings.massGift,
         settings.paidUpgrade.paidUpgrade,
-        settings.paidUpgrade.primepaidupgrade
+        settings.paidUpgrade.primepaidupgrade,
       ],
-    }
+    };
   },
   created() {
     if (!this.$store.settings) {
-      api.get('/user/settings')
-        .then(({data}) => {
+      api
+        .get('/user/settings')
+        .then(({ data }) => {
           this.$store.commit('setSettings', data);
-          this.loading = false
+          this.loading = false;
         })
         .catch(() => {
           window.location.href = '/api/auth/login';
-        })
+        });
     } else {
-      this.loading = false
+      this.loading = false;
     }
   },
   mounted() {
-    this.slow = this.defaultSlow
+    this.slow = this.defaultSlow;
   },
   computed: {
     defaultSlow: {
       get() {
-        return this.$store.state.settings.defaultSlow || "60"
+        return this.$store.state.settings.defaultSlow || '60';
       },
       set(value) {
-        this.$store.dispatch('updateSettingsWithCooldown', {defaultSlow: value})
+        this.$store.dispatch('updateSettingsWithCooldown', {
+          defaultSlow: value,
+        });
       },
     },
     defaultFollowers: {
       get() {
-        return this.$store.state.settings.defaultFollowers || "10"
+        return this.$store.state.settings.defaultFollowers || '10';
       },
       set(value) {
-        this.$store.dispatch('updateSettingsWithCooldown', {defaultFollowers: value})
+        this.$store.dispatch('updateSettingsWithCooldown', {
+          defaultFollowers: value,
+        });
       },
     },
     glowNew: {
@@ -253,120 +273,122 @@ export default {
         return this.$store.state.settings.glowNew;
       },
       set(value) {
-        this.$store.dispatch('updateSettings', {glowNew: value})
-      }
+        this.$store.dispatch('updateSettings', { glowNew: value });
+      },
     },
     glowYears: {
       get() {
         return this.$store.state.settings.glowYears;
       },
       set(value) {
-        this.$store.dispatch('updateSettings', {glowYears: value})
-      }
+        this.$store.dispatch('updateSettings', { glowYears: value });
+      },
     },
     showYears: {
       get() {
         return this.$store.state.settings.showYears;
       },
       set(value) {
-        this.$store.dispatch('updateSettings', {showYears: value})
-      }
+        this.$store.dispatch('updateSettings', { showYears: value });
+      },
     },
     animated: {
       get() {
         return this.$store.state.settings.animated;
       },
       set(value) {
-        this.$store.dispatch('updateSettings', {animated: value})
-      }
+        this.$store.dispatch('updateSettings', { animated: value });
+      },
     },
     animatedCheer: {
       get() {
         return this.$store.state.settings.animatedCheer;
       },
       set(value) {
-        this.$store.dispatch('updateSettings', {animatedCheer: value})
-      }
+        this.$store.dispatch('updateSettings', { animatedCheer: value });
+      },
     },
     showCheerValues: {
       get() {
         return this.$store.state.settings.showCheerValues;
       },
       set(value) {
-        this.$store.dispatch('updateSettings', {showCheerValues: value})
-      }
+        this.$store.dispatch('updateSettings', { showCheerValues: value });
+      },
     },
     cheerAmounts: {
       get() {
         return this.$store.state.settings.cheerAmounts;
       },
       set(value) {
-        this.$store.dispatch('updateSettings', {cheerAmounts: value})
-      }
+        this.$store.dispatch('updateSettings', { cheerAmounts: value });
+      },
     },
     showLastGame: {
       get() {
         return this.$store.state.settings.showLastGame;
       },
       set(value) {
-        this.$store.dispatch('updateSettings', {showLastGame: value})
-      }
+        this.$store.dispatch('updateSettings', { showLastGame: value });
+      },
     },
     showStreamLength: {
       get() {
         return this.$store.state.settings.showStreamLength;
       },
       set(value) {
-        this.$store.dispatch('updateSettings', {showStreamLength: value})
-      }
+        this.$store.dispatch('updateSettings', { showStreamLength: value });
+      },
     },
     showStreamTitle: {
       get() {
         return this.$store.state.settings.showStreamTitle;
       },
       set(value) {
-        this.$store.dispatch('updateSettings', {showStreamTitle: value})
-      }
+        this.$store.dispatch('updateSettings', { showStreamTitle: value });
+      },
     },
     showPaidUpgrades: {
       get() {
         return this.$store.state.settings.showPaidUpgrades;
       },
       set(value) {
-        this.$store.dispatch('updateSettings', {showPaidUpgrades: value})
-      }
+        this.$store.dispatch('updateSettings', { showPaidUpgrades: value });
+      },
     },
     showRoomstateToasts: {
       get() {
         return this.$store.state.settings.showRoomstateToasts;
       },
       set(value) {
-        this.$store.dispatch('updateSettings', {showRoomstateToasts: value})
-      }
+        this.$store.dispatch('updateSettings', { showRoomstateToasts: value });
+      },
     },
     showRaidmodeToasts: {
       get() {
         return this.$store.state.settings.showRaidmodeToasts;
       },
       set(value) {
-        this.$store.dispatch('updateSettings', {showRaidmodeToasts: value})
-      }
+        this.$store.dispatch('updateSettings', { showRaidmodeToasts: value });
+      },
     },
     toastDuration: {
       get() {
-        return this.$store.state.settings.toastDuration || "5000"
+        return this.$store.state.settings.toastDuration || '5000';
       },
       set(value) {
-        this.$store.dispatch('updateSettingsWithCooldown', {toastDuration: value})
+        this.$store.dispatch('updateSettingsWithCooldown', {
+          toastDuration: value,
+        });
       },
     },
   },
   methods: {
     home() {
-      this.$router.push('/')
-    }
-  }
-}
+      this.$router.push('/');
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -388,5 +410,4 @@ h3 {
   margin-top: 10px;
   margin-bottom: 5px;
 }
-
 </style>

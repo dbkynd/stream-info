@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Timestamp :date="data.createdAt"/>
+    <Timestamp :date="data.createdAt" />
 
     <div>
       <span class="name">{{ data.payload.username }}</span>
@@ -14,15 +14,16 @@
 </template>
 
 <script>
-import Timestamp from "@/components/Timestamp";
+import Timestamp from '@/components/Timestamp';
 
 import Message from '@/components/Message';
 
 export default {
-  name: "Tip",
+  name: 'Tip',
   props: ['data'],
   components: {
-    Timestamp, Message,
+    Timestamp,
+    Message,
   },
   computed: {
     amount() {
@@ -32,11 +33,9 @@ export default {
       } else {
         return value;
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

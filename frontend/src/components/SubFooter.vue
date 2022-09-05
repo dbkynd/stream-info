@@ -24,17 +24,17 @@
 
 <script>
 export default {
-  name: "SubFooter",
+  name: 'SubFooter',
   props: ['userstate'],
   computed: {
     subPlan() {
-      return this.userstate['msg-param-sub-plan']
+      return this.userstate['msg-param-sub-plan'];
     },
     isUpgrade() {
       return this.userstate['msg-id'].includes('upgrade');
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style scoped>

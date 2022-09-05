@@ -2,7 +2,13 @@
   <div class="gift">
     <div>
       <span class="name">{{ username }}&nbsp;</span>
-      <span v-if="isSubGift">gifted<span v-if="giftMultiMonths" class="multiMonths">&nbsp;{{ giftMultiMonths }}</span>:</span>
+      <span v-if="isSubGift">
+        <span>gifted</span>
+        <span v-if="giftMultiMonths" class="multiMonths">
+          &nbsp;{{ giftMultiMonths }}
+        </span>
+        <span>:</span>
+      </span>
       <span v-else>
         <span>gifted</span>
         <span class="amount">&nbsp;{{ massGiftMonths }}&nbsp;</span>
@@ -12,17 +18,17 @@
     </div>
     <div v-if="isSubGift">
       <span class="name giftee">{{ giftee }}</span>
-      <span class="amount" :class="{glow}">&nbsp;{{ months }}</span>
+      <span class="amount" :class="{ glow }">&nbsp;{{ months }}</span>
       <span v-show="months !== newSubText">&nbsp;months</span>
     </div>
   </div>
 </template>
 
 <script>
-import subComp from '@/plugins/sub_computed'
+import subComp from '@/plugins/sub_computed';
 
 export default {
-  name: "SubGift",
+  name: 'SubGift',
   props: ['data'],
   computed: {
     ...subComp,
@@ -30,7 +36,10 @@ export default {
       return this.data.payload.userstate;
     },
     giftee() {
-      return this.userstate['msg-param-recipient-display-name'] || this.userstate['msg-param-recipient-user-name']
+      return (
+        this.userstate['msg-param-recipient-display-name'] ||
+        this.userstate['msg-param-recipient-user-name']
+      );
     },
     isSubGift() {
       return this.userstate['msg-id'] === 'subgift';
@@ -46,11 +55,11 @@ export default {
       return months + ' months';
     },
   },
-}
+};
 </script>
 
 <style scoped>
 .giftee {
-  font-size: 1.0em;
+  font-size: 1em;
 }
 </style>
