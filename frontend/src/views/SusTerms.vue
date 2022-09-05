@@ -8,7 +8,7 @@
     </v-btn>
   </v-row>
   <v-row justify="center">
-    <v-col cols="5">
+    <v-col cols="3">
       <v-row>
         <v-spacer/>
         <v-btn @click="add" append-icon="mdi-plus-circle-outline" color="secondary">Add Term</v-btn>
@@ -33,7 +33,7 @@
               <template v-else>{{ term.name }}</template>
             </td>
             <td class="text-right actions">
-              <v-icon @click="edit(i)">mdi-pencil</v-icon>
+              <v-icon @click="edit(i)" class="mr-2">mdi-pencil</v-icon>
               <v-icon @click="remove(i)">mdi-delete</v-icon>
             </td>
           </tr>
