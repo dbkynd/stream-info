@@ -13,13 +13,4 @@ router.get('/live', (req, res, next) => {
   }
 });
 
-router.get('/live/count', (req, res, next) => {
-  try {
-    const response = getLiveSubs();
-    res.status(200).send(response.length.toString());
-  } catch (e) {
-    next(e);
-  }
-});
-
 export default router;
