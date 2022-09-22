@@ -1,14 +1,17 @@
 FROM node:16.13.2-alpine3.15 as base
 WORKDIR /app
 
-FROM base AS frontend_builder
-COPY ./frontend .
+FROM base AS dependencies
+COPY ./frontend/package.json ./frontend/yarn.lock ./
 RUN yarn --production=false
+
+FROM dependencies as builder
+COPY ./frontend .
 RUN yarn prettier
 RUN yarn lint
 RUN yarn build
 
 FROM base
-COPY --from=frontend_builder /app/dist ./frontend/dist
+COPY --from=builder /app/dist ./frontend/dist
 
 # This docker image is merged with the backend in CI
