@@ -19,19 +19,19 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
 
-    - name: Build and push
-      uses: docker/build-push-action@v2
-      with:
-        context: ./backend
-        file: ./backend-Dockerfile
-        tags: backend:latest
-        outputs: type=docker,dest=/tmp/backend.tar
-
-      - name: Upload artifact
-        uses: actions/upload-artifact@v2
+      - name: Build and push
+        uses: docker/build-push-action@v2
         with:
-          name: backend
-          path: /tmp/backend.tar
+          context: ./backend
+          file: ./backend-Dockerfile
+          tags: backend:latest
+          outputs: type=docker,dest=/tmp/backend.tar
+
+        - name: Upload artifact
+          uses: actions/upload-artifact@v2
+          with:
+            name: backend
+            path: /tmp/backend.tar
 
   build_frontend:
     runs-on: ubuntu-latest
