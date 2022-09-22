@@ -27,11 +27,11 @@ jobs:
           tags: backend:latest
           outputs: type=docker,dest=/tmp/backend.tar
 
-        - name: Upload artifact
-          uses: actions/upload-artifact@v2
-          with:
-            name: backend
-            path: /tmp/backend.tar
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: backend
+          path: /tmp/backend.tar
 
   build_frontend:
     runs-on: ubuntu-latest
@@ -51,8 +51,8 @@ jobs:
           tags: frontend:latest
           outputs: type=docker,dest=/tmp/frontend.tar
 
-        - name: Upload artifact
-          uses: actions/upload-artifact@v2
-          with:
-            name: frontend
-            path: /tmp/frontend.tar
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: frontend
+          path: /tmp/frontend.tar
