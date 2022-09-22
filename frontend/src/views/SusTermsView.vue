@@ -1,100 +1,102 @@
 <template>
-  <v-row no-gutters class="pa-3" align="center">
-    <h1>Suspicious Follower Terms</h1>
-    <img class="ml-2" :src="anneSus" alt="anneSus" height="32" />
-    <v-spacer />
-    <HomeButton />
-  </v-row>
-  <v-row justify="center">
-    <v-col cols="4">
-      <v-row>
-        <v-spacer />
-        <v-btn
-          append-icon="mdi-plus-circle-outline"
-          color="secondary"
-          @click="add"
-        >
-          Add Term
-        </v-btn>
-      </v-row>
-      <v-row class="mt-5">
-        <v-table class="table" theme="light">
-          <tbody>
-            <tr v-if="!terms.length" class="no-data">
-              <td v-if="loading" style="text-align: center">
-                <v-progress-circular
-                  size="24"
-                  indeterminate
-                  color="primary"
-                  theme="dark"
-                />
-              </td>
-              <td v-else>No Data</td>
-            </tr>
-            <tr v-for="(term, i) in sortedTerms" :key="i">
-              <td>{{ term.name }}</td>
-              <td class="text-right actions">
-                <v-icon class="mr-2" @click="edit(i)">mdi-pencil</v-icon>
-                <v-icon @click="remove(i)">mdi-delete</v-icon>
-              </td>
-            </tr>
-          </tbody>
-        </v-table>
-      </v-row>
-    </v-col>
-  </v-row>
-  <v-dialog v-model="addDialog">
-    <v-card theme="light" min-width="400">
-      <v-card-title>Add Term</v-card-title>
-      <v-card-text>
-        <v-text-field
-          v-model="selectedTerm.name"
-          placeholder="New Term"
-          flat
-          autofocus
-          single-line
-        />
-      </v-card-text>
-      <v-card-actions>
-        <v-spacer />
-        <v-btn color="red" @click="addDialog = false">Cancel</v-btn>
-        <v-btn color="blue" @click="confirmAdd">Save</v-btn>
-      </v-card-actions>
-    </v-card>
-  </v-dialog>
-  <v-dialog v-model="editDialog">
-    <v-card theme="light" min-width="400">
-      <v-card-title>Edit Term</v-card-title>
-      <v-card-text>
-        <v-text-field
-          v-model="selectedTerm.name"
-          placeholder="New Term"
-          flat
-          autofocus
-          single-line
-        />
-      </v-card-text>
-      <v-card-actions>
-        <v-spacer />
-        <v-btn color="red" @click="editDialog = false">Cancel</v-btn>
-        <v-btn color="green" @click="confirmEdit">Save</v-btn>
-      </v-card-actions>
-    </v-card>
-  </v-dialog>
-  <v-dialog v-model="removeDialog">
-    <v-card theme="light" min-width="400">
-      <v-card-title>
-        Delete Term:
-        <span class="bold">{{ selectedTerm.name }}</span>
-      </v-card-title>
-      <v-card-text> Are you sure you want to delete this term? </v-card-text>
-      <v-card-actions>
-        <v-spacer />
-        <v-btn color="red" @click="removeDialog = false">No</v-btn>
-        <v-btn color="green" @click="confirmRemove">Yes</v-btn>
-      </v-card-actions>
-    </v-card>
-  </v-dialog>
+  <div v-if="terms.length">
+    <v-row no-gutters class="pa-3" align="center">
+      <h1>Suspicious Follower Terms</h1>
+      <img class="ml-2" :src="anneSus" alt="anneSus" height="32" />
+      <v-spacer />
+      <HomeButton />
+    </v-row>
+    <v-row justify="center">
+      <v-col cols="4">
+        <v-row>
+          <v-spacer />
+          <v-btn
+            append-icon="mdi-plus-circle-outline"
+            color="secondary"
+            @click="add"
+          >
+            Add Term
+          </v-btn>
+        </v-row>
+        <v-row class="mt-5">
+          <v-table class="table" theme="light">
+            <tbody>
+              <tr v-if="!terms.length" class="no-data">
+                <td v-if="loading" style="text-align: center">
+                  <v-progress-circular
+                    size="24"
+                    indeterminate
+                    color="primary"
+                    theme="dark"
+                  />
+                </td>
+                <td v-else>No Data</td>
+              </tr>
+              <tr v-for="(term, i) in sortedTerms" :key="i">
+                <td>{{ term.name }}</td>
+                <td class="text-right actions">
+                  <v-icon class="mr-2" @click="edit(i)">mdi-pencil</v-icon>
+                  <v-icon @click="remove(i)">mdi-delete</v-icon>
+                </td>
+              </tr>
+            </tbody>
+          </v-table>
+        </v-row>
+      </v-col>
+    </v-row>
+    <v-dialog v-model="addDialog">
+      <v-card theme="light" min-width="400">
+        <v-card-title>Add Term</v-card-title>
+        <v-card-text>
+          <v-text-field
+            v-model="selectedTerm.name"
+            placeholder="New Term"
+            flat
+            autofocus
+            single-line
+          />
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer />
+          <v-btn color="red" @click="addDialog = false">Cancel</v-btn>
+          <v-btn color="blue" @click="confirmAdd">Save</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <v-dialog v-model="editDialog">
+      <v-card theme="light" min-width="400">
+        <v-card-title>Edit Term</v-card-title>
+        <v-card-text>
+          <v-text-field
+            v-model="selectedTerm.name"
+            placeholder="New Term"
+            flat
+            autofocus
+            single-line
+          />
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer />
+          <v-btn color="red" @click="editDialog = false">Cancel</v-btn>
+          <v-btn color="green" @click="confirmEdit">Save</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <v-dialog v-model="removeDialog">
+      <v-card theme="light" min-width="400">
+        <v-card-title>
+          Delete Term:
+          <span class="bold">{{ selectedTerm.name }}</span>
+        </v-card-title>
+        <v-card-text> Are you sure you want to delete this term? </v-card-text>
+        <v-card-actions>
+          <v-spacer />
+          <v-btn color="red" @click="removeDialog = false">No</v-btn>
+          <v-btn color="green" @click="confirmRemove">Yes</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+  </div>
 </template>
 
 <script setup lang="ts">

@@ -38,6 +38,6 @@ function logout() {
 }
 
 function clearAll() {
-  store.commit('clearAll');
+  store.dispatch('clearAll');
 }
 </script>

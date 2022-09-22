@@ -13,6 +13,7 @@ function clearOne(name: string, id: string): void {
 }
 
 function clearAll(): void {
+  io.emit('clearAll');
   CheerService.clearAll().catch();
   RaidService.clearAll().catch();
   SubscriptionService.clearAll().catch();

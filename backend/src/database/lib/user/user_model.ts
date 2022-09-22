@@ -1,9 +1,10 @@
 import { Document, Schema, model } from 'mongoose';
+import defaults from './defaultUserSettings';
 
 const schema = new Schema({
   twitchId: { type: String, unique: true },
   profile: Object,
-  settings: Object,
+  settings: { type: Object, default: defaults },
 });
 
 export interface UserDoc extends Document {

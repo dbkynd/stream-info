@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div v-if="!loading" class="container">
     <v-row no-gutters align="center">
       <h1>User Settings</h1>
       <v-spacer />

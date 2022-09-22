@@ -103,7 +103,7 @@ export const store = createStore<RootState>({
       const doc = prop.find((x: Item) => x._id === payload.id);
       if (doc) doc.cleared = true;
     },
-    clearAll(state) {
+    doClearAll(state) {
       const unclearedCheers: Item[] = state.cheers.filter(
         (x: Item) => !x.cleared,
       );
@@ -121,7 +121,6 @@ export const store = createStore<RootState>({
         unclearedTips,
       );
       uncleared.forEach((x: Item) => (x.cleared = true));
-      api.post('/clear/all').catch();
     },
   },
   actions: {
@@ -143,6 +142,14 @@ export const store = createStore<RootState>({
     ) {
       commit('setAppState', payload.appState);
       commit('setRoomstate', payload.roomstate);
+    },
+
+    SOCKET_clearAll({ commit }) {
+      commit('doClearAll');
+    },
+    clearAll({ commit }) {
+      commit('doClearAll');
+      api.post('/clear/all').catch();
     },
 
     getLists({ commit }) {
