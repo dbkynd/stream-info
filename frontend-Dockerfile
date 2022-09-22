@@ -1,0 +1,11 @@
+FROM node:16.13.2-alpine3.15 as base
+WORKDIR /app
+
+FROM base AS frontend_builder
+COPY ./frontend .
+RUN yarn --production=false
+RUN yarn prettier
+RUN yarn lint
+RUN yarn build
+
+# This docker image is merged with the backend in CI
