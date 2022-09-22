@@ -83,7 +83,7 @@ jobs:
 
       - name: Docker Build
         #run: docker build -t $(echo $REGISTRY)/$(echo $IMAGE_NAME):$(echo $GITHUB_SHA | head -c7) .
-        run: docker build -t $(echo $REGISTRY)/$(echo $IMAGE_NAME) .
+        run: docker build -t $(echo $REGISTRY)/$(echo $IMAGE_NAME):latest .
 
       - name: Install doctl
         uses: digitalocean/action-doctl@v2
@@ -95,7 +95,7 @@ jobs:
 
       - name: Push image to DigitalOcean Container Registry
         #run: docker push $(echo $REGISTRY)/$(echo $IMAGE_NAME):$(echo $GITHUB_SHA | head -c7)
-        run: docker push $(echo $REGISTRY)/$(echo $IMAGE_NAME)
+        run: docker push $(echo $REGISTRY)/$(echo $IMAGE_NAME):latest
 
   deploy:
     runs-on: ubuntu-latest
@@ -125,4 +125,4 @@ jobs:
             --env-file /root/streaminfo/.env \
             -p 3000:3000 \
             --name $(echo $IMAGE_NAME) \
-            $(echo $REGISTRY)/$(echo $IMAGE_NAME)
+            $(echo $REGISTRY)/$(echo $IMAGE_NAME):latest
