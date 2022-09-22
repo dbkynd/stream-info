@@ -7,7 +7,11 @@ async function updateProfile(profile: any): Promise<UserDoc> {
     { profile },
     { upsert: true, new: true },
   );
-  if (!user.settings) await updateSettings(user.twitchId, defaults);
+  if (!user.settings || !Object.keys(user.settings).length) {
+    await updateSettings(profile.id, defaults);
+    const newUser = await getUser(profile.id);
+    if (newUser) return newUser;
+  }
   return user;
 }
 
