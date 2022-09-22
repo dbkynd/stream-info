@@ -1,7 +1,14 @@
+import defaults from '../../../server/defaultUserSettings';
 import User, { UserDoc } from './user_model';
 
 async function updateProfile(profile: any): Promise<UserDoc> {
-  return User.findOneAndUpdate({ twitchId: profile.id }, { profile }, { upsert: true, new: true });
+  const user = await User.findOneAndUpdate(
+    { twitchId: profile.id },
+    { profile },
+    { upsert: true, new: true },
+  );
+  if (!user.settings) await updateSettings(user.twitchId, defaults);
+  return user;
 }
 
 async function updateSettings(id: string, settings: any): Promise<void> {
