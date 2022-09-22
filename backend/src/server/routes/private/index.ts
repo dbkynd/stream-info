@@ -108,8 +108,7 @@ router.get('/hours', async (req, res, next) => {
 });
 
 router.post('/restart', (req, res, next) => {
-  if (req.user === '51533859') {
-    // TODO
+  if (req.user === '59351240') {
     res.sendStatus(204);
     process.exit(0);
   }
