@@ -1,3 +1,4 @@
+import { getChannelId } from '../../../token';
 import axios from '../axios';
 import headers from '../headers';
 
@@ -11,7 +12,7 @@ export default async function getSubscriptions(
   const options = {
     headers: headers(),
     params: {
-      broadcaster_id: '51533859', // TODO
+      broadcaster_id: getChannelId(),
       first: limit,
       after: cursor,
     },

@@ -20,6 +20,8 @@ interface Keys {
 
 let validToken = false;
 let keys: Keys;
+let channel: string;
+let id: string;
 
 export function isValid(): boolean {
   return validToken;
@@ -27,6 +29,14 @@ export function isValid(): boolean {
 
 export function getKeys(): Keys {
   return keys;
+}
+
+export function getChannelName(): string {
+  return channel;
+}
+
+export function getChannelId(): string {
+  return id;
 }
 
 export function getScopes(): string[] {
@@ -44,9 +54,11 @@ export async function validate(): Promise<void> {
   const awsKeys = await getAWSKeys();
   twitchApi
     .validateToken(awsKeys.access_token)
-    .then(({ scopes }) => {
+    .then(({ scopes, login, user_id }) => {
       logger.debug('token is valid');
       if (hasScopes(scopes)) {
+        id = user_id;
+        channel = login;
         keys = awsKeys;
         validToken = true;
       } else {

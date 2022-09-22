@@ -1,27 +1,27 @@
 import tmi, { Client } from 'tmi.js';
 import events from '../../events';
 import logger from '../../logger';
+import { getChannelName, getKeys } from '../../token';
 import messageHandler from './message_handler';
-
-const channel = 'annemunition'; // todo
 
 // https://tmijs.com/
 
-const client = new tmi.Client({
-  channels: [channel],
-  identity: {
-    username: 'annemunition',
-    password: `oauth:${process.env.TOKEN}`,
-  },
-  options: {
-    skipMembership: true,
-    skipUpdatingEmotesets: true,
-  },
-});
+let client = new tmi.Client({});
 
 export async function connect(): Promise<void> {
+  client = new tmi.Client({
+    channels: [getChannelName()],
+    identity: {
+      username: getChannelName(),
+      password: `oauth:${getKeys().access_token}`,
+    },
+    options: {
+      skipMembership: true,
+      skipUpdatingEmotesets: true,
+    },
+  });
   await client.connect();
-  logger.info(`Connected to Twitch channel: ${channel} as: ${client.getUsername()}`);
+  logger.info(`Connected to Twitch channel: ${getChannelName()} as: ${client.getUsername()}`);
 }
 
 export async function disconnect(): Promise<void> {
@@ -163,7 +163,7 @@ export async function deleteMessage(messageUUID: string): Promise<void> {
   logger.debug(`twitch DELETE_MESSAGE: ${messageUUID}`);
   if (!process.env.NO_ACTIONS) {
     try {
-      await client.deletemessage(channel, messageUUID);
+      await client.deletemessage(getChannelName(), messageUUID);
     } catch (e) {
       logger.error(e);
     }
@@ -174,7 +174,7 @@ export async function say(message: string): Promise<void> {
   logger.debug(`twitch SAY: ${message}`);
   if (!process.env.NO_ACTIONS) {
     try {
-      await client.say(channel, message);
+      await client.say(getChannelName(), message);
     } catch (e) {
       logger.error(e);
     }

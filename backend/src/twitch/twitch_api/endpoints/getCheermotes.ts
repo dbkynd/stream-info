@@ -1,3 +1,4 @@
+import { getChannelId } from '../../../token';
 import axios from '../axios';
 import headers from '../headers';
 
@@ -8,7 +9,7 @@ export default async function getSubscriptions(): Promise<Cheermote[]> {
   const options = {
     headers: headers(),
     params: {
-      broadcaster_id: '51533859', // TODO
+      broadcaster_id: getChannelId(),
     },
   };
   return axios.get(url, options).then(({ data }: { data: TwitchCheermoteResponse }) => data.data);

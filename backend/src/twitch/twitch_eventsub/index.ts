@@ -1,8 +1,8 @@
 import crypto from 'crypto';
 import express from 'express';
-import _ from 'lodash';
 import { DateTime } from 'luxon';
 import logger from '../../logger';
+import { getChannelId } from '../../token';
 import susFollowerHandler from '../suspicious_followers';
 import twitchApi from '../twitch_api';
 import events from './events';
@@ -57,7 +57,7 @@ function eventHandler(req: express.Request): void {
     if (isOld(req.headers[MESSAGE_TIMESTAMP] as string)) return;
     if (
       notification.subscription.type === 'channel.follow' &&
-      notification.event.broadcaster_user_id === '51533859' // TODO
+      notification.event.broadcaster_user_id === getChannelId()
     ) {
       try {
         susFollowerHandler(notification.event);

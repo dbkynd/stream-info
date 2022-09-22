@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
 import { uptimeGracePeriod } from '../../config';
+import { getChannelId } from '../../token';
 import twitchApi from '../twitch_api';
 import lastGames from './last_games';
 import maxViewCount from './max_view_count';
@@ -19,7 +20,7 @@ const status: Status = {
 };
 
 export default async () => {
-  const [stream] = await twitchApi.getStreams(['annemunition']); //TODO
+  const [stream] = await twitchApi.getStreams([getChannelId()]);
   uptime(stream);
   lastGames(stream).catch(() => {
     // Do Nothing

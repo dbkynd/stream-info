@@ -2,12 +2,13 @@ import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
 import ArchiveVideoService from '../../database/lib/archived_videos';
 import { ArchiveVideoBulkUpdate } from '../../database/lib/archived_videos/archived_video_model';
+import { getChannelId } from '../../token';
 import twitchApi from '../twitch_api';
 
 dayjs.extend(duration);
 
 export default async () => {
-  const videos = await twitchApi.getArchivedVideosByUser('51533859'); // TODO
+  const videos = await twitchApi.getArchivedVideosByUser(getChannelId());
   const locked = await ArchiveVideoService.getLocked();
   const lockedIds = locked.map((x) => x.videoId);
 
