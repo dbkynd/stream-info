@@ -6,6 +6,9 @@ README.md
 
 **/node_modules
 **/dist
+**/coverage
+**/logs
+
+stubs
 
 backend/.cache
-backend/logs

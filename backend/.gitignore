@@ -1,8 +1,5 @@
-.idea
-.cache
-node_modules
 coverage
 dist
 logs
+node_modules
 .env
-yarn-error.log

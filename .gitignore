@@ -1,8 +1,1 @@
 .idea
-.cache
-node_modules
-coverage
-dist
-logs
-.env
-yarn-error.log

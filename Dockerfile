@@ -3,16 +3,27 @@ RUN apk add --no-cache graphicsmagick
 WORKDIR /app
 
 FROM base AS backend_prod_dependencies
-COPY ./backend .
+COPY ./backend/package.json ./backend/yarn.lock ./
 RUN yarn --production=true
 
-FROM backend_prod_dependencies as backend_builder
+FROM backend_prod_dependencies as backend_dev_dependencies
 RUN yarn --production=false
+
+FROM base as frontend_dependencies
+COPY ./frontend/package.json ./frontend/yarn.lock ./
+RUN yarn --production=false
+
+FROM backend_dev_dependencies as backend_builder
+COPY ./backend .
+RUN yarn prettier
+RUN yarn lint
+RUN yarn test
 RUN yarn build
 
-FROM base AS frontend_builder
+FROM frontend_dependencies AS frontend_builder
 COPY ./frontend .
-RUN yarn --production=false
+RUN yarn prettier
+RUN yarn lint
 RUN yarn build
 
 FROM base
