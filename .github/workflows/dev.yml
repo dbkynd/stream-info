@@ -22,7 +22,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v2
         with:
-          context: ./backend
+          context: .
           file: ./backend-Dockerfile
           tags: backend:latest
           outputs: type=docker,dest=/tmp/backend.tar
@@ -46,7 +46,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v2
         with:
-          context: ./frontend
+          context: .
           file: ./frontend-Dockerfile
           tags: frontend:latest
           outputs: type=docker,dest=/tmp/frontend.tar
