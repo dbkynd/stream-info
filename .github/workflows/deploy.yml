@@ -119,7 +119,10 @@ jobs:
             # Remove old container
             docker rm $(echo $IMAGE_NAME)
 
-            # Run a new container from a new image
+            # Pull latest image
+            docker pull $(echo $REGISTRY)/$(echo $IMAGE_NAME):latest
+
+            # Run container
             docker run -d \
             --restart always \
             --env-file /root/streaminfo/.env \
