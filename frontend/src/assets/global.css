@@ -5,6 +5,7 @@
     scrollbar-width: none;
     overflow-y: scroll;
     padding: 5px 8px 0 8px;
+    color: #aeb2b4;
 }
 
 .column::-webkit-scrollbar {
@@ -83,4 +84,3 @@
     text-align: center;
     margin-top: 5rem;
   }
-  
