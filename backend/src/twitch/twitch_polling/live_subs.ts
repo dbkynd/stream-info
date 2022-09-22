@@ -33,9 +33,7 @@ export function stop() {
 function loadFromFile(): void {
   if (fs.existsSync(subscribersFile)) {
     logger.debug('Loading Subscribers from local file.');
-    subscribers = JSON.parse(
-      fs.readFileSync(subscribersFile, { encoding: 'utf-8' }),
-    );
+    subscribers = JSON.parse(fs.readFileSync(subscribersFile, { encoding: 'utf-8' }));
   }
 }
 
@@ -47,7 +45,7 @@ async function getSubs() {
   let cursor: string | undefined;
 
   for (let i = 0; i < requestCount; i++) {
-    logger.debug(`Subscribers chunk: ${i + 1} of ${requestCount}`);
+    // logger.debug(`Subscribers chunk: ${i + 1} of ${requestCount}`);
     const chunk = await twitchApi.getSubscriptions(100, cursor);
     if (chunk.pagination?.cursor) cursor = chunk.pagination.cursor;
     subs.push(...chunk.data);
@@ -58,14 +56,9 @@ async function getSubs() {
   if (!unique.length) return;
   subscribers = unique;
   logger.debug(`Done getting Subscribers (${subscribers.length})`);
-  fs.writeFile(
-    subscribersFile,
-    JSON.stringify(subscribers),
-    { encoding: 'utf8' },
-    (err) => {
-      if (err) logger.error(err);
-    },
-  );
+  fs.writeFile(subscribersFile, JSON.stringify(subscribers), { encoding: 'utf8' }, (err) => {
+    if (err) logger.error(err);
+  });
 }
 
 async function checkLive() {
@@ -76,13 +69,14 @@ async function checkLive() {
 
   const ids = _.chunk(subscribers, 100);
   for (let i = 0; i < requestCount; i++) {
-    logger.debug(`Streams chunk: ${i + 1} of ${requestCount}`);
+    // logger.debug(`Streams chunk: ${i + 1} of ${requestCount}`);
     const chunk = await twitchApi.getStreams(ids[i]);
     live.push(...chunk);
     await dwell();
   }
 
   liveSubs = _.uniqBy(live, 'user_id');
+  logger.debug(`Done caching live sub streams (${liveSubs.length})`);
 }
 
 function dwell(): Promise<void> {

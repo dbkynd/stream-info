@@ -1,28 +1,10 @@
 <template>
-  <div class="notfound">
+  <div class="alt-view-container">
     <h1>404 Not Found</h1>
-    <div>
-      <v-img src="@/assets/modCheck.gif" alt="" />
-    </div>
+    <v-img class="mt-1" :src="modCheck" alt="modCheck" height="250" />
   </div>
 </template>
 
-<script>
-export default {
-  name: "NotFound"
-}
+<script setup lang="ts">
+import modCheck from '@/assets/images/modCheck.gif';
 </script>
-
-<style scoped>
-.notfound {
-  font-size: 2rem;
-  color: #fff;
-  text-align: center;
-  margin-top: 5rem;
-}
-
-.v-img {
-  margin-top: 1em;
-  height: 250px;
-}
-</style>

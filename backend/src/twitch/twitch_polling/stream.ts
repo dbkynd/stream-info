@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
 import { uptimeGracePeriod } from '../../config';
+import { getChannelId } from '../../token';
 import twitchApi from '../twitch_api';
 import lastGames from './last_games';
 import maxViewCount from './max_view_count';
@@ -19,7 +20,7 @@ const status: Status = {
 };
 
 export default async () => {
-  const [stream] = await twitchApi.getStreams(['annemunition']); //TODO
+  const [stream] = await twitchApi.getStreams([getChannelId()]);
   uptime(stream);
   lastGames(stream).catch(() => {
     // Do Nothing
@@ -47,9 +48,7 @@ function uptime(stream: TwitchStream | undefined): void {
     status.showsOnline = false;
     if (!status.isOnline) return;
     if (status.timeStopped) {
-      if (
-        dayjs() > dayjs(status.timeStopped).add(uptimeGracePeriod, 'minutes')
-      ) {
+      if (dayjs() > dayjs(status.timeStopped).add(uptimeGracePeriod, 'minutes')) {
         // Enough time has past. Streamer likely has stopped streaming for the day.
         status.isOnline = false;
         status.timeStarted = null;

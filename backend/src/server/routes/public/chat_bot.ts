@@ -2,16 +2,18 @@ import express from 'express';
 import seAuth from '../../middleware/seAuth';
 import ClipService from '../../services/clips/clips_service';
 import GamesService from '../../services/games/games_service';
-// import RaidModeService from '../../services/raidmode/raidmode_service';
 import SongService from '../../services/song/song_service';
 import TimeService from '../../services/time/time_service';
 import UptimeService from '../../services/uptime/uptime_service';
 import WhatNowService from '../../services/whatnow/whatnow_service';
+import RaidModeRoute from '../common/raidmode';
 
 const router = express.Router();
 
+router.use(seAuth);
+
 // $(customapi.BASE_URL/chat/clips?token=token&action=$(1)&target=$(2))
-router.get('/clips', seAuth, async (req, res, next) => {
+router.get('/clips', async (req, res, next) => {
   const { action, target } = req.query as { [key: string]: string | undefined };
   if (!action || !target) {
     res.sendStatus(400);
@@ -36,14 +38,7 @@ router.get('/games', async (req, res, next) => {
 });
 
 // $(customapi.BASE_URL/chat/raidmode?token=token&action=$(1))
-/*router.get('/raidmode', (req, res, next) => {
-  try {
-    const response = RaidModeService();
-    res.status(200).send(response);
-  } catch (e) {
-    next(e);
-  }
-});*/
+router.get('/raidmode', RaidModeRoute);
 
 // $(customapi.BASE_URL/chat/song?user=dbkynd)
 router.get('/song', async (req, res, next) => {

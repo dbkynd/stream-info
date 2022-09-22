@@ -3,29 +3,30 @@ import * as emotes from './emotes';
 import twitchEmoteTimer from './emotes/twitch';
 import logger from './logger';
 import * as server from './server';
-import * as streamelements from './streamelements/se_socket';
-import * as token from './token';
+import * as streamelements from './streamelements';
+import * as appToken from './twitch/twitch_app_token';
+import eventSub from './twitch/twitch_eventsub';
 import * as twitchIrc from './twitch/twitch_irc';
 import * as twitchPolling from './twitch/twitch_polling';
 
-export async function start(): Promise<void> {
-  logger.info('Validating token');
-  await token.validate();
+async function start(): Promise<void> {
+  await appToken.init();
   await database.connect();
   await emotes.init();
   twitchEmoteTimer.start();
-  streamelements.connect();
+  await streamelements.init();
   await twitchIrc.connect();
   server.start();
   twitchPolling.start();
+  await eventSub.subscribe();
 }
 
-export async function stop(): Promise<void> {
+async function stop(): Promise<void> {
   const shutdownSequence = [
     twitchPolling.stop,
     server.stop,
     twitchIrc.disconnect,
-    streamelements.disconnect,
+    streamelements.stop,
     twitchEmoteTimer.stop,
     database.disconnect,
   ];
@@ -38,3 +39,8 @@ export async function stop(): Promise<void> {
     }
   }
 }
+
+export default {
+  start,
+  stop,
+};

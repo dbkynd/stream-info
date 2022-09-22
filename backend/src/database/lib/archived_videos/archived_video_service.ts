@@ -1,16 +1,10 @@
-import ArchiveVideo, {
-  ArchiveVideoBulkUpdate,
-  ArchiveVideoDoc,
-} from './archived_video_model';
+import ArchiveVideo, { ArchiveVideoBulkUpdate, ArchiveVideoDoc } from './archived_video_model';
 
 async function getLocked(): Promise<ArchiveVideoDoc[]> {
   return ArchiveVideo.find({ locked: true });
 }
 
-function createBulkOperation(
-  video: TwitchVideo,
-  duration: number,
-): ArchiveVideoBulkUpdate {
+function createBulkOperation(video: TwitchVideo, duration: number): ArchiveVideoBulkUpdate {
   return {
     updateOne: {
       filter: { videoId: video.id },
@@ -28,10 +22,7 @@ async function bulkUpdate(ops: ArchiveVideoBulkUpdate[]): Promise<void> {
   await ArchiveVideo.bulkWrite(ops);
 }
 
-async function getInRange(
-  start: string,
-  end: string,
-): Promise<ArchiveVideoDoc[]> {
+async function getInRange(start: string, end: string): Promise<ArchiveVideoDoc[]> {
   return ArchiveVideo.find({
     createdAt: { $gte: start, $lte: end },
   });

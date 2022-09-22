@@ -1,54 +1,75 @@
 import TwitchUserService from '../../database/lib/twitch_user';
+import { TwitchUserDoc } from '../../database/lib/twitch_user/twitch_user_model';
 import logger from '../../logger';
 import twitchApi from '../twitch_api';
 
 export default async (identities: string[]): Promise<TwitchUser[]> => {
-  // Get all the users we can from our database
-  logger.debug(`Searching database for info on ${identities.length} users`);
-  const usersInDatabase = await TwitchUserService.find(identities);
-
-  // Make an array of just ids for easier searching
-  const usersInDatabaseIdsArray = usersInDatabase.map((x) => x.twitchId);
-  const usersInDatabaseNamesArray = usersInDatabase.map((x) => x.twitchName);
-  logger.debug(`Database held info on ${usersInDatabase.length} users`);
-
   const time = Date.now();
 
-  // Get those not in the database or expired
-  const usersToLookup = identities.filter((identity) => {
-    if (!usersInDatabaseIdsArray.includes(identity)) return true;
-    if (!usersInDatabaseNamesArray.includes(identity)) return true;
-    const doc = usersInDatabase.find(
-      (x) => x.twitchId === identity || x.twitchName === identity,
-    );
-    if (!doc) return true;
-    return new Date(doc.expires).valueOf() <= time;
-  });
-  if (usersToLookup.length > 0)
-    logger.debug(`${usersToLookup.length} users do not exist or are expired`);
+  // Get all the users we can from our database
+  logger.debug(`Searching database for info on ${identities.length} user identities`);
+  const usersInDatabase = await TwitchUserService.find(identities);
+  logger.debug(`Database held info on ${usersInDatabase.length} users`);
 
+  // Map an array of ids for easier searching
+  const usersInDatabaseIdsArray = usersInDatabase.map((x) => x.twitchId);
+  const usersInDatabaseNamesArray = usersInDatabase.map((x) => x.twitchName);
+
+  // Get identities not in the database or expired
+  const identitiesToLookup: string[] = [];
+  identities.forEach((identity) => {
+    if (identitiesToLookup.includes(identity)) return;
+
+    if (
+      !usersInDatabaseIdsArray.includes(identity) &&
+      !usersInDatabaseNamesArray.includes(identity)
+    ) {
+      identitiesToLookup.push(identity);
+      return;
+    }
+
+    const doc = usersInDatabase.find((x) => x.twitchId === identity || x.twitchName === identity);
+    if (!doc) {
+      identitiesToLookup.push(identity);
+    } else {
+      if (identitiesToLookup.includes(doc.twitchName) || identitiesToLookup.includes(doc.twitchId))
+        return;
+      if (new Date(doc.expires).valueOf() <= time) {
+        identitiesToLookup.push(identity);
+      }
+    }
+  });
+
+  logger.debug(`${identitiesToLookup.length} identities to lookup`);
+
+  let twitchResults: TwitchUser[] = [];
   // Get user data from twitch
-  const twitchResults = await twitchApi.getUsers(usersToLookup);
-  if (usersToLookup.length > 0)
+  if (identitiesToLookup.length > 0) {
+    twitchResults = await twitchApi.getUsers(identitiesToLookup);
     logger.debug(`Got twitch data on ${twitchResults.length} users`);
+  }
 
   // Delete expired docs from database
   const expiredDocs = usersInDatabase
     .filter((x) => new Date(x.expires).valueOf() <= time)
     .map((x) => x._id);
+  logger.debug(`${expiredDocs.length} expired user docs found`);
   if (expiredDocs.length > 0) {
     await TwitchUserService.remove(expiredDocs);
-    logger.debug(
-      `Removed ${usersToLookup.length} expired users from the database`,
-    );
+    logger.debug(`Removed ${expiredDocs.length} expired user docs from the database`);
   }
 
   // Create and save new docs
-  const docs = TwitchUserService.create(twitchResults);
-  logger.debug(`Saving ${docs.length} users to the database`);
-  TwitchUserService.save(docs);
-  const unexpiredDocs = usersInDatabase.filter(
-    (x) => new Date(x.expires).valueOf() > time,
-  );
-  return unexpiredDocs.map((x) => x.payload).concat(docs.map((x) => x.payload));
+  let docs: TwitchUserDoc[] = [];
+  logger.debug(`${twitchResults.length} new user docs to save`);
+  if (twitchResults.length > 0) {
+    docs = TwitchUserService.create(twitchResults);
+    await TwitchUserService.save(docs);
+    logger.debug(`Saved ${docs.length} users docs to the database`);
+  }
+
+  const unexpiredDocs = usersInDatabase.filter((x) => new Date(x.expires).valueOf() > time);
+  const results = unexpiredDocs.map((x) => x.payload).concat(docs.map((x) => x.payload));
+  logger.debug(`returning ${results.length} users`);
+  return results;
 };

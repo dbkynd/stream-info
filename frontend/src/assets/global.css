@@ -1,0 +1,86 @@
+.column {
+    width: 25%;
+    float: left;
+    height: 100vh;
+    scrollbar-width: none;
+    overflow-y: scroll;
+    padding: 5px 8px 0 8px;
+    color: #aeb2b4;
+}
+
+.column::-webkit-scrollbar {
+    display: none;
+}
+
+.column:nth-of-type(1),
+.column:nth-of-type(2),
+.column:nth-of-type(3) {
+    padding-right: 4px;
+}
+
+.column:nth-of-type(2),
+.column:nth-of-type(3),
+.column:nth-of-type(4) {
+    padding-left: 4px;
+}
+
+.column > div > div {
+    background: #323436;
+    border-left: 8px solid #3d7ba6;
+    border-radius: 4px;
+    margin-bottom: 6px;
+    opacity: 0.85;
+    padding: 0 8px 0;
+    cursor: default;
+    position: relative;
+}
+
+.column > div > div.uncleared {
+    background: rgba(100, 65, 165, 0.8);
+}
+
+.column > div > div:nth-child(1) {
+    border-left: 8px solid #f9d71a;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.name {
+    color: #fff;
+}
+
+.amount,
+.multiMonths {
+    color: #f9d71a;
+}
+
+.name,
+.amount {
+    font-size: 1.25rem;
+    word-break: keep-all;
+}
+
+.message {
+    word-break: break-word;
+}
+
+.glow {
+    text-shadow: 0 0 3px #000000, 0 0 7px #f9d71a;
+}
+
+.subtext {
+    font-size: 0.8rem;
+}
+
+.card-footer {
+    height: 13px;
+}
+
+.alt-view-container {
+    font-size: 2rem;
+    color: #fff;
+    text-align: center;
+    margin-top: 5rem;
+  }

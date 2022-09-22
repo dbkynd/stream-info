@@ -3,7 +3,7 @@ import { Document, Schema, model } from 'mongoose';
 const schema = new Schema({
   payload: Object,
   cleared: { type: Boolean, default: false },
-  createdAt: { type: Date, default: new Date() },
+  createdAt: { type: Date, default: () => new Date() },
 });
 
 export interface SubscriptionDoc extends Document {

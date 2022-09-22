@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import TwitchUser, { TwitchUserDoc } from './twitch_user_model';
 
 async function find(identities: string[]): Promise<TwitchUserDoc[]> {
@@ -12,29 +11,19 @@ async function find(identities: string[]): Promise<TwitchUserDoc[]> {
     }
   });
 
-  const byId = await TwitchUser.find({
-    twitchId: { $in: ids },
-  });
-
-  const byName = await TwitchUser.find({
-    twitchName: { $in: names },
-  });
-
-  return _.uniqBy(byId.concat(byName), '_id');
+  return TwitchUser.find().or([{ twitchId: { $in: ids } }, { twitchName: { $in: names } }]);
 }
 
 function create(users: TwitchUser[]): TwitchUserDoc[] {
-  return users.map(
-    (x) => new TwitchUser({ twitchId: x.id, twitchName: x.login, payload: x }),
-  );
+  return users.map((x) => new TwitchUser({ twitchId: x.id, twitchName: x.login, payload: x }));
 }
 
-function save(docs: TwitchUserDoc[]): void {
-  TwitchUser.bulkSave(docs).catch();
+async function save(docs: TwitchUserDoc[]): Promise<void> {
+  await TwitchUser.bulkSave(docs).catch();
 }
 
-function remove(docIds: string[]): void {
-  TwitchUser.deleteMany({ _id: { $in: docIds } });
+async function remove(docIds: string[]): Promise<void> {
+  await TwitchUser.deleteMany({ _id: { $in: docIds } });
 }
 
 export default {

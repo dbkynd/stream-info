@@ -8,6 +8,15 @@ import * as messageHandler from '../message_handler';
 jest.mock('tmi.js');
 jest.mock('../../../logger');
 jest.mock('../../../events');
+jest.mock('../../../token', () => {
+  return {
+    getChannelId: () => '51533859',
+    getChannelName: () => 'annemunition',
+    getKeys: () => {
+      return { access_token: 'someToken' };
+    },
+  };
+});
 
 const client = twitchIrc.getClient();
 
@@ -41,10 +50,7 @@ describe('twitch_irc module', () => {
 
   describe('disconnected event', () => {
     it('listens to the disconnected event', async () => {
-      expect(client.on).toHaveBeenCalledWith(
-        'disconnected',
-        expect.any(Function),
-      );
+      expect(client.on).toHaveBeenCalledWith('disconnected', expect.any(Function));
     });
 
     it('updates the appState', async () => {
@@ -79,35 +85,6 @@ describe('twitch_irc module', () => {
     });
   });
 
-  describe('hosted event', () => {
-    it('listens to the hosted event', async () => {
-      expect(client.on).toHaveBeenCalledWith('hosted', expect.any(Function));
-    });
-
-    it('passes the host to our events handler', () => {
-      const spy = jest.spyOn(events, 'hosted');
-      // @ts-ignore
-      client.emit('hosted', 'channel', 'username', 'viewers', 'autohost');
-      expect(spy).toHaveBeenCalledWith({
-        username: 'username',
-        viewers: 'viewers',
-        autohost: 'autohost',
-        raid: false,
-      });
-    });
-
-    it('logs any errors', () => {
-      const err = new Error('Mock Error');
-      jest.spyOn(events, 'hosted').mockImplementation(() => {
-        throw err;
-      });
-      const spy = jest.spyOn(logger, 'error');
-      // @ts-ignore
-      client.emit('hosted');
-      expect(spy).toHaveBeenCalledWith(err);
-    });
-  });
-
   describe('message event', () => {
     it('listens to the message event', async () => {
       expect(client.on).toHaveBeenCalledWith('message', expect.any(Function));
@@ -138,20 +115,18 @@ describe('twitch_irc module', () => {
     });
 
     it('passes the raid to our events handler', () => {
-      const spy = jest.spyOn(events, 'hosted');
+      const spy = jest.spyOn(events, 'raid');
       // @ts-ignore
       client.emit('raided', 'channel', 'username', 'viewers');
       expect(spy).toHaveBeenCalledWith({
         username: 'username',
         viewers: 'viewers',
-        autohost: false,
-        raid: true,
       });
     });
 
     it('logs any errors', () => {
       const err = new Error('Mock Error');
-      jest.spyOn(events, 'hosted').mockImplementation(() => {
+      jest.spyOn(events, 'raid').mockImplementation(() => {
         throw err;
       });
       const spy = jest.spyOn(logger, 'error');
@@ -169,15 +144,7 @@ describe('twitch_irc module', () => {
     it('passes the resub to our events handler', () => {
       const spy = jest.spyOn(events.subscription, 'resub');
       // @ts-ignore
-      client.emit(
-        'resub',
-        'channel',
-        'username',
-        'months',
-        'message',
-        'userstate',
-        'methods',
-      );
+      client.emit('resub', 'channel', 'username', 'months', 'message', 'userstate', 'methods');
       expect(spy).toHaveBeenCalledWith('userstate', 'message');
     });
 
@@ -251,33 +218,21 @@ describe('twitch_irc module', () => {
 
   describe('submysterygift event', () => {
     it('listens to the submysterygift event', async () => {
-      expect(client.on).toHaveBeenCalledWith(
-        'submysterygift',
-        expect.any(Function),
-      );
+      expect(client.on).toHaveBeenCalledWith('submysterygift', expect.any(Function));
     });
 
     it('passes the submysterygift to our events handler', () => {
       const spy = jest.spyOn(events.subscription, 'submysterygift');
       // @ts-ignore
-      client.emit(
-        'submysterygift',
-        'channel',
-        'username',
-        'numOfSubs',
-        'methods',
-        'userstate',
-      );
+      client.emit('submysterygift', 'channel', 'username', 'numOfSubs', 'methods', 'userstate');
       expect(spy).toHaveBeenCalledWith('userstate', 'numOfSubs');
     });
 
     it('logs any errors', () => {
       const err = new Error('Mock Error');
-      jest
-        .spyOn(events.subscription, 'submysterygift')
-        .mockImplementation(() => {
-          throw err;
-        });
+      jest.spyOn(events.subscription, 'submysterygift').mockImplementation(() => {
+        throw err;
+      });
       const spy = jest.spyOn(logger, 'error');
       // @ts-ignore
       client.emit('submysterygift');
@@ -287,23 +242,13 @@ describe('twitch_irc module', () => {
 
   describe('subscription event', () => {
     it('listens to the subscription event', async () => {
-      expect(client.on).toHaveBeenCalledWith(
-        'subscription',
-        expect.any(Function),
-      );
+      expect(client.on).toHaveBeenCalledWith('subscription', expect.any(Function));
     });
 
     it('passes the subscription to our events handler', () => {
       const spy = jest.spyOn(events.subscription, 'newSub');
       // @ts-ignore
-      client.emit(
-        'subscription',
-        'channel',
-        'username',
-        'method',
-        'message',
-        'userstate',
-      );
+      client.emit('subscription', 'channel', 'username', 'method', 'message', 'userstate');
       expect(spy).toHaveBeenCalledWith('userstate');
     });
 
@@ -329,10 +274,7 @@ describe('twitch_irc module', () => {
     it('deletes the message if NO_ACTIONS is undefined', () => {
       delete process.env.NO_ACTIONS;
       twitchIrc.deleteMessage('someUUID');
-      expect(client.deletemessage).toHaveBeenCalledWith(
-        expect.any(String),
-        'someUUID',
-      );
+      expect(client.deletemessage).toHaveBeenCalledWith(expect.any(String), 'someUUID');
     });
 
     /*it('logs any errors', () => {
@@ -357,10 +299,7 @@ describe('twitch_irc module', () => {
     it('says the passed message if NO_ACTIONS is undefined', () => {
       delete process.env.NO_ACTIONS;
       twitchIrc.say('someMessage');
-      expect(client.say).toHaveBeenCalledWith(
-        expect.any(String),
-        'someMessage',
-      );
+      expect(client.say).toHaveBeenCalledWith(expect.any(String), 'someMessage');
     });
   });
 });

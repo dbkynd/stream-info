@@ -16,10 +16,7 @@ module.exports = {
   ignorePatterns: ['dist'],
   rules: {
     'no-console': 'error',
-    '@typescript-eslint/no-unused-vars': [
-      'warn',
-      { argsIgnorePattern: 'next' },
-    ],
+    '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: 'next' }],
     'import/order': [
       'error',
       {
@@ -33,5 +30,6 @@ module.exports = {
     'import/no-mutable-exports': 'error',
     'import/newline-after-import': 'error',
     'sort-imports': ['error', { ignoreDeclarationSort: true }],
+    'prettier/prettier': ['error', { printWidth: 100 }],
   },
 };

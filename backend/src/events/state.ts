@@ -6,14 +6,14 @@ interface ApplicationState {
   seWs?: boolean;
   twitchIrc?: boolean;
   onFrontPage?: boolean;
-  raidMode?: boolean;
+  raidmode?: boolean;
 }
 
 let appState: ApplicationState = {
   seWs: false,
   twitchIrc: false,
   onFrontPage: false,
-  raidMode: false,
+  raidmode: false,
 };
 let roomstate: tmi.RoomState = {};
 

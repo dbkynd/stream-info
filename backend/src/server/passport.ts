@@ -12,14 +12,8 @@ passport.use(
       callbackURL: process.env.TWITCH_CALLBACK_URL,
       scope: '',
     },
-    async (
-      accessToken: string,
-      refreshToken: string,
-      profile: any,
-      done: any,
-    ) => {
-      if (!allowedIds.includes(profile.id))
-        return done(null, false, { message: 'Not allowed.' });
+    async (accessToken: string, refreshToken: string, profile: any, done: any) => {
+      if (!allowedIds.includes(profile.id)) return done(null, false, { message: 'Not allowed.' });
       try {
         const user = await UserService.updateProfile(profile);
         done(null, user.twitchId);

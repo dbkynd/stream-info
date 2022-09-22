@@ -12,7 +12,5 @@ export default function getUsers(identities: string[]): Promise<TwitchUser[]> {
     .join('&');
   const url = `https://api.twitch.tv/helix/users?${query}`;
   const options = { headers: headers() };
-  return axios
-    .get(url, options)
-    .then(({ data }: { data: TwitchUserResponse }) => data.data);
+  return axios.get(url, options).then(({ data }: { data: TwitchUserResponse }) => data.data);
 }

@@ -2,6 +2,7 @@ import path from 'path';
 import axios from 'axios';
 import gm from 'gm';
 import { emotesDir } from '../directories';
+import { getChannelId } from '../token';
 
 let emoticons: MyEmotes = {};
 
@@ -12,18 +13,14 @@ async function fetch(): Promise<void> {
     .get('https://api.betterttv.net/3/cached/emotes/global')
     .then(({ data }: { data: BTTVGlobalEmotes }) => data);
 
-  const channelId = '51533859'; // TODO
+  const channelId = getChannelId();
   const channelEmoteData = await axios
     .get(`https://api.betterttv.net/3/cached/users/twitch/${channelId}`)
     .then(({ data }: { data: BTTVChannelEmotes }) => data);
 
   const globalGifs = globalEmoteData.filter((x) => x.imageType === 'gif');
-  const channelGifs = channelEmoteData.channelEmotes.filter(
-    (x) => x.imageType === 'gif',
-  );
-  const sharedGifs = channelEmoteData.sharedEmotes.filter(
-    (x) => x.imageType === 'gif',
-  );
+  const channelGifs = channelEmoteData.channelEmotes.filter((x) => x.imageType === 'gif');
+  const sharedGifs = channelEmoteData.sharedEmotes.filter((x) => x.imageType === 'gif');
   const gifs = [...globalGifs, ...channelGifs, ...sharedGifs];
 
   for (let i = 0; i < gifs.length; i++) {

@@ -1,9 +1,10 @@
 import axios from 'axios';
+import { getChannelId } from '../token';
 
 let emoticons: MyEmotes = {};
 
 async function fetch(): Promise<void> {
-  const channelId = '51533859'; // TODO
+  const channelId = getChannelId();
   const roomInfo = await axios
     .get(`https://api.frankerfacez.com/v1/room/id/${channelId}`)
     .then(({ data }: { data: FFZRoomInfo }) => data);

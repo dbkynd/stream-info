@@ -5,17 +5,16 @@ import headers from '../headers';
 
 export default function getArchivedVideosByUser(
   userId: string,
+  limit = 10,
 ): Promise<TwitchVideo[]> {
   const url = 'https://api.twitch.tv/helix/videos';
   const options = {
     headers: headers(),
     params: {
       user_id: userId,
-      first: 10,
+      first: limit,
       type: 'archive',
     },
   };
-  return axios
-    .get(url, options)
-    .then(({ data }: { data: TwitchUserVideosResponse }) => data.data);
+  return axios.get(url, options).then(({ data }: { data: TwitchUserVideosResponse }) => data.data);
 }

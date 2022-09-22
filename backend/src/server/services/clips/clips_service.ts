@@ -1,15 +1,12 @@
 import escapeHtml from 'escape-html';
 import ClipChannelService from '../../../database/lib/clip_channel';
-import twitchApi from '../../../twitch/twitch_api';
+import twitchCache from '../../../twitch/cache';
 
-export default async function (
-  action?: string,
-  target?: string,
-): Promise<string> {
+export default async function (action?: string, target?: string): Promise<string> {
   if ((action !== 'add' && action !== 'remove') || !target) {
     return escapeHtml('!clips <add | remove> <target>');
   }
-  const [user] = await twitchApi.getUsers([target]); // TODO: User cache
+  const [user] = await twitchCache.getUsers([target]);
   if (!user) return 'Target channel not found.';
   if (action === 'add') await add(user);
   else await remove(user);

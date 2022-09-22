@@ -2,10 +2,7 @@ import { recordsToFetchOnConnect } from '../../../config';
 import trim from '../trim';
 import Subscription, { SubscriptionDoc } from './subscription_model';
 
-function create(
-  payload: SubscriptionPayload,
-  createdAt?: string,
-): SubscriptionDoc {
+function create(payload: SubscriptionPayload, createdAt?: string): SubscriptionDoc {
   const doc = new Subscription({ payload });
   if (createdAt) doc.createdAt = createdAt;
   return doc;
@@ -17,7 +14,7 @@ async function save(doc: SubscriptionDoc): Promise<void> {
 }
 
 async function list(): Promise<SubscriptionDoc[]> {
-  return Subscription.find({}).sort({ _id: -1 }).limit(recordsToFetchOnConnect);
+  return Subscription.find({}).sort({ createdAt: -1 }).limit(recordsToFetchOnConnect);
 }
 
 async function clear(id: string): Promise<void> {

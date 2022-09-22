@@ -6,7 +6,7 @@ const schema = new Schema({
   payload: Object,
   expires: {
     type: Date,
-    default: new Date().valueOf() + 1000 * 60 * 60 * 24 * 7,
+    default: () => new Date().valueOf() + 1000 * 60 * 60 * 24 * 7,
   },
 });
 

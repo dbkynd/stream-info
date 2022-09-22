@@ -3,6 +3,15 @@ import messageHandler from '../message_handler';
 import * as fixtures from './__fixture__/messages.fixture';
 
 const clipsSpy = jest.spyOn(clipsHandler, 'default');
+jest.mock('../../../token', () => {
+  return {
+    getChannelId: () => '51533859',
+    getChannelName: () => 'annemunition',
+    getKeys: () => {
+      return { access_token: 'someToken' };
+    },
+  };
+});
 
 describe('message_handler method', () => {
   describe('clipsHandler', () => {
@@ -16,10 +25,7 @@ describe('message_handler method', () => {
       messageHandler(clone, fixtures.asBroadcaster.message);
 
       expect(clipsSpy).toHaveBeenCalled();
-      expect(clipsSpy).toHaveBeenLastCalledWith(
-        clone,
-        fixtures.asBroadcaster.message,
-      );
+      expect(clipsSpy).toHaveBeenLastCalledWith(clone, fixtures.asBroadcaster.message);
     });
 
     it('does nothing if message was a whisper', () => {

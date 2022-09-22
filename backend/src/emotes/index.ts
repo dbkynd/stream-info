@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import tmi from 'tmi.js';
 import { CheerDoc } from '../database/lib/cheer/cheer_model';
-import { HostDoc } from '../database/lib/host/host_model';
+import { RaidDoc } from '../database/lib/raid/raid_model';
 import { SubscriptionDoc } from '../database/lib/subscription/subscription_model';
 import { TipDoc } from '../database/lib/tip/tip_model';
 import logger from '../logger';
@@ -63,9 +63,7 @@ function getCheermoteMatches(words: string[]): ParsedEmotes {
       const match = word.match(cheermoteReg);
       if (match) {
         const [, prefix, value] = match;
-        const found = cheermoteData.find(
-          (x) => x.prefix.toLowerCase() === prefix.toLowerCase(),
-        );
+        const found = cheermoteData.find((x) => x.prefix.toLowerCase() === prefix.toLowerCase());
 
         if (found) {
           let tier = found.tiers[found.tiers.length - 1];
@@ -75,12 +73,14 @@ function getCheermoteMatches(words: string[]): ParsedEmotes {
             tier = found.tiers[i - 1];
           }
 
-          const code = prefix + tier.id;
+          const code = prefix + value;
           if (!emotes[code]) {
             emotes[code] = {
               static: tier.images.dark.static['1'],
               animated: tier.images.dark.animated['1'],
               source: 'cheermote',
+              tier: tier.id,
+              value,
             };
           }
         }
@@ -90,10 +90,7 @@ function getCheermoteMatches(words: string[]): ParsedEmotes {
   return emotes;
 }
 
-function getTwitchMatches(
-  userstate: tmi.ChatUserstate,
-  message: string,
-): ParsedEmotes {
+function getTwitchMatches(userstate: tmi.ChatUserstate, message: string): ParsedEmotes {
   const parsedEmotes: ParsedEmotes = {};
   const { emotes } = userstate;
   if (!emotes) return parsedEmotes;
@@ -114,10 +111,7 @@ function getTwitchMatches(
   return parsedEmotes;
 }
 
-export function parseCheerMessage(
-  userstate: tmi.ChatUserstate,
-  message: string,
-): ParsedEmotes {
+export function parseCheerMessage(userstate: tmi.ChatUserstate, message: string): ParsedEmotes {
   if (!message) return {};
   const words = message.split(' ');
   const ffz = getFFZMatches(words);
@@ -139,10 +133,7 @@ export function parseSubMessage(
   return Object.assign(ffz, bttv, twitch);
 }
 
-export async function parseTipMessage(
-  message: string,
-  set?: MyEmotes,
-): Promise<ParsedEmotes> {
+export async function parseTipMessage(message: string, set?: MyEmotes): Promise<ParsedEmotes> {
   if (!message) return {};
   const words = message.split(' ');
   const ffz = getFFZMatches(words);
@@ -153,15 +144,12 @@ export async function parseTipMessage(
 
 export async function parseBulkMessages(payload: {
   cheers: CheerDoc[];
-  hosts: HostDoc[];
+  raids: RaidDoc[];
   subscriptions: SubscriptionDoc[];
   tips: TipDoc[];
 }) {
   payload.cheers.forEach((x) => {
-    x.payload.emotes = parseCheerMessage(
-      x.payload.userstate,
-      x.payload.message,
-    );
+    x.payload.emotes = parseCheerMessage(x.payload.userstate, x.payload.message);
   });
   payload.subscriptions.forEach((x) => {
     if (!x.payload.message) return;
@@ -178,10 +166,7 @@ export async function parseBulkMessages(payload: {
   const set = await twitchEmotes.get(tipWords);
   for (let i = 0; i < payload.tips.length; i++) {
     if (!payload.tips[i].payload.message) continue;
-    payload.tips[i].payload.emotes = await parseTipMessage(
-      payload.tips[i].payload.message,
-      set,
-    );
+    payload.tips[i].payload.emotes = await parseTipMessage(payload.tips[i].payload.message, set);
   }
   return payload;
 }

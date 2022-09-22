@@ -11,7 +11,5 @@ export default function getClips(slugs: string[]): Promise<TwitchClip[]> {
     .join('&');
   const url = `https://api.twitch.tv/helix/clips?${query}`;
   const options = { headers: headers() };
-  return axios
-    .get(url, options)
-    .then(({ data }: { data: TwitchClipResponse }) => data.data);
+  return axios.get(url, options).then(({ data }: { data: TwitchClipResponse }) => data.data);
 }

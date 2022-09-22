@@ -1,6 +1,6 @@
 import express from 'express';
 import CheerService from '../../../database/lib/cheer';
-import HostService from '../../../database/lib/host';
+import RaidService from '../../../database/lib/raid';
 import SubscriptionService from '../../../database/lib/subscription';
 import TipService from '../../../database/lib/tip';
 import UserService from '../../../database/lib/user';
@@ -8,8 +8,13 @@ import * as emotes from '../../../emotes';
 import * as twitchIrc from '../../../twitch/twitch_irc';
 import ClearService from '../../services/clear/clear_service';
 import HoursService from '../../services/hours/hours_service';
+import RaidModeRoutes from '../common/raidmode';
+import SusTermRoutes from './sus_terms';
 
 const router = express.Router();
+
+router.use('/terms', SusTermRoutes);
+router.post('/raidmode', RaidModeRoutes);
 
 router.get('/user', (req, res, next) => {
   res.status(200).json(req.user);
@@ -46,7 +51,7 @@ router.get('/lists', async (req, res, next) => {
   try {
     const payload = await emotes.parseBulkMessages({
       cheers: await CheerService.list(),
-      hosts: await HostService.list(),
+      raids: await RaidService.list(),
       subscriptions: await SubscriptionService.list(),
       tips: await TipService.list(),
     });
@@ -56,14 +61,14 @@ router.get('/lists', async (req, res, next) => {
   }
 });
 
-router.post('/say', (req, res, next) => {
+router.post('/say', async (req, res, next) => {
   const { message } = req.body as { [key: string]: string | undefined };
   if (!message) {
     res.sendStatus(400);
     return;
   }
   try {
-    twitchIrc.say(message);
+    await twitchIrc.say(message);
     res.sendStatus(204);
   } catch (e) {
     next(e);
@@ -103,8 +108,7 @@ router.get('/hours', async (req, res, next) => {
 });
 
 router.post('/restart', (req, res, next) => {
-  if (req.user === '51533859') {
-    // TODO
+  if (req.user === '59351240') {
     res.sendStatus(204);
     process.exit(0);
   }

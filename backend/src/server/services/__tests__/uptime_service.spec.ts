@@ -115,9 +115,7 @@ describe('uptime service module', () => {
       });
 
       const uptime = UptimeService();
-      expect(uptime).toBe(
-        'The stream has been live for 5 hours and 5 minutes.',
-      );
+      expect(uptime).toBe('The stream has been live for 5 hours and 5 minutes.');
     });
 
     test('days and minutes uses an and separator', () => {
@@ -148,18 +146,12 @@ describe('uptime service module', () => {
       jest.spyOn(stream, 'getStatus').mockImplementation(() => {
         return {
           showsOnline: true,
-          timeStarted: dayjs()
-            .subtract(5, 'd')
-            .subtract(5, 'h')
-            .subtract(5, 'm')
-            .toISOString(),
+          timeStarted: dayjs().subtract(5, 'd').subtract(5, 'h').subtract(5, 'm').toISOString(),
         };
       });
 
       const uptime = UptimeService();
-      expect(uptime).toBe(
-        'The stream has been live for 5 days, 5 hours and 5 minutes.',
-      );
+      expect(uptime).toBe('The stream has been live for 5 days, 5 hours and 5 minutes.');
     });
 
     test('under 1 minute response', () => {

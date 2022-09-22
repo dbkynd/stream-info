@@ -1,9 +1,6 @@
 import { gamesDelimiter, gamesNoGames, gamesTemplate } from '../../../config';
 import LastGameService from '../../../database/lib/last_game';
-import {
-  gamesToNotSave,
-  mutateName,
-} from '../../../twitch/twitch_polling/last_games';
+import { gamesToNotSave, mutateName } from '../../../twitch/twitch_polling/last_games';
 
 export default async (): Promise<string> => {
   const games = await LastGameService.list();

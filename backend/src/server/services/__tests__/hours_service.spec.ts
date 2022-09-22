@@ -13,57 +13,23 @@ dayjs.extend(timezone);
 describe('hoursStreamed module', () => {
   describe('determineTimeRage method', () => {
     const dates = {
-      startOfLastQ4: moment
-        .tz('2019-09-01 00:00:00', 'America/Los_Angeles')
-        .toLocaleString(),
-      endOfLastQ4: moment
-        .tz('2019-11-30 23:59:59.999', 'America/Los_Angeles')
-        .toLocaleString(),
-      startOfQ1: moment
-        .tz('2019-12-01 00:00:00', 'America/Los_Angeles')
-        .toLocaleString(),
-      middleOfQ1: moment
-        .tz('2020-01-15 00:00:00', 'America/Los_Angeles')
-        .toLocaleString(),
-      endOfQ1: moment
-        .tz('2020-02-29 23:59:59.999', 'America/Los_Angeles')
-        .toLocaleString(),
-      startOfQ2: moment
-        .tz('2020-03-01 00:00:00', 'America/Los_Angeles')
-        .toLocaleString(),
-      middleOfQ2: moment
-        .tz('2020-04-15 00:00:00', 'America/Los_Angeles')
-        .toLocaleString(),
-      endOfQ2: moment
-        .tz('2020-05-31 23:59:59.999', 'America/Los_Angeles')
-        .toLocaleString(),
-      startOfQ3: moment
-        .tz('2020-06-01 00:00:00', 'America/Los_Angeles')
-        .toLocaleString(),
-      middleOfQ3: moment
-        .tz('2020-07-15 00:00:00', 'America/Los_Angeles')
-        .toLocaleString(),
-      endOfQ3: moment
-        .tz('2020-08-31 23:59:59.999', 'America/Los_Angeles')
-        .toLocaleString(),
-      startOfQ4: moment
-        .tz('2020-09-01 00:00:00', 'America/Los_Angeles')
-        .toLocaleString(),
-      middleOfQ4: moment
-        .tz('2020-10-15 00:00:00', 'America/Los_Angeles')
-        .toLocaleString(),
-      endOfQ4: moment
-        .tz('2020-11-30 23:59:59.999', 'America/Los_Angeles')
-        .toLocaleString(),
-      startOfNextQ1: moment
-        .tz('2020-12-01 00:00:00', 'America/Los_Angeles')
-        .toLocaleString(),
-      middleOfNextQ1: moment
-        .tz('2021-01-15 00:00:00', 'America/Los_Angeles')
-        .toLocaleString(),
-      endOfNextQ1: moment
-        .tz('2021-02-28 23:59:59.999', 'America/Los_Angeles')
-        .toLocaleString(),
+      startOfLastQ4: moment.tz('2019-09-01 00:00:00', 'America/Los_Angeles').toLocaleString(),
+      endOfLastQ4: moment.tz('2019-11-30 23:59:59.999', 'America/Los_Angeles').toLocaleString(),
+      startOfQ1: moment.tz('2019-12-01 00:00:00', 'America/Los_Angeles').toLocaleString(),
+      middleOfQ1: moment.tz('2020-01-15 00:00:00', 'America/Los_Angeles').toLocaleString(),
+      endOfQ1: moment.tz('2020-02-29 23:59:59.999', 'America/Los_Angeles').toLocaleString(),
+      startOfQ2: moment.tz('2020-03-01 00:00:00', 'America/Los_Angeles').toLocaleString(),
+      middleOfQ2: moment.tz('2020-04-15 00:00:00', 'America/Los_Angeles').toLocaleString(),
+      endOfQ2: moment.tz('2020-05-31 23:59:59.999', 'America/Los_Angeles').toLocaleString(),
+      startOfQ3: moment.tz('2020-06-01 00:00:00', 'America/Los_Angeles').toLocaleString(),
+      middleOfQ3: moment.tz('2020-07-15 00:00:00', 'America/Los_Angeles').toLocaleString(),
+      endOfQ3: moment.tz('2020-08-31 23:59:59.999', 'America/Los_Angeles').toLocaleString(),
+      startOfQ4: moment.tz('2020-09-01 00:00:00', 'America/Los_Angeles').toLocaleString(),
+      middleOfQ4: moment.tz('2020-10-15 00:00:00', 'America/Los_Angeles').toLocaleString(),
+      endOfQ4: moment.tz('2020-11-30 23:59:59.999', 'America/Los_Angeles').toLocaleString(),
+      startOfNextQ1: moment.tz('2020-12-01 00:00:00', 'America/Los_Angeles').toLocaleString(),
+      middleOfNextQ1: moment.tz('2021-01-15 00:00:00', 'America/Los_Angeles').toLocaleString(),
+      endOfNextQ1: moment.tz('2021-02-28 23:59:59.999', 'America/Los_Angeles').toLocaleString(),
     };
 
     test('dates matches snapshot', () => {
@@ -105,12 +71,8 @@ describe('hoursStreamed module', () => {
     describe(name, () => {
       test.each(array)('%s', (date) => {
         MockDate.set(date);
-        const {
-          startOfLastQuarter,
-          endOfLastQuarter,
-          startOfQuarter,
-          endOfQuarter,
-        } = determineTimeRage();
+        const { startOfLastQuarter, endOfLastQuarter, startOfQuarter, endOfQuarter } =
+          determineTimeRage();
         expect(startOfLastQuarter.toLocaleString()).toBe(expectedArray[0]);
         expect(endOfLastQuarter.toLocaleString()).toBe(expectedArray[1]);
         expect(startOfQuarter.toLocaleString()).toBe(expectedArray[2]);
@@ -121,30 +83,25 @@ describe('hoursStreamed module', () => {
 
   describe('getHours method', () => {
     it('returns a rounded number of hours', async () => {
-      const mongoSpy = jest
-        .spyOn(ArchiveVideoService, 'getInRange')
-        .mockImplementation(() => {
-          return Promise.resolve([
-            {
-              length: 18000, // 5 hours
-            },
-            {
-              length: 10800, // 3 hours
-            },
-            {
-              length: 9360, // 2.6 Hours
-            },
-          ] as ArchiveVideoDoc[]);
-        });
+      const mongoSpy = jest.spyOn(ArchiveVideoService, 'getInRange').mockImplementation(() => {
+        return Promise.resolve([
+          {
+            length: 18000, // 5 hours
+          },
+          {
+            length: 10800, // 3 hours
+          },
+          {
+            length: 9360, // 2.6 Hours
+          },
+        ] as ArchiveVideoDoc[]);
+      });
       const hours = await getHours(
         moment('2020-01-01T00:00:00.000Z'),
         moment('2020-01-10T00:00:00.000Z'),
       );
 
-      expect(mongoSpy).toHaveBeenCalledWith(
-        '2020-01-01T00:00:00.000Z',
-        '2020-01-10T00:00:00.000Z',
-      );
+      expect(mongoSpy).toHaveBeenCalledWith('2020-01-01T00:00:00.000Z', '2020-01-10T00:00:00.000Z');
       expect(hours).toBe(11);
     });
   });
