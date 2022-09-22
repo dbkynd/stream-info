@@ -95,7 +95,10 @@ jobs:
       - name: Remove old image
         run:  docker rmi $(echo $REGISTRY)/$(echo $IMAGE_NAME):latest
 
-      - name: Push image to DigitalOcean Container Registry
+      - name: Tag new image
+        run: docker tag $(echo $IMAGE_NAME) $(echo $REGISTRY)/$(echo $IMAGE_NAME):latest
+
+      - name: Push new image
         run: docker push $(echo $REGISTRY)/$(echo $IMAGE_NAME):latest
 
   deploy:
