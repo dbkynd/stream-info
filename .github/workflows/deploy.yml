@@ -64,8 +64,14 @@ jobs:
       - name: Yarn Install
         run: yarn install --immutable --immutable-cache --check-cache
 
-      - name: Jest Tests
-        run: yarn test:unit
+      - name: Prettify
+        run: yarn prettier
+
+      - name: ESLint
+        run: yarn lint
+
+      #- name: Jest Tests
+      #  run: yarn test:unit
 
   build_and_push:
     runs-on: ubuntu-latest
@@ -76,7 +82,8 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Docker Build
-        run: docker build -t $(echo $REGISTRY)/$(echo $IMAGE_NAME):$(echo $GITHUB_SHA | head -c7) .
+        #run: docker build -t $(echo $REGISTRY)/$(echo $IMAGE_NAME):$(echo $GITHUB_SHA | head -c7) .
+        run: docker build -t $(echo $REGISTRY)/$(echo $IMAGE_NAME) .
 
       - name: Install doctl
         uses: digitalocean/action-doctl@v2
@@ -87,7 +94,8 @@ jobs:
         run: doctl registry login --expiry-seconds 600
 
       - name: Push image to DigitalOcean Container Registry
-        run: docker push $(echo $REGISTRY)/$(echo $IMAGE_NAME):$(echo $GITHUB_SHA | head -c7)
+        #run: docker push $(echo $REGISTRY)/$(echo $IMAGE_NAME):$(echo $GITHUB_SHA | head -c7)
+        run: docker push $(echo $REGISTRY)/$(echo $IMAGE_NAME)
 
   deploy:
     runs-on: ubuntu-latest
@@ -117,4 +125,4 @@ jobs:
             --env-file /root/streaminfo/.env \
             -p 3000:3000 \
             --name $(echo $IMAGE_NAME) \
-            $(echo $REGISTRY)/$(echo $IMAGE_NAME):$(echo $GITHUB_SHA | head -c7)
+            $(echo $REGISTRY)/$(echo $IMAGE_NAME)
