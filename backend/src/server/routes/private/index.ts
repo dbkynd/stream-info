@@ -51,7 +51,7 @@ router.get('/lists', async (req, res, next) => {
   try {
     const payload = await emotes.parseBulkMessages({
       cheers: await CheerService.list(),
-      hosts: await HostService.list(),
+      raids: await HostService.list(),
       subscriptions: await SubscriptionService.list(),
       tips: await TipService.list(),
     });
