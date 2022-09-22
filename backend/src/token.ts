@@ -52,7 +52,7 @@ export async function validate(): Promise<void> {
   logger.debug('checking token validity');
   if (timer) clearTimeout(timer);
   const awsKeys = await getAWSKeys();
-  twitchApi
+  await twitchApi
     .validateToken(awsKeys.access_token)
     .then(({ scopes, login, user_id }) => {
       logger.debug('token is valid');

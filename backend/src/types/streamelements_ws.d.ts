@@ -8,7 +8,7 @@ interface SE_WS_AuthData {
 interface SE_WS_Event {
   _id: string;
   channel: string;
-  type: 'cheer' | 'follow' | 'host' | 'raid' | 'subscriber' | 'tip';
+  type: 'cheer' | 'follow' | 'raid' | 'subscriber' | 'tip';
   provider: 'twitch' | 'youtube' | 'facebook';
   flagged?: boolean;
   data: SE_WS_Data;

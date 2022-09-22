@@ -1,4 +1,5 @@
 import express from 'express';
+import seAuth from '../../middleware/seAuth';
 import ClipService from '../../services/clips/clips_service';
 import GamesService from '../../services/games/games_service';
 import SongService from '../../services/song/song_service';
@@ -8,6 +9,8 @@ import WhatNowService from '../../services/whatnow/whatnow_service';
 import RaidModeRoute from '../common/raidmode';
 
 const router = express.Router();
+
+router.use(seAuth);
 
 // $(customapi.BASE_URL/chat/clips?token=token&action=$(1)&target=$(2))
 router.get('/clips', async (req, res, next) => {

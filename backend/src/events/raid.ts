@@ -1,17 +1,16 @@
 import { DateTime, Duration } from 'luxon';
-import HostService from '../database/lib/host';
+import RaidService from '../database/lib/raid';
 import logger from '../logger';
 import * as io from '../server/socket.io';
 import raidmode from '../streamelements/raidmode';
 import twitchCache from '../twitch/cache';
 import twitchApi from '../twitch/twitch_api';
 
-export default async (payload: HostPayload): Promise<void> => {
-  if (payload.autohost) return;
+export default async (payload: RaidPayload): Promise<void> => {
   if (!payload.viewers || payload.viewers < 10) return;
-  logger.info(`new host/raid - ${payload.username}`);
+  logger.info(`new raid - ${payload.username}`);
 
-  // Get userdata for the display name and id of the hostee / raider
+  // Get userdata for the display name and id of the raider
   const [userData] = await twitchCache.getUsers([payload.username]).catch(() => []);
   if (userData) {
     payload.displayName = userData.display_name;
@@ -33,15 +32,12 @@ export default async (payload: HostPayload): Promise<void> => {
       }
     }
   }
-
-  if (payload.raid) {
-    raidmode.auto();
-  }
+  raidmode.auto();
 
   // Emit to client regardless if successful database save
-  const hostDoc = HostService.create(payload);
-  io.emit('host', hostDoc);
-  HostService.save(hostDoc).catch((err) => {
+  const raidDoc = RaidService.create(payload);
+  io.emit('raid', raidDoc);
+  RaidService.save(raidDoc).catch((err) => {
     logger.error(err);
   });
 };

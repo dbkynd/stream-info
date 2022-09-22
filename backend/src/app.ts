@@ -2,20 +2,14 @@ import * as database from './database';
 import * as emotes from './emotes';
 import twitchEmoteTimer from './emotes/twitch';
 import logger from './logger';
-import pushover from './pushover';
 import * as server from './server';
 import * as streamelements from './streamelements';
-import * as token from './token';
 import * as appToken from './twitch/twitch_app_token';
 import eventSub from './twitch/twitch_eventsub';
 import * as twitchIrc from './twitch/twitch_irc';
 import * as twitchPolling from './twitch/twitch_polling';
 
-export async function start(): Promise<void> {
-  pushover.init();
-  if (process.env.NODE_ENV === 'production') pushover.push('Starting backend.');
-  logger.info('Validating token');
-  await token.validate();
+async function start(): Promise<void> {
   await appToken.init();
   await database.connect();
   await emotes.init();
@@ -27,7 +21,7 @@ export async function start(): Promise<void> {
   await eventSub.subscribe();
 }
 
-export async function stop(): Promise<void> {
+async function stop(): Promise<void> {
   const shutdownSequence = [
     twitchPolling.stop,
     server.stop,
@@ -45,3 +39,8 @@ export async function stop(): Promise<void> {
     }
   }
 }
+
+export default {
+  start,
+  stop,
+};

@@ -4,11 +4,9 @@ interface CheerPayload {
   emotes?: ParsedEmotes;
 }
 
-interface HostPayload {
+interface RaidPayload {
   username: string;
   viewers: number;
-  autohost: boolean;
-  raid: boolean;
   game?: string;
   displayName?: string;
   streamLength?: string;

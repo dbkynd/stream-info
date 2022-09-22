@@ -8,6 +8,15 @@ import * as messageHandler from '../message_handler';
 jest.mock('tmi.js');
 jest.mock('../../../logger');
 jest.mock('../../../events');
+jest.mock('../../../token', () => {
+  return {
+    getChannelId: () => '51533859',
+    getChannelName: () => 'annemunition',
+    getKeys: () => {
+      return { access_token: 'someToken' };
+    },
+  };
+});
 
 const client = twitchIrc.getClient();
 
@@ -76,35 +85,6 @@ describe('twitch_irc module', () => {
     });
   });
 
-  describe('hosted event', () => {
-    it('listens to the hosted event', async () => {
-      expect(client.on).toHaveBeenCalledWith('hosted', expect.any(Function));
-    });
-
-    it('passes the host to our events handler', () => {
-      const spy = jest.spyOn(events, 'hosted');
-      // @ts-ignore
-      client.emit('hosted', 'channel', 'username', 'viewers', 'autohost');
-      expect(spy).toHaveBeenCalledWith({
-        username: 'username',
-        viewers: 'viewers',
-        autohost: 'autohost',
-        raid: false,
-      });
-    });
-
-    it('logs any errors', () => {
-      const err = new Error('Mock Error');
-      jest.spyOn(events, 'hosted').mockImplementation(() => {
-        throw err;
-      });
-      const spy = jest.spyOn(logger, 'error');
-      // @ts-ignore
-      client.emit('hosted');
-      expect(spy).toHaveBeenCalledWith(err);
-    });
-  });
-
   describe('message event', () => {
     it('listens to the message event', async () => {
       expect(client.on).toHaveBeenCalledWith('message', expect.any(Function));
@@ -135,20 +115,18 @@ describe('twitch_irc module', () => {
     });
 
     it('passes the raid to our events handler', () => {
-      const spy = jest.spyOn(events, 'hosted');
+      const spy = jest.spyOn(events, 'raid');
       // @ts-ignore
       client.emit('raided', 'channel', 'username', 'viewers');
       expect(spy).toHaveBeenCalledWith({
         username: 'username',
         viewers: 'viewers',
-        autohost: false,
-        raid: true,
       });
     });
 
     it('logs any errors', () => {
       const err = new Error('Mock Error');
-      jest.spyOn(events, 'hosted').mockImplementation(() => {
+      jest.spyOn(events, 'raid').mockImplementation(() => {
         throw err;
       });
       const spy = jest.spyOn(logger, 'error');

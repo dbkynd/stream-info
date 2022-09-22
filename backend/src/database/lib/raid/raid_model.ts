@@ -6,10 +6,10 @@ const schema = new Schema({
   createdAt: { type: Date, default: () => new Date() },
 });
 
-export interface HostDoc extends Document {
-  payload: HostPayload;
+export interface RaidDoc extends Document {
+  payload: RaidPayload;
   cleared: boolean;
   createdAt: string;
 }
 
-export default model<HostDoc>('hosts', schema);
+export default model<RaidDoc>('raids', schema);

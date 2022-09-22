@@ -1,12 +1,12 @@
 import MockDate from 'mockdate';
 import mongoose from 'mongoose';
-import HostService from '../../database/lib/host';
+import HostService from '../../database/lib/raid';
 import * as io from '../../server/socket.io';
 import raidmode from '../../streamelements/raidmode';
 import twitchCache from '../../twitch/cache';
 import twitchApi from '../../twitch/twitch_api';
-import hosted from '../hosted';
-import * as fixtures from './__fixtures__/hosted.fixtures';
+import raid from '../raid';
+import * as fixtures from './__fixtures__/raid.fixtures';
 
 jest.mock('../../logger');
 
@@ -36,64 +36,23 @@ function test(expected: any) {
   expect(saveSpy).toHaveBeenCalled();
   expect(saveSpy.mock.calls[0][0].toJSON()).toEqual(expected);
   expect(emitSpy).toHaveBeenCalled();
-  expect(emitSpy.mock.calls[0][0]).toBe('host');
+  expect(emitSpy.mock.calls[0][0]).toBe('raid');
   expect(emitSpy.mock.calls[0][1].toJSON()).toEqual(expected);
 }
 
-describe('hosted event', () => {
+describe('raid event', () => {
   afterEach(() => {
     jest.clearAllMocks();
   });
 
   describe('no additional data', () => {
-    it('saves and emits host', async () => {
-      const payload = {
-        username: 'mismagpie',
-        viewers: 100,
-        autohost: false,
-        raid: false,
-      };
-
-      await hosted(payload);
-
-      const expected = {
-        _id: expect.any(mongoose.Types.ObjectId),
-        cleared: false,
-        createdAt: expect.any(Date),
-        payload: {
-          username: 'mismagpie',
-          viewers: 100,
-          autohost: false,
-          raid: false,
-          displayName: 'MisMagpie',
-        },
-      };
-
-      test(expected);
-    });
-
-    it('does nothing if autohost', async () => {
-      const payload = {
-        username: 'mismagpie',
-        viewers: 100,
-        autohost: true,
-        raid: false,
-      };
-
-      await hosted(payload);
-
-      expect(saveSpy).not.toHaveBeenCalled();
-    });
-
     it('does nothing if less than 10 viewers', async () => {
       const payload = {
         username: 'mismagpie',
         viewers: 9,
-        autohost: false,
-        raid: false,
       };
 
-      await hosted(payload);
+      await raid(payload);
 
       expect(saveSpy).not.toHaveBeenCalled();
     });
@@ -102,11 +61,9 @@ describe('hosted event', () => {
       const payload = {
         username: 'mismagpie',
         viewers: 100,
-        autohost: false,
-        raid: true,
       };
 
-      await hosted(payload);
+      await raid(payload);
 
       const expected = {
         _id: expect.any(mongoose.Types.ObjectId),
@@ -115,8 +72,6 @@ describe('hosted event', () => {
         payload: {
           username: 'mismagpie',
           viewers: 100,
-          autohost: false,
-          raid: true,
           displayName: 'MisMagpie',
         },
       };
@@ -139,15 +94,13 @@ describe('hosted event', () => {
       });
     });
 
-    it('saves and emits host', async () => {
+    it('saves and emits raid', async () => {
       const payload = {
         username: 'mismagpie',
         viewers: 100,
-        autohost: false,
-        raid: false,
       };
 
-      await hosted(payload);
+      await raid(payload);
 
       const expected = {
         _id: expect.any(mongoose.Types.ObjectId),
@@ -156,8 +109,6 @@ describe('hosted event', () => {
         payload: {
           username: 'mismagpie',
           viewers: 100,
-          autohost: false,
-          raid: false,
           displayName: 'MisMagpie',
           game: 'Escape from Tarkov',
         },
@@ -192,11 +143,9 @@ describe('hosted event', () => {
       const payload = {
         username: 'mismagpie',
         viewers: 100,
-        autohost: false,
-        raid: false,
       };
 
-      await hosted(payload);
+      await raid(payload);
 
       const expected = {
         _id: expect.any(mongoose.Types.ObjectId),
@@ -205,8 +154,6 @@ describe('hosted event', () => {
         payload: {
           username: 'mismagpie',
           viewers: 100,
-          autohost: false,
-          raid: false,
           displayName: 'MisMagpie',
           streamLength: '03:25:58',
           title: "♡Chillin Killin'♡  !Coffee !Lazarus !Evasion !Socials",
@@ -222,11 +169,9 @@ describe('hosted event', () => {
       const payload = {
         username: 'mismagpie',
         viewers: 100,
-        autohost: false,
-        raid: false,
       };
 
-      await hosted(payload);
+      await raid(payload);
 
       const expected = {
         _id: expect.any(mongoose.Types.ObjectId),
@@ -235,8 +180,6 @@ describe('hosted event', () => {
         payload: {
           username: 'mismagpie',
           viewers: 100,
-          autohost: false,
-          raid: false,
           displayName: 'MisMagpie',
         },
       };
@@ -250,11 +193,9 @@ describe('hosted event', () => {
       const payload = {
         username: 'mismagpie',
         viewers: 100,
-        autohost: false,
-        raid: false,
       };
 
-      await hosted(payload);
+      await raid(payload);
 
       const expected = {
         _id: expect.any(mongoose.Types.ObjectId),
@@ -263,8 +204,6 @@ describe('hosted event', () => {
         payload: {
           username: 'mismagpie',
           viewers: 100,
-          autohost: false,
-          raid: false,
           displayName: 'MisMagpie',
           // streamLength: '06:34:06',
         },

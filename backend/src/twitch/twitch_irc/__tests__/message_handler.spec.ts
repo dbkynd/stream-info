@@ -3,6 +3,15 @@ import messageHandler from '../message_handler';
 import * as fixtures from './__fixture__/messages.fixture';
 
 const clipsSpy = jest.spyOn(clipsHandler, 'default');
+jest.mock('../../../token', () => {
+  return {
+    getChannelId: () => '51533859',
+    getChannelName: () => 'annemunition',
+    getKeys: () => {
+      return { access_token: 'someToken' };
+    },
+  };
+});
 
 describe('message_handler method', () => {
   describe('clipsHandler', () => {

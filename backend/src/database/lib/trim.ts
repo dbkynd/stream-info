@@ -1,6 +1,6 @@
 import { Model } from 'mongoose';
 /*import { CheerDoc } from './cheer/cheer_model';
-import { HostDoc } from './host/host_model';
+import { RaidDoc } from './raid/raid_model';
 import { SubscriptionDoc } from './subscription/subscription_model';
 import { TipDoc } from './tip/tip_model';*/
 

@@ -1,6 +1,6 @@
 import express from 'express';
 import CheerService from '../../../database/lib/cheer';
-import HostService from '../../../database/lib/host';
+import RaidService from '../../../database/lib/raid';
 import SubscriptionService from '../../../database/lib/subscription';
 import TipService from '../../../database/lib/tip';
 import UserService from '../../../database/lib/user';
@@ -51,7 +51,7 @@ router.get('/lists', async (req, res, next) => {
   try {
     const payload = await emotes.parseBulkMessages({
       cheers: await CheerService.list(),
-      raids: await HostService.list(),
+      raids: await RaidService.list(),
       subscriptions: await SubscriptionService.list(),
       tips: await TipService.list(),
     });

@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import tmi from 'tmi.js';
 import { CheerDoc } from '../database/lib/cheer/cheer_model';
-import { HostDoc } from '../database/lib/host/host_model';
+import { RaidDoc } from '../database/lib/raid/raid_model';
 import { SubscriptionDoc } from '../database/lib/subscription/subscription_model';
 import { TipDoc } from '../database/lib/tip/tip_model';
 import logger from '../logger';
@@ -144,7 +144,7 @@ export async function parseTipMessage(message: string, set?: MyEmotes): Promise<
 
 export async function parseBulkMessages(payload: {
   cheers: CheerDoc[];
-  hosts: HostDoc[];
+  raids: RaidDoc[];
   subscriptions: SubscriptionDoc[];
   tips: TipDoc[];
 }) {

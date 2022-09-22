@@ -6,20 +6,19 @@ import messageHandler from './message_handler';
 
 // https://tmijs.com/
 
-let client = new tmi.Client({});
+const client = new tmi.Client({
+  channels: [getChannelName()],
+  identity: {
+    username: getChannelName(),
+    password: `oauth:${getKeys().access_token}`,
+  },
+  options: {
+    skipMembership: true,
+    skipUpdatingEmotesets: true,
+  },
+});
 
 export async function connect(): Promise<void> {
-  client = new tmi.Client({
-    channels: [getChannelName()],
-    identity: {
-      username: getChannelName(),
-      password: `oauth:${getKeys().access_token}`,
-    },
-    options: {
-      skipMembership: true,
-      skipUpdatingEmotesets: true,
-    },
-  });
   await client.connect();
   logger.info(`Connected to Twitch channel: ${getChannelName()} as: ${client.getUsername()}`);
 }
@@ -66,20 +65,6 @@ client.on('giftpaidupgrade', (_channel, _username, _sender, userstate) => {
   }
 });
 
-// Channel is now hosted by another broadcaster.
-client.on('hosted', async (_channel, username, viewers, autohost) => {
-  try {
-    await events.hosted({
-      username,
-      viewers,
-      autohost,
-      raid: false,
-    });
-  } catch (e) {
-    logger.error(e);
-  }
-});
-
 // Received a message. This event is fired whenever you receive a chat, action or whisper message.
 client.on('message', (_channel, userstate, message, _self) => {
   try {
@@ -101,11 +86,9 @@ client.on('primepaidupgrade', (_channel, _username, _methods, userstate) => {
 // Channel is now being raided by another broadcaster.
 client.on('raided', async (_channel, username, viewers) => {
   try {
-    await events.hosted({
+    await events.raid({
       username,
       viewers,
-      autohost: false,
-      raid: true,
     });
   } catch (e) {
     logger.error(e);

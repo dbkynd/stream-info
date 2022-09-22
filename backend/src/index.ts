@@ -1,15 +1,27 @@
-import * as app from './app';
 import logger from './logger';
 import pushover from './pushover';
+import * as token from './token';
 
 logger.info('Application starting...');
 
-app
-  .start()
+pushover.init();
+if (process.env.NODE_ENV === 'production') pushover.push('Starting backend.');
+logger.info('Validating token');
+
+let _app: { stop: () => Promise<void>; start: () => Promise<void> };
+
+// Don't start the rest of the app until we get the twitch token init data
+token
+  .validate()
+  .then(() => import('./app'))
+  .then((app) => {
+    _app = app.default;
+    return _app.start();
+  })
   .then(() => {
     logger.info('Startup complete');
   })
-  .catch((err) => {
+  .catch((err: Error) => {
     logger.error(err.message);
     process.exit(1);
   });
@@ -24,7 +36,8 @@ signals.forEach((signal) => {
 
 const shutdown = (signal: NodeJS.Signals) => {
   logger.info(`Received a ${signal} signal. Attempting graceful shutdown...`);
-  app.stop().finally(() => {
+  if (!_app) return;
+  _app.stop().finally(() => {
     logger.info(`Shutdown completed. Exiting.`);
     process.exit(0);
   });
