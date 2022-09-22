@@ -1,6 +1,6 @@
 <template>
   <div class="card-footer">
-    <v-row class="icons" no-gutters align="bottom">
+    <v-row class="icons" no-gutters>
       <v-spacer />
       <v-icon v-if="isUpgrade">mdi-chevron-double-up</v-icon>
       <template v-if="subPlan">
