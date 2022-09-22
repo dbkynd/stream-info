@@ -93,7 +93,7 @@ jobs:
         run: doctl registry login --expiry-seconds 600
 
       - name: Remove old image
-        run:  docker rm $(echo $REGISTRY)/$(echo $IMAGE_NAME):latest
+        run:  docker rmi $(echo $REGISTRY)/$(echo $IMAGE_NAME):latest
 
       - name: Push image to DigitalOcean Container Registry
         run: docker push $(echo $REGISTRY)/$(echo $IMAGE_NAME):latest
