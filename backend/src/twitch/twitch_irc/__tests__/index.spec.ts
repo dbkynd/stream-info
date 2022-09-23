@@ -67,7 +67,7 @@ describe('twitch_irc module', () => {
     });
 
     it('passes the cheer to our events handler', () => {
-      const spy = jest.spyOn(events, 'cheer');
+      const spy = jest.spyOn(events.cheer, 'cheer');
       // @ts-ignore
       client.emit('cheer', 'channel', 'userstate', 'message');
       expect(spy).toHaveBeenCalledWith('userstate', 'message');
@@ -75,7 +75,7 @@ describe('twitch_irc module', () => {
 
     it('logs any errors', () => {
       const err = new Error('Mock Error');
-      jest.spyOn(events, 'cheer').mockImplementation(() => {
+      jest.spyOn(events.cheer, 'cheer').mockImplementation(() => {
         throw err;
       });
       const spy = jest.spyOn(logger, 'error');
