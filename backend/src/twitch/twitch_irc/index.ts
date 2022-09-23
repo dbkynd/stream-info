@@ -38,6 +38,17 @@ client.on('disconnected', () => {
 
 // https://github.com/tmijs/docs/blob/gh-pages/_posts/v1.4.2/2019-03-03-Events.md
 
+// New superchat
+client.on('raw_message', (userstate) => {
+  if (userstate.tags?.['msg-id'] === 'midnightsquid') {
+    try {
+      events.cheer.superchat(userstate);
+    } catch (e) {
+      logger.error(e);
+    }
+  }
+});
+
 // Username is continuing the Gift Sub they got from an anonymous user in channel.
 client.on('anongiftpaidupgrade', (_channel, _username, userstate) => {
   try {
@@ -50,7 +61,7 @@ client.on('anongiftpaidupgrade', (_channel, _username, userstate) => {
 // Username has cheered to a channel.
 client.on('cheer', async (_channel, userstate, message) => {
   try {
-    await events.cheer(userstate, message);
+    await events.cheer.cheer(userstate, message);
   } catch (e) {
     logger.error(e);
   }

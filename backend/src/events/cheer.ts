@@ -4,7 +4,7 @@ import * as emotes from '../emotes';
 import logger from '../logger';
 import * as io from '../server/socket.io';
 
-export default (userstate: tmi.ChatUserstate, message: string): void => {
+function cheer(userstate: tmi.ChatUserstate, message: string): void {
   if (userstate['user-id'] === '251095562') return; // Ignore Coil_Twitch_Bot
   logger.info(`new cheer - ${userstate.username}`);
 
@@ -20,4 +20,26 @@ export default (userstate: tmi.ChatUserstate, message: string): void => {
   CheerService.save(cheerDoc).catch((e) => {
     logger.error(e);
   });
+}
+
+function superchat(userstate: tmi.ChatUserstate): void {
+  logger.info(`new superchat - ${userstate.tags.login}`);
+  const message = userstate.params[2];
+  const payload: CheerPayload = {
+    userstate: userstate.tags,
+    message,
+    emotes: emotes.parseCheerMessage(userstate, message),
+  };
+
+  // Emit to client regardless if successful database save
+  const cheerDoc = CheerService.create(payload, userstate['tmi-sent-ts']);
+  io.emit('cheer', cheerDoc);
+  CheerService.save(cheerDoc).catch((e) => {
+    logger.error(e);
+  });
+}
+
+export default {
+  cheer,
+  superchat,
 };
