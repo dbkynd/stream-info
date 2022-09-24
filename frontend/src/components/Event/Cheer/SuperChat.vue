@@ -66,11 +66,12 @@ const sharedEmote = computed((): string | null => {
 
 <style scoped>
 .superchat-amount {
-  display: inline-block;
-  height: 26px;
+  height: 22px;
   padding: 2px 15px 2px 15px;
   border-radius: 26px;
   color: black;
+  display: flex;
+  align-items: center;
 }
 
 .amount-100 {

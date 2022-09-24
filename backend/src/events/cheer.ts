@@ -1,4 +1,5 @@
 import tmi from 'tmi.js';
+import tmiParser from 'tmi.parser';
 import CheerService from '../database/lib/cheer';
 import * as emotes from '../emotes';
 import logger from '../logger';
@@ -23,12 +24,15 @@ function cheer(userstate: tmi.ChatUserstate, message: string): void {
 }
 
 function superchat(userstate: tmi.ChatUserstate): void {
+  if (userstate['user-id'] === '251095562') return; // Ignore Coil_Twitch_Bot
   logger.info(`new superchat - ${userstate.tags.login}`);
-  const message = userstate.params[2];
+  const message = userstate.params[1];
+  const parsedUserstate = tmiParser.emotes(userstate.tags);
+
   const payload: CheerPayload = {
-    userstate: userstate.tags,
+    userstate: parsedUserstate,
     message,
-    emotes: emotes.parseCheerMessage(userstate, message),
+    emotes: emotes.parseCheerMessage(parsedUserstate, message),
   };
 
   // Emit to client regardless if successful database save
