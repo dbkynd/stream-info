@@ -2,12 +2,15 @@
   <EventCard :data="data">
     <v-row no-gutters align="center">
       <span class="name">{{ username }}</span>
-      <span class="superchat-amount ml-2" :class="`amount-${amount}`">
+      <span class="superchat-amount mx-2" :class="`amount-${amount}`">
         ${{ dollars }}
       </span>
-      <span v-if="sharedEmote" class="sharedEmote ml-2">
-        <img :src="sharedEmote" alt="Shared Emote" />
-      </span>
+      <EmoteImg
+        v-if="sharedEmote"
+        class="sharedEmote"
+        :data="sharedEmote"
+        name="sharedEmote"
+      />
     </v-row>
     <template #footer>
       <div class="card-footer"></div>
@@ -18,19 +21,13 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import EventCard from '../EventCard.vue';
+import EmoteImg from '@/components/EmoteImg.vue';
 import { displayName } from '@/plugins/utils';
-import { useStore } from '@/store';
-import { Cheer, SuperChatUserState } from '@/types/events';
-
-const store = useStore();
+import { Cheer, Emote, SuperChatUserState } from '@/types/events';
 
 const props = defineProps<{
   data: Cheer;
 }>();
-
-const animatedEmotes = computed(() => {
-  return store.state.settings.animatedEmotes;
-});
 
 const userstate = computed((): SuperChatUserState => {
   return props.data.payload.userstate as SuperChatUserState;
@@ -55,19 +52,21 @@ const dollars = computed(() => {
   }
 });
 
-const sharedEmote = computed((): string | null => {
+const sharedEmote = computed((): Emote | null => {
   const emote = userstate.value['msg-param-emote-id'];
   if (!emote) return null;
-  return animatedEmotes.value
-    ? `https://static-cdn.jtvnw.net/emoticons/v2/${emote}/default/dark/1.0`
-    : `https://static-cdn.jtvnw.net/emoticons/v2/${emote}/static/dark/1.0`;
+  return {
+    source: 'twitch',
+    animated: `https://static-cdn.jtvnw.net/emoticons/v2/${emote}/default/dark/1.0`,
+    static: `https://static-cdn.jtvnw.net/emoticons/v2/${emote}/static/dark/1.0`,
+  };
 });
 </script>
 
 <style scoped>
 .superchat-amount {
-  height: 22px;
-  padding: 2px 15px 2px 15px;
+  height: 20px;
+  padding: 2px 10px 2px 10px;
   border-radius: 26px;
   color: black;
   display: flex;
@@ -92,13 +91,5 @@ const sharedEmote = computed((): string | null => {
 
 .amount-10000 {
   background-color: #ffb319;
-}
-
-.sharedEmote img {
-  position: relative;
-  top: 3px;
-  height: 26px;
-  margin: 0;
-  padding: 0;
 }
 </style>

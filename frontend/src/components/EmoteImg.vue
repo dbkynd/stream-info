@@ -43,9 +43,9 @@ const src = computed(() => {
 
 <style scoped>
 .emoticon img {
-  height: 28px;
+  height: 26px;
   position: relative;
-  top: 4px;
+  top: 2px;
   margin: -5px 1px;
 }
 
