@@ -34,7 +34,7 @@ jobs:
         run: docker push $(echo $REGISTRY)/$(echo $IMAGE_NAME):latest
 
       - name: Deploy to Digital Ocean droplet via SSH action
-        uses: appleboy/ssh-action@v0.1.3
+        uses: appleboy/ssh-action@master
         with:
           HOST: ${{ secrets.HOST }}
           USERNAME: ${{ secrets.USERNAME }}
