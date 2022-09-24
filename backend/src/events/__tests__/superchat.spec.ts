@@ -1,6 +1,6 @@
-import stub from '../../../../stubs/superchat';
 import CheerService from '../../database/lib/cheer/cheer_service';
 import cheer from '../cheer';
+import fixture from './__fixtures__/superchat.fixture';
 
 jest.mock('../../logger');
 jest.mock('../../server/socket.io');
@@ -12,14 +12,14 @@ describe('superchat', () => {
       actual = obj;
       return Promise.resolve();
     });
-    cheer.superchat(stub);
+    cheer.superchat(fixture);
     expect(spy).toHaveBeenCalled();
     expect(actual).toMatchObject({
       _id: expect.anything(),
       cleared: false,
       createdAt: expect.anything(),
       payload: {
-        userstate: stub.tags,
+        userstate: fixture.tags,
         message: 'Another one! anneCozy',
         emotes: {
           anneCozy: {
