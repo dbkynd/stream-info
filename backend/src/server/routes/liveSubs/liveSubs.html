@@ -1,0 +1,86 @@
+<!--This is a sample page to test how our js file injects the live sub data into the DOM-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Anne Munition - Armory</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://annemunition.tv/assets/css/main.css" />
+  <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
+  <script src="http://127.0.0.1:3000/api/live.js"></script>
+</head>
+<body>
+
+<!-- Header -->
+<header id="header">
+  <a class="logo" href="index.html">Anne Munition</a>
+  <nav>
+    <ul>
+      <li>
+        <a href="#menu">Menu</a>
+      </li>
+    </ul>
+  </nav>
+</header>
+
+<!-- Menu -->
+<nav id="menu">
+  <ul class="links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="index.html#schedule">Schedule</a></li>
+    <li><a href="equipment.html">Equipment</a></li>
+    <li><a href="http://blog.annemunition.tv" target="blank">Blog</a></li>
+    <li><a href="index.html#contact" class="button special icon fa-envelope">Contact</a></li>
+  </ul>
+</nav>
+
+
+<!-- Main -->
+<section id="main" class="wrapper alt">
+  <div class="inner">
+
+    <header class="major">
+      <h1>The Armory</h1>
+      <p>The Armory is what we call our community on this corner of the internet - a group of people who love video games and camaraderie, who are all subscribers to Anne Munition's Twitch channel. Here are some of the subscribers who are live now. If you're looking for new streamers to watch, give these casters a shot!</p>
+    </header>
+
+    <div class="row 200%">
+      <div class="12u 12u$(medium)">
+        <div id="live_subs">
+          <div>
+            &nbsp;
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Footer -->
+<footer id="footer">
+  <ul class="contact-icons">
+    <li><a href="http://www.twitch.tv/annemunition" class="icon fa-twitch"></a></li>
+    <li><a href="http://www.twitter.com/annemunition" class="icon fa-twitter"></a></li>
+    <li><a href="http://www.instagram.com/annemunition" class="icon fa-instagram"></a></li>
+    <li><a href="http://www.youtube.com/annemunition" class="icon fa-youtube"></a></li>
+    <li><a href="http://www.annemunition.bandcamp.com" class="icon fa-music"></a></li>
+  </ul>
+  <div class="copyright">
+    &copy; ® 2022 • Anne Munition and the AM logo are trademarks of Anne Munition, LLC • All rights reserved.
+  </div>
+</footer>
+
+<!-- Scripts -->
+<script src="https://annemunition.tv/assets/js/jquery.min.js"></script>
+<script src="https://annemunition.tv/assets/js/jquery.scrolly.min.js"></script>
+<script src="https://annemunition.tv/assets/js/jquery.scrollex.min.js"></script>
+<script src="https://annemunition.tv/assets/js/skel.min.js"></script>
+<script src="https://annemunition.tv/assets/js/util.js"></script>
+<script src="https://annemunition.tv/assets/js/main.js"></script>
+
+</body>
+</html>

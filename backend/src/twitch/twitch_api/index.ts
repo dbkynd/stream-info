@@ -5,6 +5,7 @@ import getChannels from './endpoints/getChannels';
 import getCheermotes from './endpoints/getCheermotes';
 import getClips from './endpoints/getClips';
 import getEventSub from './endpoints/getEventSub';
+import getGames from './endpoints/getGames';
 import getStreams from './endpoints/getStreams';
 import getSubscriptions from './endpoints/getSubscriptions';
 import getUsers from './endpoints/getUsers';
@@ -21,7 +22,7 @@ export default {
   getCheermotes,
   getClips,
   getEventSub,
-  // getGames,
+  getGames,
   // getModerators,
   getStreams,
   getSubscriptions,

@@ -198,3 +198,15 @@ interface TwitchAppToken {
   expires_in: number;
   token_type: 'bearer';
 }
+
+interface TwitchGameResponse {
+  data: TwitchGame[];
+}
+
+interface TwitchGame {
+  id: string;
+  name: string;
+  box_art_url: string;
+}
+
+type LiveSub = TwitchStream & TwitchGame;
