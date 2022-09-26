@@ -7,7 +7,7 @@ import twitchApi from '../twitch_api';
 
 const subscribersFile = path.join(cacheDir, 'subscribers.json');
 let subscribers: string[] = [];
-let liveSubs: LiveSubs[] = [];
+let liveSubs: LiveSub[] = [];
 
 let getSubsTimer: NodeJS.Timer;
 let checkLiveTimer: NodeJS.Timer;
