@@ -1,6 +1,6 @@
+import path from 'path';
 import { Router } from 'express';
 import { getLiveSubs } from '../../../twitch/twitch_polling/live_subs';
-import path from 'path';
 
 const router = Router();
 
