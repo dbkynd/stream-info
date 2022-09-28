@@ -5,7 +5,7 @@ let liveSubs;
 const server =
   window.location.href.includes('127.0.0.1') || window.location.href.includes('localhost')
     ? 'http://127.0.0.1:3000/api/live'
-    : 'https://info.annemunition.tv/api/live';
+    : 'https://command.annemunition.tv/api/live';
 
 $(document).ready(() => {
   httpGetAsync(server, (data) => {
