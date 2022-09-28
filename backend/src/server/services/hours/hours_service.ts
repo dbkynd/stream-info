@@ -8,7 +8,7 @@ export default async (): Promise<{
   const now = DateTime.now().setZone('America/Los_Angeles');
   const startOfMonth = now.startOf('month');
   const endOfMonth = now.endOf('month');
-  const startOfLastMonth = now.minus(Duration.fromObject({ months: 1 })).startOf('month');
+  const startOfLastMonth = startOfMonth.minus(Duration.fromObject({ months: 1 }));
 
   return {
     thisMonth: await getHours(startOfMonth, endOfMonth),
