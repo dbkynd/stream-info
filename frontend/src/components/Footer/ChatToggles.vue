@@ -3,42 +3,42 @@
     <v-switch
       v-model="slow"
       label="Slow Mode"
-      color="red"
+      color="secondary"
       hide-details
       density="compact"
     />
     <v-switch
       v-model="followers"
       label="Followers Only"
-      color="red"
+      color="secondary"
       hide-details
       density="compact"
     />
     <v-switch
       v-model="subscribers"
       label="Subscribers Only"
-      color="red"
+      color="secondary"
       hide-details
       density="compact"
     />
     <v-switch
       v-model="r9k"
       label="R9K Mode"
-      color="red"
+      color="secondary"
       hide-details
       density="compact"
     />
     <v-switch
       v-model="emote"
       label="Emote Only"
-      color="red"
+      color="secondary"
       hide-details
       density="compact"
     />
     <v-switch
       v-model="raidmode"
       label="Raid Mode"
-      color="red"
+      color="secondary"
       hide-details
       density="compact"
     />

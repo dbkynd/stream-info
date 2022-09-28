@@ -1,9 +1,9 @@
 import express from 'express';
 import * as MultiService from '../../services/multi/multi_service';
 import StatsService from '../../services/stats/stats_service';
+import liveSubsRoutes from '../liveSubs/live_subs';
 import authRoutes from './auth';
 import chatBotRoutes from './chat_bot';
-import liveSubsRoutes from './live_subs';
 import twitchEventSubRoutes from './twitch_eventsub';
 
 const router = express.Router();

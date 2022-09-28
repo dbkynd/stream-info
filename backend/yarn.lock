@@ -4850,6 +4850,13 @@ tmi.js@^1.8.5:
     node-fetch "^2.6.1"
     ws "^8.2.0"
 
+"tmi.parser@https://github.com/dbkynd/tmi.js.git#parser":
+  version "1.8.3"
+  resolved "https://github.com/dbkynd/tmi.js.git#4d1d450ec457495649b9ef198de887912fc37c87"
+  dependencies:
+    node-fetch "^2.6.1"
+    ws "^7.4.3"
+
 tmpl@1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/tmpl/-/tmpl-1.0.5.tgz#8683e0b902bb9c20c4f726e3c0b69f36518c07cc"
@@ -5277,6 +5284,11 @@ write-file-atomic@^3.0.0:
     is-typedarray "^1.0.0"
     signal-exit "^3.0.2"
     typedarray-to-buffer "^3.1.5"
+
+ws@^7.4.3:
+  version "7.5.9"
+  resolved "https://registry.yarnpkg.com/ws/-/ws-7.5.9.tgz#54fa7db29f4c7cec68b1ddd3a89de099942bb591"
+  integrity sha512-F+P9Jil7UiSKSkppIiD94dN07AwvFixvLIj1Og1Rl9GGMuNipJnV9JzjD6XuqmAeiswGvUmNLjr5cFuXwNS77Q==
 
 ws@^7.4.6:
   version "7.5.6"

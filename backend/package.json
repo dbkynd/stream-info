@@ -6,7 +6,7 @@
     "dev": "cross-env NODE_ENV=development ts-node-dev --respawn --transpile-only -r dotenv/config ./src",
     "start": "cross-env NODE_ENV=production node -r dotenv/config ./dist",
     "build": "rimraf ./dist && tsc -p ./tsconfig.build.json",
-    "prettier": "prettier --write \"**/*.{js,ts,md,*rc,json}\" --ignore-path ../.gitignore",
+    "prettier": "prettier --write \"**/*.{js,ts,md,*rc,json}\" --ignore-path .gitignore",
     "lint": "eslint --ext .js,.ts --ignore-path .gitignore .",
     "test": "jest",
     "test:coverage": "jest --coverage"
@@ -35,6 +35,7 @@
     "socket.io": "^4.5.0",
     "socket.io-client": "2.4.0",
     "tmi.js": "^1.8.5",
+    "tmi.parser": "https://github.com/dbkynd/tmi.js.git#parser",
     "winston": "^3.7.2"
   },
   "devDependencies": {

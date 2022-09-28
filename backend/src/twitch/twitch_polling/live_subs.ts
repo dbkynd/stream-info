@@ -7,7 +7,7 @@ import twitchApi from '../twitch_api';
 
 const subscribersFile = path.join(cacheDir, 'subscribers.json');
 let subscribers: string[] = [];
-let liveSubs: TwitchStream[] = [];
+let liveSubs: LiveSub[] = [];
 
 let getSubsTimer: NodeJS.Timer;
 let checkLiveTimer: NodeJS.Timer;
@@ -64,18 +64,34 @@ async function getSubs() {
 async function checkLive() {
   if (subscribers.length === 0) return;
   logger.debug('Caching live sub streams...');
-  const requestCount = Math.ceil(subscribers.length / 100);
   const live: TwitchStream[] = [];
 
   const ids = _.chunk(subscribers, 100);
-  for (let i = 0; i < requestCount; i++) {
-    // logger.debug(`Streams chunk: ${i + 1} of ${requestCount}`);
+  for (let i = 0; i < ids.length; i++) {
     const chunk = await twitchApi.getStreams(ids[i]);
     live.push(...chunk);
     await dwell();
   }
 
-  liveSubs = _.uniqBy(live, 'user_id');
+  const games: TwitchGame[] = [];
+  const gameIds = _.chunk(
+    _.uniqBy(live, 'user_id').map((x) => x.game_id),
+    100,
+  );
+  for (let i = 0; i < gameIds.length; i++) {
+    const chunk = await twitchApi.getGames(gameIds[i]);
+    games.push(...chunk);
+    await dwell();
+  }
+
+  const merged: LiveSub[] = [];
+  for (let i = 0; i < live.length; i++) {
+    const l = live[i];
+    const g = games.find((x) => x.id === l.game_id);
+    merged.push(Object.assign({}, g, l));
+  }
+
+  liveSubs = _.uniqBy(merged, 'user_id');
   logger.debug(`Done caching live sub streams (${liveSubs.length})`);
 }
 
