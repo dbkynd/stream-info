@@ -10,7 +10,7 @@ import './assets/global.css';
 
 const toastDefaultOptions = {
   pauseOnFocusLoss: false,
-  position: POSITION.TOP_RIGHT,
+  position: POSITION.BOTTOM_RIGHT,
 };
 
 createApp(App)
