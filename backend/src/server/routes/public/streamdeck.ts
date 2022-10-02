@@ -1,10 +1,10 @@
 import { Router } from 'express';
-import seAuth from '../../middleware/seAuth';
 import twitchApi from '../../../twitch/twitch_api';
+import sdAuth from '../../middleware/sdAuth';
 
 const router = Router();
 
-router.use(seAuth);
+router.use(sdAuth);
 
 const allowedLengths = [30, 60, 90, 120, 150, 180];
 
