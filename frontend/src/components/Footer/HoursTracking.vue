@@ -1,13 +1,13 @@
 <template>
   <div class="hours">
     <div>
-      Hours this quarter: <span v-if="!loading">{{ hours.thisQuarter }}</span>
+      Hours this month: <span v-if="!loading">{{ hours.thisMonth }}</span>
       <span v-else>
         <v-progress-circular size="16" indeterminate width="2" />
       </span>
     </div>
     <div>
-      Hours last quarter: <span v-if="!loading">{{ hours.lastQuarter }}</span>
+      Hours last month: <span v-if="!loading">{{ hours.lastMonth }}</span>
       <span v-else>
         <v-progress-circular size="16" indeterminate width="2" />
       </span>
@@ -20,8 +20,8 @@ import { ref, onMounted } from 'vue';
 import api from '@/plugins/axios';
 
 interface Hours {
-  thisQuarter: number;
-  lastQuarter: number;
+  thisMonth: number;
+  lastMonth: number;
 }
 
 const loading = ref(true);
