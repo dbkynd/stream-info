@@ -4,12 +4,14 @@ import StatsService from '../../services/stats/stats_service';
 import liveSubsRoutes from '../liveSubs/live_subs';
 import authRoutes from './auth';
 import chatBotRoutes from './chat_bot';
+import streamDeckRoutes from './streamdeck';
 import twitchEventSubRoutes from './twitch_eventsub';
 
 const router = express.Router();
 
 router.use('/auth', authRoutes);
 router.use('/chat', chatBotRoutes);
+router.use('/sd', streamDeckRoutes);
 router.use('/twitch/eventsub', twitchEventSubRoutes);
 router.use(liveSubsRoutes);
 

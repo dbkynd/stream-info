@@ -9,6 +9,7 @@ import getGames from './endpoints/getGames';
 import getStreams from './endpoints/getStreams';
 import getSubscriptions from './endpoints/getSubscriptions';
 import getUsers from './endpoints/getUsers';
+import startCommercial from './endpoints/startCommercial';
 import validateToken from './endpoints/validateToken';
 
 // import getGames from './endpoints/getGames';
@@ -27,5 +28,6 @@ export default {
   getStreams,
   getSubscriptions,
   getUsers,
+  startCommercial,
   validateToken,
 };

@@ -4,13 +4,14 @@ import twitchApi from './twitch/twitch_api';
 
 const requiredScopes = [
   'bits:read',
+  'channel:edit:commercial',
   'channel:moderate',
+  'channel:read:redemptions',
   'channel:read:subscriptions',
   'chat:edit',
   'chat:read',
   'clips:edit',
   'moderation:read',
-  'channel:manage:redemptions',
 ];
 
 interface Keys {
@@ -82,9 +83,9 @@ function setInvalid(): void {
 }
 
 export function hasScopes(scopes: string[]): boolean {
-  for (let i = 0; i < scopes.length; i++) {
-    if (!requiredScopes.includes(scopes[i])) {
-      logger.warn('Twitch Token missing scopes!');
+  for (let i = 0; i < requiredScopes.length; i++) {
+    if (!scopes.includes(requiredScopes[i])) {
+      logger.warn(`Twitch Token missing scopes! - ${requiredScopes[i]}`);
       return false;
     }
   }
