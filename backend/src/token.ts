@@ -52,7 +52,15 @@ function startTimer(): void {
 export async function validate(): Promise<void> {
   logger.debug('checking token validity');
   if (timer) clearTimeout(timer);
-  const awsKeys = await getAWSKeys();
+  let awsKeys: Keys;
+  if (process.env.NODE_ENV === 'production') {
+    awsKeys = await getAWSKeys();
+  } else {
+    awsKeys = {
+      client_id: process.env.TWITCH_CLIENT_ID,
+      access_token: process.env.DEV_ACCESS_TOKEN,
+    };
+  }
   await twitchApi
     .validateToken(awsKeys.access_token)
     .then(({ scopes, login, user_id }) => {

@@ -10,7 +10,7 @@ const schema = new Schema({
 export interface UserDoc extends Document {
   twitchId: string;
   profile: any;
-  settings: any;
+  settings: UserSettings;
 }
 
 export default model<UserDoc>('users', schema);

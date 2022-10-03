@@ -1,6 +1,8 @@
 import { merge } from 'lodash';
+import User from '../database/lib/user';
 import { updateAppState } from '../events/state';
 import logger from '../logger';
+import { getChannelId } from '../token';
 import commands from './commands';
 import seApi from './se_api';
 
@@ -11,9 +13,9 @@ async function init() {
   const currentFilters = await seApi.getFilters();
   const emoteFiltersEnabled = currentFilters.botFilters.emotes.enabled;
   // Emote filter ON means raidmode is OFF
-  const raidmode = !emoteFiltersEnabled;
-  logger.info(`Raidmode data. Enabled: ${raidmode}`);
-  updateAppState({ raidmode });
+  inRaidMode = !emoteFiltersEnabled;
+  logger.info(`Raidmode data. Enabled: ${inRaidMode}`);
+  updateAppState({ raidmode: inRaidMode });
 }
 
 async function setFilters(enabled: boolean): Promise<void> {
@@ -63,7 +65,8 @@ async function manual(enable: boolean): Promise<string> {
       clearTimeout(followersTimer);
       clearTimeout(raidModeOffTimer);
       await toggle(false);
-      await commands.followers();
+      const minutes = (await User.getUserSettings(getChannelId()))?.defaultFollowers || 10;
+      await commands.followers(minutes);
       return 'Raidmode has been disabled.';
     } else {
       return 'Raidmode currently disabled.';
@@ -71,21 +74,22 @@ async function manual(enable: boolean): Promise<string> {
   }
 }
 
-function timers() {
+async function timers() {
   if (raidModeOffTimer) clearTimeout(raidModeOffTimer);
   if (followersTimer) clearTimeout(followersTimer);
-  raidModeOffTimer = setTimeout(() => {
+  const minutes = (await User.getUserSettings(getChannelId()))?.defaultFollowers || 10;
+  raidModeOffTimer = setTimeout(async () => {
     commands.announce(
-      '10-minute followers-only mode will be enabled in 10 minutes. Please follow to continue chatting.',
+      `${minutes}-minute followers-only mode will be enabled in ${minutes} minutes. Please follow to continue chatting.`,
     );
     toggle(false).then(() => {
       inRaidMode = false;
     });
   }, 1000 * 60 * 3);
 
-  followersTimer = setTimeout(() => {
-    commands.followers(10);
-  }, 1000 * 60 * 13);
+  followersTimer = setTimeout(async () => {
+    commands.followers(minutes);
+  }, 1000 * 60 * minutes + 3);
 }
 
 async function toggle(enable: boolean) {

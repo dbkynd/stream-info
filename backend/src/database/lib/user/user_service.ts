@@ -15,8 +15,15 @@ async function getUser(id: string): Promise<UserDoc | null> {
   return User.findOne({ twitchId: id });
 }
 
+async function getUserSettings(id: string): Promise<UserSettings | null> {
+  const user = await getUser(id);
+  if (!user) return null;
+  return user.settings;
+}
+
 export default {
   updateProfile,
   updateSettings,
+  getUserSettings,
   getUser,
 };

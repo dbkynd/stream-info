@@ -29,7 +29,7 @@ export function getAppState(): ApplicationState {
 
 export function setRoomstate(state: tmi.RoomState): void {
   logger.debug('new roomstate');
-  roomstate = state;
+  roomstate = Object.assign({}, roomstate, state);
   io.emit('roomstate', state);
 }
 
