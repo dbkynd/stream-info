@@ -1,4 +1,4 @@
-FROM node:16.13.2-alpine3.15 as base
+FROM node:18.16.1-alpine3.18 as base
 RUN apk add --no-cache graphicsmagick git
 WORKDIR /app
 

@@ -12,3 +12,5 @@ README.md
 stubs
 
 backend/.cache
+
+**/.yarn
