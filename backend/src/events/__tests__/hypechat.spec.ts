@@ -1,18 +1,18 @@
 import CheerService from '../../database/lib/cheer/cheer_service';
 import cheer from '../cheer';
-import fixture from './__fixtures__/superchat.fixture';
+import fixture from './__fixtures__/hypechat.fixture';
 
 jest.mock('../../logger');
 jest.mock('../../server/socket.io');
 
-describe('superchat', () => {
+describe('hypechat', () => {
   test('creates correct database document', () => {
     let actual;
     const spy = jest.spyOn(CheerService, 'save').mockImplementation((obj) => {
       actual = obj;
       return Promise.resolve();
     });
-    cheer.superchat(fixture);
+    cheer.hypechat(fixture);
     expect(spy).toHaveBeenCalled();
     expect(actual).toMatchObject({
       _id: expect.anything(),

@@ -12,5 +12,7 @@ export function transformReply(text: string): string | undefined {
   const match = text.match(multiReg) || [];
   if (!match.length) return;
   const channelRegExp = new RegExp(`${getChannelName()}\/?`);
-  return match[0].toLowerCase().replace(channelRegExp, '').replace(/\/$/, '');
+  const string = match[0];
+  if (!string) return;
+  return string.toLowerCase().replace(channelRegExp, '').replace(/\/$/, '');
 }
