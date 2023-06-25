@@ -6,7 +6,7 @@ on:
 
 env:
   REGISTRY: "registry.digitalocean.com/dbkynd"
-  IMAGE_NAME: "streaminfo"
+  IMAGE_NAME: "stream-info"
 
 jobs:
   build_push_pull_deploy:
@@ -36,9 +36,9 @@ jobs:
       - name: Deploy to Digital Ocean droplet via SSH action
         uses: appleboy/ssh-action@master
         with:
-          HOST: ${{ secrets.HOST }}
-          USERNAME: ${{ secrets.USERNAME }}
-          KEY: ${{ secrets.SSHKEY }}
+          HOST: ${{ secrets.DIGITALOCEAN_HOST }}
+          USERNAME: ${{ secrets.DIGITALOCEAN_USERNAME }}
+          KEY: ${{ secrets.DIGITALOCEAN_SSHKEY }}
           envs: IMAGE_NAME,REGISTRY,GITHUB_SHA
           script: |
             # Login to the Digital Ocean Registry
@@ -56,7 +56,8 @@ jobs:
             # Run container
             docker run -d \
             --restart always \
-            --env-file /root/streaminfo/.env \
+            --volume /root/$(echo $IMAGE_NAME)/logs:/app/logs:rw \
+            --env-file /root/$(echo $IMAGE_NAME)/.env \
             -p 3000:3000 \
             --name $(echo $IMAGE_NAME) \
             $(echo $REGISTRY)/$(echo $IMAGE_NAME):latest
