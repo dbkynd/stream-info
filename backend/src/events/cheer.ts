@@ -23,9 +23,9 @@ function cheer(userstate: tmi.ChatUserstate, message: string): void {
   });
 }
 
-function superchat(userstate: tmi.ChatUserstate): void {
+function hypechat(userstate: tmi.ChatUserstate): void {
   if (userstate['user-id'] === '251095562') return; // Ignore Coil_Twitch_Bot
-  logger.info(`new superchat - ${userstate.tags.login}`);
+  logger.info(`new hypechat - ${userstate.tags['display-name']}`);
   const message = userstate.params[1];
   const parsedUserstate = tmiParser.emotes(userstate.tags);
 
@@ -45,5 +45,5 @@ function superchat(userstate: tmi.ChatUserstate): void {
 
 export default {
   cheer,
-  superchat,
+  hypechat,
 };

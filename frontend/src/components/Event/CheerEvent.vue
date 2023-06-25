@@ -1,19 +1,20 @@
 <template>
-  <SuperChat v-if="isSuperChat" :data="data" />
+  <HypeChat v-if="isHypeChat" :data="data" />
   <BitsCheer v-else :data="data" />
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue';
 import BitsCheer from './Cheer/BitsCheer.vue';
-import SuperChat from './Cheer/SuperChat.vue';
-import { Cheer } from '@/types/events';
+import HypeChat from './Cheer/HypeChat.vue';
+import { Cheer, HypeChatUserState } from '@/types/events';
 
 const props = defineProps<{
   data: Cheer;
 }>();
 
-const isSuperChat = computed((): boolean => {
-  return props.data.payload.userstate['msg-id'] === 'midnightsquid';
+const isHypeChat = computed((): boolean => {
+  const userstate = props.data.payload.userstate as HypeChatUserState;
+  return Boolean(userstate['pinned-chat-paid-amount']);
 });
 </script>

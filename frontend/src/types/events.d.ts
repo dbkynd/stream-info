@@ -29,7 +29,7 @@ export interface Tip {
 }
 
 interface CheerPayload {
-  userstate: CheerUserState | SuperChatUserState;
+  userstate: CheerUserState | HypeChatUserState;
   message: string;
   emotes: Emotes;
 }
@@ -76,16 +76,14 @@ export interface CheerUserState {
   'msg-id'?: string;
 }
 
-export interface SuperChatUserState {
+export interface HypeChatUserState {
   'display-name': string;
-  login: string;
-  'msg-id': 'midnightsquid';
-  'msg-param-amount': string;
-  'msg-param-currency': string;
-  'msg-param-emote-id': string;
-  'msg-param-exponent': string;
-  'msg-param-is-highlighted': string;
-  'msg-param-pill-type': string;
+  'pinned-chat-paid-amount': string;
+  'pinned-chat-paid-canonical-amount': string;
+  'pinned-chat-paid-currency': string;
+  'pinned-chat-paid-exponent': string;
+  'pinned-chat-paid-is-system-message': string;
+  'pinned-chat-paid-level': string;
   'tmi-sent-ts': string;
 }
 

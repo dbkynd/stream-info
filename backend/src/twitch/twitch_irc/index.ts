@@ -38,11 +38,11 @@ client.on('disconnected', () => {
 
 // https://github.com/tmijs/docs/blob/gh-pages/_posts/v1.4.2/2019-03-03-Events.md
 
-// New superchat
+// New hypechat
 client.on('raw_message', (userstate) => {
-  if (userstate.tags?.['msg-id'] === 'midnightsquid') {
+  if (userstate.tags?.['pinned-chat-paid-amount']) {
     try {
-      events.cheer.superchat(userstate);
+      events.cheer.hypechat(userstate);
     } catch (e) {
       logger.error(e);
     }
