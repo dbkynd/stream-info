@@ -71,6 +71,8 @@ const tags = [
   'reply-parent-msg-id',
   'reply-parent-user-id',
   'reply-parent-user-login',
+  'reply-thread-parent-msg-id',
+  'reply-thread-parent-user-login',
   'returning-chatter',
   'vip',
 ];
