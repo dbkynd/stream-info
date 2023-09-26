@@ -60,9 +60,12 @@ export function submysterygift(userstate: tmi.SubMysteryGiftUserstate, numOfSubs
   massGifts[id] = {
     recipients: [],
     targetLength: numOfSubs,
-    timeout: setTimeout(() => {
-      massGifts[id].expire();
-    }, 10000 + numOfSubs * 250),
+    timeout: setTimeout(
+      () => {
+        massGifts[id].expire();
+      },
+      10000 + numOfSubs * 250,
+    ),
     add: (id: string) => {
       massGifts[id].recipients.push(id);
       if (massGifts[id].recipients.length === massGifts[id].targetLength) {

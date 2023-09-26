@@ -18,7 +18,7 @@ async function start(): Promise<void> {
   await twitchIrc.connect();
   server.start();
   twitchPolling.start();
-  await eventSub.subscribe();
+  // await eventSub.subscribe();
 }
 
 async function stop(): Promise<void> {

@@ -17,7 +17,7 @@ export default async (): Promise<{
 };
 
 export async function getHours(start: DateTime, end: DateTime): Promise<number> {
-  const videos = await ArchiveVideoService.getInRange(start.toISO(), end.toISO());
+  const videos = await ArchiveVideoService.getInRange(start.toISO() as string, end.toISO() as string);
   const sum = videos.reduce((prev, next) => {
     return prev + next.length;
   }, 0);

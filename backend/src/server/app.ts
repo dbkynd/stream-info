@@ -19,8 +19,11 @@ const format = process.env.NODE_ENV === 'production' ? 'combined' : 'dev';
 app.use(morgan(format, { stream: logger.stream }));
 app.use(express.json());
 
+// @ts-ignore
 app.use(sessionStore);
+// @ts-ignore
 app.use(passport.initialize());
+// @ts-ignore
 app.use(passport.session());
 
 app.use('/api', Api);

@@ -1,27 +1,22 @@
-FROM node:18.16.1-alpine3.18 as base
+FROM node:lts-alpine3.18 as base
 RUN apk add --no-cache graphicsmagick git
 WORKDIR /app
 
-FROM base AS backend_prod_dependencies
-COPY ./backend/package.json ./backend/yarn.lock ./
-RUN yarn --production=true
+FROM base AS yarn
+RUN corepack enable
+RUN corepack prepare yarn@stable --activate
 
-FROM backend_prod_dependencies as backend_dev_dependencies
-RUN yarn --production=false
-
-FROM base as frontend_dependencies
-COPY ./frontend/package.json ./frontend/yarn.lock ./
-RUN yarn --production=false
-
-FROM backend_dev_dependencies as backend_builder
+FROM yarn as backend
 COPY ./backend .
+RUN yarn
 RUN yarn prettier
 RUN yarn lint
 RUN yarn test
 RUN yarn build
 
-FROM frontend_dependencies AS frontend_builder
+FROM yarn AS frontend
 COPY ./frontend .
+RUN yarn
 RUN yarn prettier
 RUN yarn lint
 RUN yarn build
@@ -29,9 +24,9 @@ RUN yarn build
 FROM base
 ENV DOCKER=true \
     NODE_ENV=production
-COPY --from=backend_prod_dependencies /app/node_modules ./backend/node_modules
-COPY --from=backend_builder /app/dist ./backend/dist
-COPY --from=frontend_builder /app/dist ./frontend/dist
+COPY --from=backend /app/node_modules ./backend/node_modules
+COPY --from=backend /app/dist ./backend/dist
+COPY --from=frontend /app/dist ./frontend/dist
 
 EXPOSE 3000
 

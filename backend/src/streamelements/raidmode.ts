@@ -78,18 +78,24 @@ async function timers() {
   if (raidModeOffTimer) clearTimeout(raidModeOffTimer);
   if (followersTimer) clearTimeout(followersTimer);
   const minutes = (await User.getUserSettings(getChannelId()))?.defaultFollowers || 10;
-  raidModeOffTimer = setTimeout(async () => {
-    commands.announce(
-      `${minutes}-minute followers-only mode will be enabled in ${minutes} minutes. Please follow to continue chatting.`,
-    );
-    toggle(false).then(() => {
-      inRaidMode = false;
-    });
-  }, 1000 * 60 * 3);
+  raidModeOffTimer = setTimeout(
+    async () => {
+      commands.announce(
+        `${minutes}-minute followers-only mode will be enabled in ${minutes} minutes. Please follow to continue chatting.`,
+      );
+      toggle(false).then(() => {
+        inRaidMode = false;
+      });
+    },
+    1000 * 60 * 3,
+  );
 
-  followersTimer = setTimeout(async () => {
-    commands.followers(minutes);
-  }, 1000 * 60 * minutes + 3);
+  followersTimer = setTimeout(
+    async () => {
+      commands.followers(minutes);
+    },
+    1000 * 60 * minutes + 3,
+  );
 }
 
 async function toggle(enable: boolean) {
