@@ -9,7 +9,7 @@ env:
   IMAGE_NAME: "stream-info"
 
 jobs:
-  build_push_pull_deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
