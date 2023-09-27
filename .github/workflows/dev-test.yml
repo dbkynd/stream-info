@@ -1,0 +1,25 @@
+name: Test Build on Dev Branch
+
+on:
+  push:
+    branches: [ dev ]
+
+env:
+  REGISTRY: "registry.digitalocean.com/dbkynd"
+  IMAGE_NAME: "stream-info"
+
+jobs:
+  build_push_pull_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Yarn Cache
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20'
+          cache: 'yarn'
+
+      - name: Docker Build
+        run: docker build -t $(echo $REGISTRY)/$(echo $IMAGE_NAME):latest .
