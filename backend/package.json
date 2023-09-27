@@ -28,7 +28,7 @@
     "passport-twitch-new": "^0.0.2",
     "pushover-notifications": "^1.2.2",
     "socket.io": "^4.7.2",
-    "socket.io-client": "2.4.0",
+    "socket.io-client": "^4.7.2",
     "tmi.js": "^1.8.5",
     "tmi.parser": "https://github.com/dbkynd/tmi.js.git#parser",
     "winston": "^3.10.0"
