@@ -24,4 +24,4 @@ jobs:
           context: .
           cache-from: type=gha
           cache-to: type=gha,mode=max
-          tags: ${{$REGISTRY/$IMAGE_NAME:latest}}
+          tags: ${{$(echo $REGISTRY)/$(echo $IMAGE_NAME):latest}}
