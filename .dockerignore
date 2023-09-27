@@ -14,3 +14,5 @@ stubs
 backend/.cache
 
 **/.yarn
+
+**/.env

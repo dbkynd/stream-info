@@ -9,8 +9,8 @@ const subscribersFile = path.join(cacheDir, 'subscribers.json');
 let subscribers: string[] = [];
 let liveSubs: LiveSub[] = [];
 
-let getSubsTimer: NodeJS.Timer;
-let checkLiveTimer: NodeJS.Timer;
+let getSubsTimer: NodeJS.Timeout;
+let checkLiveTimer: NodeJS.Timeout;
 
 export async function start() {
   loadFromFile();

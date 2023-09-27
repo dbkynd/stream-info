@@ -44,7 +44,7 @@ export function getScopes(): string[] {
   return requiredScopes;
 }
 
-let timer: NodeJS.Timer;
+let timer: NodeJS.Timeout;
 function startTimer(): void {
   timer = setTimeout(validate, 1000 * 60 * 60);
 }

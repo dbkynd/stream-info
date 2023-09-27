@@ -6,7 +6,7 @@ import { getChannelId } from '../token';
 import commands from './commands';
 import seApi from './se_api';
 
-let followersTimer: NodeJS.Timer, raidModeOffTimer: NodeJS.Timer;
+let followersTimer: NodeJS.Timeout, raidModeOffTimer: NodeJS.Timeout;
 let inRaidMode = false;
 
 async function init() {

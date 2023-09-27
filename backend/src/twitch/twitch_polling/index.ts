@@ -2,8 +2,8 @@ import hoursStreamed from './hours_streamed';
 import * as liveSubs from './live_subs';
 import stream from './stream';
 
-let streamTimer: NodeJS.Timer;
-let hoursTimer: NodeJS.Timer;
+let streamTimer: NodeJS.Timeout;
+let hoursTimer: NodeJS.Timeout;
 
 export function start() {
   stream();

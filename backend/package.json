@@ -13,7 +13,7 @@
     "connect-mongo": "^5.0.0",
     "cross-env": "^7.0.3",
     "dayjs": "^1.11.10",
-    "discord.js": "^13.6.0",
+    "discord.js": "^14.13.0",
     "dotenv": "^16.3.1",
     "escape-html": "^1.0.3",
     "express": "^4.18.2",
@@ -32,7 +32,7 @@
     "socket.io-client": "2.4.0",
     "tmi.js": "^1.8.5",
     "tmi.parser": "https://github.com/dbkynd/tmi.js.git#parser",
-    "winston": "^3.7.2"
+    "winston": "^3.10.0"
   },
   "devDependencies": {
     "@types/escape-html": "^1.0.2",
@@ -43,10 +43,11 @@
     "@types/lodash": "^4.14.199",
     "@types/luxon": "^3.3.2",
     "@types/morgan": "^1.9.5",
+    "@types/node": "^20.7.0",
     "@types/passport": "^1.0.13",
     "@types/socket.io-client": "1.4.36",
     "@types/supertest": "^2.0.13",
-    "@types/tmi.js": "^1.8.1",
+    "@types/tmi.js": "^1.8.4",
     "@typescript-eslint/eslint-plugin": "^6.7.3",
     "@typescript-eslint/parser": "^6.7.3",
     "eslint": "^8.50.0",

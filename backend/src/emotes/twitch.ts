@@ -4,7 +4,7 @@ import logger from '../logger';
 
 let queue: { [key: string]: string } = {};
 
-let timer: NodeJS.Timer | undefined;
+let timer: NodeJS.Timeout | undefined;
 
 function start() {
   timer = setInterval(flush, 1000 * 60 * 5);

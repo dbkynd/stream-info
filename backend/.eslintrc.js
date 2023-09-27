@@ -18,7 +18,7 @@ module.exports = {
     'no-console': 'error',
     '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: 'next' }],
     '@typescript-eslint/no-explicit-any': 'warn',
-    '@typescript-eslint/ban-ts-comment' : 'off',
+    '@typescript-eslint/ban-ts-comment': 'off',
     'import/order': [
       'error',
       {
