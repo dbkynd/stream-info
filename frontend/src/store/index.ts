@@ -24,7 +24,7 @@ export interface RootState {
   };
 }
 
-const timers: { [key: string]: NodeJS.Timer } = {};
+const timers: { [key: string]: NodeJS.Timeout } = {};
 
 export const key: InjectionKey<Store<RootState>> = Symbol();
 

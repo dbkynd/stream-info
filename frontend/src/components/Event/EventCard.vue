@@ -2,7 +2,11 @@
   <div>
     <Timestamp :date="data.createdAt" />
     <slot />
-    <Message v-if="hasMessage" :payload="messagePayload" :decode="decode" />
+    <Message
+      v-if="hasMessage"
+      :payload="messagePayload"
+      :do-decode="doDecode"
+    />
     <slot name="footer" />
   </div>
 </template>
@@ -15,7 +19,7 @@ import { Event, MessagePayload } from '@/types/events';
 
 const props = defineProps<{
   data: Event;
-  decode?: boolean;
+  doDecode?: boolean;
 }>();
 
 const hasMessage = computed(() => {

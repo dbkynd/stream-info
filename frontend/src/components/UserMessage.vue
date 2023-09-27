@@ -19,12 +19,12 @@ import { MessagePayload } from '@/types/events';
 
 const props = defineProps<{
   payload: MessagePayload;
-  decode?: boolean;
+  doDecode?: boolean;
 }>();
 
 const decoded = computed((): string => {
   if (!props.payload.message) return '';
-  if (props.decode) return decode(props.payload.message);
+  if (props.doDecode) return decode(props.payload.message);
   return props.payload.message;
 });
 

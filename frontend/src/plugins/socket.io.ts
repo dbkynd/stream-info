@@ -1,8 +1,8 @@
-import { io, Socket } from 'socket.io-client';
+import io, { Socket } from 'socket.io-client';
 import VueSocketIO from 'vue-3-socket.io';
 import { store } from '@/store';
 
-let socket: Socket;
+let socket: typeof Socket;
 
 export function connect() {
   if (socket) return;

@@ -1,5 +1,5 @@
 <template>
-  <EventCard :data="data" :decode="true">
+  <EventCard :data="data" :do-decode="true">
     <span class="name">{{ data.payload.username }}</span>
     <span class="amount">&nbsp;${{ amount }}</span>
     <template #footer>
