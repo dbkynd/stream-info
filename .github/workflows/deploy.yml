@@ -35,3 +35,5 @@ jobs:
 
       #- name: Push new image
       #  run: docker push $(echo $REGISTRY)/$(echo $IMAGE_NAME):latest
+
+
