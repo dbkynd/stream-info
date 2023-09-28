@@ -6,7 +6,7 @@ on:
 
 env:
   REGISTRY: "registry.digitalocean.com/dbkynd"
-  IMAGE_NAME: "stream-info"
+  IMAGE_NAME: "stream-info2"
 
 jobs:
   build:
