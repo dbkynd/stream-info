@@ -6,8 +6,7 @@ on:
 
 env:
   REGISTRY: "registry.digitalocean.com/dbkynd"
-  IMAGE_NAME: "stream-info"
-  TAG: "registry.digitalocean.com/dbkynd/stream-info:latest"
+  IMAGE_NAME: "stream-info2"
 
 jobs:
   build_push_pull_deploy:
@@ -25,44 +24,14 @@ jobs:
           context: .
           cache-from: type=gha
           cache-to: type=gha,mode=max
-          tags: registry.digitalocean.com/dbkynd/stream-info:latest
 
-      - name: Install doctl
-        uses: digitalocean/action-doctl@v2
-        with:
-          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+      #- name: Install doctl
+      #  uses: digitalocean/action-doctl@v2
+      #  with:
+      #    token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
 
-      - name: Log in to DigitalOcean Container Registry with short-lived credentials
-        run: doctl registry login --expiry-seconds 600
+      #- name: Log in to DigitalOcean Container Registry with short-lived credentials
+      #  run: doctl registry login --expiry-seconds 600
 
-      - name: Push new image
-        run: docker push $(echo $REGISTRY)/$(echo $IMAGE_NAME):latest
-
-      - name: Deploy to Digital Ocean droplet via SSH action
-        uses: appleboy/ssh-action@master
-        with:
-          HOST: ${{ secrets.DIGITALOCEAN_HOST }}
-          USERNAME: ${{ secrets.DIGITALOCEAN_USERNAME }}
-          KEY: ${{ secrets.DIGITALOCEAN_SSHKEY }}
-          envs: IMAGE_NAME,REGISTRY,GITHUB_SHA
-          script: |
-            # Login to the Digital Ocean Registry
-            docker login -u ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }} -p ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }} registry.digitalocean.com
-
-            # Stop running container
-            docker stop $(echo $IMAGE_NAME)
-
-            # Remove old container
-            docker rm $(echo $IMAGE_NAME)
-
-            # Pull latest image
-            docker pull $(echo $REGISTRY)/$(echo $IMAGE_NAME):latest
-
-            # Run container
-            docker run -d \
-            --restart always \
-            --volume /root/$(echo $IMAGE_NAME)/logs:/app/logs:rw \
-            --env-file /root/$(echo $IMAGE_NAME)/.env \
-            -p 3000:3000 \
-            --name $(echo $IMAGE_NAME) \
-            $(echo $REGISTRY)/$(echo $IMAGE_NAME):latest
+      #- name: Push new image
+      #  run: docker push $(echo $REGISTRY)/$(echo $IMAGE_NAME):latest
