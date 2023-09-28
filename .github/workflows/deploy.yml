@@ -7,6 +7,7 @@ on:
 env:
   REGISTRY: "registry.digitalocean.com/dbkynd"
   IMAGE_NAME: "stream-info"
+  TAG: "registry.digitalocean.com/dbkynd/stream-info:latest"
 
 jobs:
   build_push_pull_deploy:
@@ -24,7 +25,7 @@ jobs:
           context: .
           cache-from: type=gha
           cache-to: type=gha,mode=max
-          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+          tags: registry.digitalocean.com/dbkynd/stream-info:latest
 
       - name: Install doctl
         uses: digitalocean/action-doctl@v2
