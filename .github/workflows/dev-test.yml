@@ -25,7 +25,7 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
           load: true
-          tags: registry.digitalocean.com/dbkynd/stream-info2:latest
+          tags: ${{ REGISTRY }}/${{ IMAGE_NAME}}:latest
 
       - name: Inspect
         run: docker image inspect $(echo $REGISTRY)/$(echo $IMAGE_NAME):latest
